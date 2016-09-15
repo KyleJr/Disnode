@@ -17,7 +17,7 @@ class TwitchService extends Service {
 
         var ircoptions = {
             options: {
-                debug: true
+                debug: false
             },
             connection: {
                 reconnect: true
@@ -58,23 +58,21 @@ class TwitchService extends Service {
       var self = this;
         var convertedPacket = {
             msg: message,
-            sender: user.username,
+            sender: user,
             channel: channel,
-            senderObj: user,
+            object: {
+              message: message,
+              channel: channel,
+              user: user
+            },
             type: "TwitchService"
         };
         self.dispatcher.OnMessage(convertedPacket);
     }
 
-    SendMessage(msg, chan) {
-        if (!chan) {
-            return;
-        }
-        if (!msg) {
-            return;
-        }
+    SendMessage(msg, data) {
 
-        this.client.say(chan, msg);
+        this.client.say(data.channel, msg);
     }
 
 }

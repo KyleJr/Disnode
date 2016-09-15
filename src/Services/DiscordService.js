@@ -15,33 +15,35 @@ class DiscordService extends Service {
         super.Connect();
         var self = this;
         this.client.login("MTcwMDIwODA3MTk4NjM4MDgw.CrkGQw.6dKJs9zu1s0bz9YbxZf9CVP9pLA");
-        this.client.on("ready", function(){
-          self.OnConnected();
+        this.client.on("ready", function() {
+            self.dispatcher.OnServiceConnected(self);;
         });
-
+        this.client.on('message', message => {
+          var convertedPacket = {
+            msg: message.content,
+            sender: message.author,
+            channel: message.channel,
+            object: message,
+            type: "DiscordService"
+          };
+          self.dispatcher.OnMessage(convertedPacket);
+        });
         this.client.on('error', (error) => {
-          console.log(error);
+            console.log(error);
         });
 
     }
 
-    OnConnected(){
-      super.OnConnected();
-      var self = this;
+    OnConnected() {
+        super.OnConnected();
+        var self = this;
 
 
 
     }
 
-    SendMessage(data){
-      if(!data.channel){
-        return;
-      }
-      if(!data.msg){
-        return;
-      }
-
-      this.client.say(data.channel,data.msg);
+    SendMessage(msg, data) {
+      data.channel.sendMessage(msg);
     }
 
 }

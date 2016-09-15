@@ -41,6 +41,7 @@ class ServiceDispatcher extends EventEmitter {
 
                 self.AddServiceDefaultConfig(name, res.defaultConfig);
             }
+
         });
     }
 
@@ -66,19 +67,21 @@ class ServiceDispatcher extends EventEmitter {
     }
 
 
-    SendMessage(service, msg, channelData){
-      this.GetService(service).SendMessage(msg, channelData);
+    SendMessage(msg, data){
+      this.GetService(data.type).SendMessage(msg, data);
     }
-    
+
     ConnectAll(){
 
       console.log('Connecting to all');
       for (var i = 0; i < this.services.length; i++) {
+
         this.services[i].Connect();
       }
     }
 
     OnServiceConnected(service) {
+      console.log(colors.grey("[Service-"+service.name+"]" ) + " Connected!".green);
         this.emit("Service_OnConnected", service);
     }
 
