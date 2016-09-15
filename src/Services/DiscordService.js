@@ -1,8 +1,8 @@
 const Service = require("../Service.js");
 const Discord = require("discord.js");
 class DiscordService extends Service {
-    constructor(className, disnode) {
-        super(className, disnode);
+    constructor(pramas) {
+        super(pramas);
 
         this.defaultConfig = {
             auth: "",

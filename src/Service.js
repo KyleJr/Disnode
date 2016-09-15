@@ -26,15 +26,23 @@ class Service extends EventEmitter{
   }
 
   OnConnected(){
-    this.emit("Service_OnConnected", this);
     console.log(colors.grey("[Service-"+this.name+"]" ) + " Connected!".green);
+
   }
+
+  OnDisconnect(msgObject){
+    this.emit("Service_OnMessage", msgObject);
+  }
+
   OnMessage(msgObject){
     this.emit("Service_OnMessage", msgObject);
   }
-  SendMessage(data){
 
+  OnError(msgObject){
+    this.emit("Service_OnMessage", msgObject);
   }
+
+
 }
 
 module.exports = Service;

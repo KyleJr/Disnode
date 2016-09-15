@@ -59,12 +59,6 @@ class CommandHandler{
     }
   }
 
-  AddContext(context, name){
-    var self = this;
-    self.contexts.push({name: name, obj: context});
-    console.log("[CommandHandler]".grey + " Adding new Context: ".cyan + name);
-  }
-
   AddCommand(currentCmd)
   {
     var self = this;
@@ -195,14 +189,6 @@ function GetContextByName(list, name){
   return found;
 }
 
-function CheckSpace(toCheck){
-  if(toCheck.indexOf(" ") != -1){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
 
 function CheckForCommand(toSearch, list){
   for (var i = 0; i < list.length; i++) {

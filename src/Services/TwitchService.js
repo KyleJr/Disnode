@@ -32,7 +32,7 @@ class TwitchService extends Service {
         self.client.connect();
 
         self.client.on("connected", function() {
-            self.OnConnected();
+            self.dispatcher.OnServiceConnected(self);
         });
 
         self.client.on("message", function(channel, userstate, message, isSelf) {
@@ -53,15 +53,9 @@ class TwitchService extends Service {
 
     }
 
-    OnConnected() {
-        var self = this;
-
-
-        self.client.say("#victoryforphil", "Hello World!");
-        super.OnConnected();
-    }
 
     OnMessage(channel,message,user) {
+      var self = this;
         var convertedPacket = {
             msg: message,
             sender: user.username,
@@ -69,18 +63,18 @@ class TwitchService extends Service {
             senderObj: user,
             type: "TwitchService"
         };
-        super.OnMessage(convertedPacket);
+        self.dispatcher.OnMessage(convertedPacket);
     }
 
-    SendMessage(data) {
-        if (!data.channel) {
+    SendMessage(msg, chan) {
+        if (!chan) {
             return;
         }
-        if (!data.msg) {
+        if (!msg) {
             return;
         }
 
-        this.client.say(data.channel, data.msg);
+        this.client.say(chan, msg);
     }
 
 }

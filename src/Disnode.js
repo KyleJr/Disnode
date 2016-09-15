@@ -1,10 +1,14 @@
 "use strict";
+
 const EventEmitter = require("events");
-const Discord = require( "discord.js");
-const jsonfile = require('jsonfile');
-const colors = require('colors');
-const FS = require('fs');
-const ServiceDispatcher = require ("./ServiceDispatcher");
+const Discord      = require( "discord.js");
+const jsonfile     = require('jsonfile');
+const colors       = require('colors');
+const FS           = require('fs');
+
+const ServiceDispatcher = require ("./ServiceDispatcher.js");
+const CommandDispatcher = require ("./CommandDispatcher.js");
+
 class Disnode extends EventEmitter{
   constructor(configPath){
     super();
@@ -17,14 +21,16 @@ class Disnode extends EventEmitter{
 
 
   }
-  /**
-   * [startBot Starts the botr]
-   */
+
   startBot(){
     var self = this;
     process.on('uncaughtException', (err) => this.ECONNRESETHandler(err));
 
+
+    //Init Modules
     self.service = new ServiceDispatcher(self);
+    self.command = new CommandDispatcher(self);
+    self.command.SetEvents();
   }
 
   saveConfig(){
@@ -68,145 +74,6 @@ class Disnode extends EventEmitter{
     });
   }
 
-  addManager(data){
-    var self = this;
-    var path;
-    var option = data.options;
-    option.disnode = self;
-
-    if(data.path){
-      path = data.path;
-    }else{
-      path = "./Managers/"+data.name+".js";
-    }
-
-    self[data.name] = {};
-    self[data.name].package = require(path);
-    self[data.name] = new self[data.name].package(option);
-    if(self.CommandHandler){
-      this.CommandHandler.AddContext(self[data.name], data.name);
-    }
-    if(!self.config[data.name] && self[data.name].defaultConfig){
-      self.addDefaultManagerConfig([data.name],self[data.name].defaultConfig);
-    }else{
-
-    }
-    if(self.config[data.name]){
-      if(self.config[data.name].commands){
-        self.addDefaultManagerCommands(data.name, self.config[data.name].commands);
-      }
-    }
-  }
-
-  addDefaultManagerConfig(name,config){
-    var self = this;
-    console.log("[Disnode]".grey + " Loading Defaults for: ".cyan + colors.cyan(name));
-    self.config[name] = {};
-    self.config[name] = config;
-    self.saveConfig();
-  }
-
-  addDefaultManagerCommands(name, commands){
-    var self = this;
-    console.log("[Disnode]".grey + " Loading Commands for: ".cyan + colors.cyan(name));
-    for (var i = 0; i < commands.length; i++) {
-      if(self.CommandHandler){
-        self.CommandHandler.AddCommand(commands[i]);
-      }
-
-    }
-
-  }
-
-  ConnectToAllServices(){
-    for (var i = 0; i < this.services.length; i++) {
-      this.services[i].Connect();
-    }
-  }
-
-  GetService(name){
-    var found = {};
-    for (var i = 0; i < this.services.length; i++) {
-      if(this.services[i].name == name){
-        found = this.services[i];
-      }
-    }
-    return found;
-  }
-
-  sendResponse(parsedMsg,text,options){
-    var self = this;
-    var sendText = text;
-    var channel = parsedMsg.msg.channel;
-    var sentMsg;
-
-    var options = options || {};
-
-    if(options.parse){
-      console.log('parsing');
-      sendText = self.parseString(sendText,parsedMsg,options.shortcuts);
-    }
-    if(options.mention){
-      sendText = sendText + parsedMsg.msg.author.mention();
-    }
-
-    self.bot.sendMessage(channel, sendText, function(err,msg){
-      if(err){
-        console.error(err);
-        return;
-      }
-      sentMsg = msg;
-      if(options.timeout){
-        self.bot.deleteMessage(sentMsg, {wait: options.timeout},function(err){
-          if(err){
-            console.error(err);
-            return;
-          }
-        });
-      }
-    });
-
-
-  }
-
-  parseString(raw,parsedMsg, customShortCuts){
-    var final = raw;
-
-    if(customShortCuts){
-      for (var i = 0; i < customShortCuts.length; i++) {
-        var cur = customShortCuts[i];
-        if(final.includes(cur.shortcut)){
-          final = final.replace(cur.shortcut, cur.data);
-        }
-      }
-    }
-
-    if(final.includes("[Sender]")){
-      final = final.replace("[Sender]", parsedMsg.msg.author.mention());
-    }
-
-    //TODO: Change to Dynamic Params
-    if(final.includes("[Param0]")){
-      final = final.replace("[Param0]", parsedMsg.params[0]);
-    }
-    if(final.includes("[Param1]")){
-      final = final.replace("[Param1]", parsedMsg.params[1]);
-    }
-    if(final.includes("[Param2]")){
-      final = final.replace("[Param2]", parsedMsg.params[2]);
-    }
-    if(final.includes("[Param3]")){
-      final = final.replace("[Param3]", parsedMsg.params[3]);
-    }
-    if(final.includes("[Param4]")){
-      final = final.replace("[Param4]", parsedMsg.params[4]);
-    }
-    if(final.includes("[Param5]")){
-      final = final.replace("[Param5]", parsedMsg.params[5]);
-    }
-
-    return final;
-  }
   /**
    * ECONNRESET hack credits to meew0
    */

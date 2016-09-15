@@ -6,8 +6,15 @@ var testBot = new DisnodeBot("./TestBotConfig.json"); //Defines the testBot in t
 var OnLoad = function(){
   testBot.service.AddService("TwitchService", "TwitchService");
 
-  testBot.service.ConnectAll();
+  testBot.service.on("Service_OnConnected",function(service){
+    console.log(service.name + " Connected!");
+  })
 
+  testBot.command.on("RawCommand_test",function(objects){
+      console.log(objects);
+      testBot.service.SendMessage(objects.msg.type, "Works!", objects.msg.channel)
+  })
+  testBot.service.ConnectAll();
 }
 
 testBot.loadConfig(OnLoad);

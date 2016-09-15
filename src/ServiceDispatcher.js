@@ -65,6 +65,11 @@ class ServiceDispatcher extends EventEmitter {
         return found;
     }
 
+
+    SendMessage(service, msg, channelData){
+      this.GetService(service).SendMessage(msg, channelData);
+    }
+    
     ConnectAll(){
 
       console.log('Connecting to all');
