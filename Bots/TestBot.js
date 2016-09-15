@@ -4,9 +4,9 @@ var testBot = new DisnodeBot("./TestBotConfig.json"); //Defines the testBot in t
 
 
 var OnLoad = function(){
-  testBot.addService({name: "TwitchService"}, {});
-  testBot.addService({name: "DiscordService"}, {});
-  testBot.ConnectToAllServices();
+  testBot.service.AddService("TwitchService", "TwitchService");
+
+  testBot.service.ConnectAll();
 
 }
 

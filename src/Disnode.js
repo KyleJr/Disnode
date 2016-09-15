@@ -4,14 +4,18 @@ const Discord = require( "discord.js");
 const jsonfile = require('jsonfile');
 const colors = require('colors');
 const FS = require('fs');
-
+const ServiceDispatcher = require ("./ServiceDispatcher");
 class Disnode extends EventEmitter{
   constructor(configPath){
     super();
 
     this.configPath = configPath;
-    this.config = {};
+    this.config = {
+
+    };
     this.services = [];
+
+
   }
   /**
    * [startBot Starts the botr]
@@ -20,7 +24,7 @@ class Disnode extends EventEmitter{
     var self = this;
     process.on('uncaughtException', (err) => this.ECONNRESETHandler(err));
 
-
+    self.service = new ServiceDispatcher(self);
   }
 
   saveConfig(){
@@ -99,38 +103,6 @@ class Disnode extends EventEmitter{
     console.log("[Disnode]".grey + " Loading Defaults for: ".cyan + colors.cyan(name));
     self.config[name] = {};
     self.config[name] = config;
-    self.saveConfig();
-  }
-
-  addService(data){
-    var self = this;
-    var path;
-    var option = data.options || option;
-
-
-    if(data.path){
-      path = data.path;
-    }else{
-      path = "./Services/"+data.name+".js";
-    }
-
-    var req = require(path);
-    var inst = new req(data.name,this);
-    self.services.push(inst);
-
-    if(!self.config.services[data.name]){
-      self.addDefaultServiceConfig(data.name,inst.defaultConfig);
-    }
-  }
-
-  addDefaultServiceConfig(name,config){
-    var self = this;
-    console.log("[Disnode]".grey + " Loading Defaults for Service: ".cyan + colors.cyan(name));
-    if(!self.config.services){
-      self.config.services = {};
-    }
-
-    self.config.services[name] = config;
     self.saveConfig();
   }
 

@@ -1,8 +1,8 @@
 const Service = require("../Service.js");
 const tmi = require("tmi.js");
 class TwitchService extends Service {
-    constructor(className, disnode) {
-        super(className, disnode);
+    constructor(pramas) {
+        super(pramas);
         this.defaultConfig = {
             user: "",
             auth: "",
