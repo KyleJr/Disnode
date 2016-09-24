@@ -14,7 +14,17 @@ class CommandDispatcher extends EventEmitter{
     var self = this;
     if(self.disnode.service){
       self.disnode.service.on("Service_OnMessage", function(msgObject){
-        self.ParseMessage(msgObject);
+
+        if(!self.disnode.config.mention){
+          self.ParseMessage(msgObject, true);
+        }
+      });
+
+      self.disnode.service.on("Service_OnMention", function(msgObject){
+
+        if(self.disnode.config.mention){
+          self.ParseMessage(msgObject, false);
+        }
       });
     }
   }
@@ -43,17 +53,25 @@ class CommandDispatcher extends EventEmitter{
     return found;
   }
 
-  ParseMessage(msgObj){
+  ParseMessage(msgObj,fullCommand){
     var self = this;
     var msg = msgObj.msg;
     var firstLetter = msg.substring(0,1);
 
-    if(firstLetter != "!"){
+    if(fullCommand && firstLetter != self.prefix){
       return;
     }
 
     var command = "";
-    var prefixLength = self.prefix.length;
+    var prefixLength = "";
+
+    if(fullCommand){
+      prefixLength = self.prefix.length;
+    }
+    if(!fullCommand){
+      msg = msg.substring(msg.indexOf(" ") + 1, msg.length);
+    }
+
 
 
     //Gets Command
@@ -63,6 +81,7 @@ class CommandDispatcher extends EventEmitter{
       command = msg.substring(prefixLength);
     }
     command = command.toLowerCase();
+    console.log(command);
     if(self.GetCommand(command)){
       var cmbObject = GetCommand(command);
 

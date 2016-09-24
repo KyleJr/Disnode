@@ -42,7 +42,24 @@ class TwitchService extends Service {
                 case "action":
                     break;
                 case "chat":
-                self.OnMessage(channel, message, userstate);
+                    self.OnMessage(channel, message, userstate);
+
+                    var isMentioned = message.includes("@" + self.config.user.toLowerCase());
+                    if(isMentioned){
+                      var convertedPacket = {
+                          msg: message,
+                          sender: userstate,
+                          channel: channel,
+                          object: {
+                            message: message,
+                            channel: channel,
+                            user: userstate
+                          },
+                          type: "TwitchService"
+                      };
+                      console.log("Mention");
+                      self.dispatcher.OnMention(convertedPacket);
+                    }
                     break;
                 case "whisper":
                     break;

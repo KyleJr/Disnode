@@ -9,11 +9,11 @@ var OnLoad = function(){
 
   testBot.command.on("RawCommand_test",function(commandData){
       testBot.service.SendMessage("Works!",commandData.msg);
-  })
+  });
 
   testBot.command.on("RawCommand_fire",function(commandData){
       testBot.service.SendMessage("FIREE " + commandData.params[0],commandData.msg);
-  })
+  });
 
   testBot.service.ConnectAll();
 }

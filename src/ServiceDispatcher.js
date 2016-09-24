@@ -93,8 +93,9 @@ class ServiceDispatcher extends EventEmitter {
         this.emit("Service_OnMessage", msgObj);
     }
 
-    OnPrivateMessage(msgObj) {
-        this.emit("Service_OnPrivateMessage", msgObj);
+    OnMention(msgObj) {
+
+        this.emit("Service_OnMention", msgObj);
     }
 }
 module.exports = ServiceDispatcher;

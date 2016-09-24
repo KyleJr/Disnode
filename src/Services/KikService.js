@@ -9,8 +9,6 @@ class KikService extends Service {
             user: "",
             auth: ""
         };
-
-
     }
     Connect() {
         super.Connect();
@@ -42,13 +40,7 @@ class KikService extends Service {
 
         });
 
-
-
-
     }
-
-
-
 
     SendMessage(msg, data) {
       this.bot.send(Bot.Message.text(msg), data.channel);

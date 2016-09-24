@@ -27,6 +27,11 @@ class DiscordService extends Service {
             type: "DiscordService"
           };
           self.dispatcher.OnMessage(convertedPacket);
+
+          if(message.isMentioned(self.client.user)){
+
+            self.dispatcher.OnMention(convertedPacket);
+          }
         });
         this.client.on('error', (error) => {
             console.log(error);
@@ -37,8 +42,6 @@ class DiscordService extends Service {
     OnConnected() {
         super.OnConnected();
         var self = this;
-
-
 
     }
 
