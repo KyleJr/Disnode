@@ -8,6 +8,9 @@ const FS           = require('fs');
 
 const ServiceDispatcher = require ("./ServiceDispatcher.js");
 const CommandDispatcher = require ("./CommandDispatcher.js");
+const ManagerDispatcher = require ("./ManagerDispatcher.js");
+
+
 
 class Disnode extends EventEmitter{
   constructor(configPath){
@@ -30,6 +33,7 @@ class Disnode extends EventEmitter{
     //Init Modules
     self.service = new ServiceDispatcher(self);
     self.command = new CommandDispatcher(self);
+    self.manager = new ManagerDispatcher(self);
     self.command.SetEvents();
   }
 
