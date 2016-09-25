@@ -33,11 +33,11 @@ class CommandDispatcher extends EventEmitter{
     for (var i = 0; i < commands.length; i++) {
       var toAdd = commands[i];
 
-      if(!GetCommand(toAdd.command)){
+      if(!self.GetCommand(toAdd.command)){
         console.log("[CommandDispatcher]".grey + " Loaded Command: ".green + toAdd.command);
-        self.commands.push(commands);
+        self.commands.push(commands[i]);
       }else{
-        GetCommand(toAdd.command) = toAdd;
+        self.GetCommand(toAdd.command) = toAdd;
         console.log("[CommandDispatcher]".grey + " Updated Command: ".green + toAdd.command);
       }
     }
@@ -45,9 +45,11 @@ class CommandDispatcher extends EventEmitter{
 
   GetCommand(command){
     var found;
+
     for (var i = 0; i < this.commands.length; i++) {
-      if(this.commands[i].command == command){
-              found = this.commands[i];
+
+      if(this.commands[i].command.toLowerCase() === command){
+          found = this.commands[i];
       }
     }
     return found;
@@ -82,15 +84,18 @@ class CommandDispatcher extends EventEmitter{
     }
     command = command.toLowerCase();
     console.log(command);
+
+
+
     if(self.GetCommand(command)){
-      var cmbObject = GetCommand(command);
+      var cmbObject = self.GetCommand(command);
 
       var returnObj = {};
       returnObj.params = GetParams(msg);
       returnObj.command = cmbObject;
-      returnObj.raw = msg;
-
-      self.emit("Command_"+command, returnObj);
+      returnObj.msg = msgObj;
+      console.log("FOUND!");
+      self.emit("Command_"+cmbObject.event, returnObj);
 
     }else{
       var returnObj = {};

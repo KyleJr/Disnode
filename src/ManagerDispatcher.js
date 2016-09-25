@@ -42,6 +42,10 @@ class ManagerDispatcher extends EventEmitter {
                 self.AddDefaultConfig(name, res.defaultConfig);
             }
 
+            if(self.disnode.config.managers[name].commands){
+              self.disnode.command.AddCommands(self.disnode.config.managers[name].commands);
+            }
+
         });
     }
 
@@ -54,6 +58,11 @@ class ManagerDispatcher extends EventEmitter {
 
         self.disnode.config.managers[name] = config;
         self.disnode.saveConfig();
+        console.log(self.disnode.config.managers[name].commands);
+
+
+
+
     }
 
     GetManager(name) {
