@@ -95,8 +95,12 @@ class CommandDispatcher extends EventEmitter{
       returnObj.command = cmbObject;
       returnObj.msg = msgObj;
       console.log("FOUND!");
+      if(cmbObject.response){
+        if(self.disnode.service){
+          self.disnode.service.SendMessage(cmbObject.response,msgObj);
+        }
+      }
       self.emit("Command_"+cmbObject.event, returnObj);
-
     }else{
       var returnObj = {};
       returnObj.params = GetParams(msg);

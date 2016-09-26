@@ -73,9 +73,21 @@ class Disnode extends EventEmitter{
       if(!obj.commands){
         obj.commands = [];
       }
+
+
       self.config = obj;
+      self.loadCommands();
       cb();
     });
+  }
+
+  loadCommands(){
+    if(this.command){
+      if(this.config.commands){
+        console.log('Adding ' + this.config.commands.length + " commands!");
+        this.command.AddCommands(this.config.commands);
+      }
+    }
   }
 
   /**

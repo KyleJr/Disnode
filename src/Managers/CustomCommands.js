@@ -10,14 +10,30 @@ class CustomCommands extends Manager {
               command: "addCommand",
               event: "CC_ADD_COMMAND"
             }
-          ]
+          ],
         };
 
-        this.disnode.command.on("Command_CC_ADD_COMMAND", function(data){
-          this.disnode.service.SendMessage("adding command.." , data.msg)
-        })
+        this.disnode.command.on("Command_CC_ADD_COMMAND", this.addNewCommand)
     }
 
+    addNewCommand(data){
+      var command = data.params[0];
+      var response = data.params[1];
+
+      if(command && response){
+        var newCommand = {
+          command : command,
+          response: response
+        };
+        this.disnode.config.commands.push(newCommand);
+        this.disnode.saveConfig();
+        this.disnode.loadCommands();
+      }
+    }
+
+    SayCommand(data){
+
+    }
 
 
 }
