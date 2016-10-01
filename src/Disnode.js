@@ -9,8 +9,7 @@ const FS           = require('fs');
 const ServiceDispatcher = require ("./ServiceDispatcher.js");
 const CommandDispatcher = require ("./CommandDispatcher.js");
 const ManagerDispatcher = require ("./ManagerDispatcher.js");
-
-
+const ShortcutParser    = require ("./ShortcutParser.js");
 
 class Disnode extends EventEmitter{
   constructor(configPath){
@@ -34,6 +33,7 @@ class Disnode extends EventEmitter{
     self.service = new ServiceDispatcher(self);
     self.command = new CommandDispatcher(self);
     self.manager = new ManagerDispatcher(self);
+    self.shortcut= new ShortcutParser();
     self.command.SetEvents();
   }
 
