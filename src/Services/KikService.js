@@ -36,12 +36,15 @@ class KikService extends Service {
                 type: "KikService"
             };
             self.dispatcher.OnMessage(convertedPacket);
+            self.dispatcher.OnWhisper(convertedPacket);
           });
 
         });
 
     }
-
+    SendWhisper(user,msg,data){
+      this.bot.send(Bot.Message.text(msg), user);
+    }
     SendMessage(msg, data) {
       this.bot.send(Bot.Message.text(msg), data.channel);
     }

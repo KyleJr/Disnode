@@ -41,7 +41,7 @@ class CAHGame extends Manager {
       }
       this.players.push(newPlayer);
       this.disnode.service.SendMessage(player + " joined! There are: " +this.players.length+" players in!", data.msg);
-
+      self.disnode.service.SendWhisper(newPlayer.name, "Welcome " + newPlayer.name +"!", {type: newPlayer.service})
 
 
     }
@@ -49,7 +49,7 @@ class CAHGame extends Manager {
     getPlayers(data){
       console.log("get players");
       var self = this;
-      var msg = "Current Players: ";
+      var msg = "Current Players: \n";
       for (var i = 0; i < self.players.length; i++) {
         var curPlayer = self.players[i];
         console.log(msg);
@@ -63,7 +63,7 @@ class CAHGame extends Manager {
 
       for (var i = 0; i < self.players.length; i++) {
 
-        self.disnode.service.SendWhisper(this.players[i].name, "Welcome!", {type: self.players[i].service})
+        self.disnode.service.SendWhisper(this.players[i].name, "Starting!", {type: self.players[i].service})
       }
     }
 
