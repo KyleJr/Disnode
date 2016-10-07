@@ -14,7 +14,12 @@ class TwitchService extends Service {
     Connect() {
         super.Connect();
         var self = this;
-
+        if(!self.config){
+          return;
+        }
+        if(self.config.user == "" || self.config.auth == ""){
+          return;
+        }
         var ircoptions = {
             options: {
                 debug: false

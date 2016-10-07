@@ -8,7 +8,8 @@ class CustomCommands extends Manager {
           commands : [
             {
               command: "addCommand",
-              event: "CC_ADD_COMMAND"
+              event: "CC_ADD_COMMAND",
+              response: "Added Command! [Command]"
             }
           ],
         };

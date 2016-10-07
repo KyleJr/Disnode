@@ -14,6 +14,12 @@ class DiscordService extends Service {
     Connect() {
         super.Connect();
         var self = this;
+        if(!self.config){
+          return;
+        }
+        if(self.config.user == "" || self.config.auth == ""){
+          return;
+        }
         this.client.login(self.config.auth);
         this.client.on("ready", function() {
             self.dispatcher.OnServiceConnected(self);;
