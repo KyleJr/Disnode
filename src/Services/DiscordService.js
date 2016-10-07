@@ -18,6 +18,8 @@ class DiscordService extends Service {
         this.client.on("ready", function() {
             self.dispatcher.OnServiceConnected(self);;
         });
+
+
         this.client.on('message', message => {
           var convertedPacket = {
             msg: message.content,
@@ -26,11 +28,16 @@ class DiscordService extends Service {
             object: message,
             type: "DiscordService"
           };
-          self.dispatcher.OnMessage(convertedPacket);
+          if(message.type === "DM"){
+            self.dispatcher.OnWhisper(convertedPacket);
 
-          if(message.isMentioned(self.client.user)){
+          }else{
+            self.dispatcher.OnMessage(convertedPacket);
 
-            self.dispatcher.OnMention(convertedPacket);
+            if(message.isMentioned(self.client.user)){
+
+              self.dispatcher.OnMention(convertedPacket);
+            }
           }
         });
         this.client.on('error', (error) => {
@@ -47,6 +54,10 @@ class DiscordService extends Service {
 
     SendMessage(msg, data) {
       data.channel.sendMessage(msg);
+    }
+
+    SendWhisper(user, msg,data){
+      user.sendMessage(msg);
     }
 
 }

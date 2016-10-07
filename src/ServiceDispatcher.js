@@ -71,6 +71,10 @@ class ServiceDispatcher extends EventEmitter {
       this.GetService(data.type).SendMessage(msg, data);
     }
 
+    SendWhisper(user, msg, data){
+      this.GetService(data.type).SendWhisper(user, msg, data);
+    }
+
     ConnectAll(){
 
       console.log('Connecting to all');
@@ -96,6 +100,10 @@ class ServiceDispatcher extends EventEmitter {
     OnMention(msgObj) {
 
         this.emit("Service_OnMention", msgObj);
+    }
+
+    OnWhisper(msgObj) {
+        this.emit("Service_OnWhisper", msgObj);
     }
 }
 module.exports = ServiceDispatcher;

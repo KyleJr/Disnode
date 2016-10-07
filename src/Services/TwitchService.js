@@ -45,23 +45,36 @@ class TwitchService extends Service {
                     self.OnMessage(channel, message, userstate);
 
                     var isMentioned = message.includes("@" + self.config.user.toLowerCase());
-                    if(isMentioned){
-                      var convertedPacket = {
-                          msg: message,
-                          sender: userstate,
-                          channel: channel,
-                          object: {
-                            message: message,
+                    if (isMentioned) {
+                        var convertedPacket = {
+                            msg: message,
+                            sender: userstate,
                             channel: channel,
-                            user: userstate
-                          },
-                          type: "TwitchService"
-                      };
-                      console.log("Mention");
-                      self.dispatcher.OnMention(convertedPacket);
+                            object: {
+                                message: message,
+                                channel: channel,
+                                user: userstate
+                            },
+                            type: "TwitchService"
+                        };
+                        console.log("Mention");
+                        self.dispatcher.OnMention(convertedPacket);
                     }
                     break;
                 case "whisper":
+                    var convertedPacket = {
+                        msg: message,
+                        sender: userstate,
+                        channel: channel,
+                        object: {
+                            message: message,
+                            channel: channel,
+                            user: userstate
+                        },
+                        type: "TwitchService"
+                    };
+
+                    self.dispatcher.OnWhisper(convertedPacket);
                     break;
                 default:
                     break;
@@ -71,16 +84,16 @@ class TwitchService extends Service {
     }
 
 
-    OnMessage(channel,message,user) {
-      var self = this;
+    OnMessage(channel, message, user) {
+        var self = this;
         var convertedPacket = {
             msg: message,
-            sender: user,
+            sender: user['display-name'],
             channel: channel,
             object: {
-              message: message,
-              channel: channel,
-              user: user
+                message: message,
+                channel: channel,
+                user: user
             },
             type: "TwitchService"
         };
@@ -88,9 +101,13 @@ class TwitchService extends Service {
     }
 
     SendMessage(msg, data) {
-
         this.client.say(data.channel, msg);
     }
+
+    SendWhisper(user, msg){
+      this.client.whisper(user, msg);
+    }
+
 
 }
 module.exports = TwitchService;

@@ -20,7 +20,6 @@ class Service extends EventEmitter{
   Connect(){
     console.log(colors.grey("[Service-"+this.name+"]" ) + " Connecting!".cyan);
   }
-
 }
 
 module.exports = Service;

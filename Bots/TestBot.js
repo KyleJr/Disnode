@@ -8,7 +8,7 @@ var OnLoad = function(){
   testBot.service.AddService("DiscordService", "DiscordService");
 
   testBot.manager.AddManager("CustomCommands", "CustomCommands");
-
+testBot.manager.AddManager("CAHGame", "CAHGame");
   testBot.command.on("RawCommand_test",function(commandData){
       testBot.service.SendMessage("Works!",commandData.msg);
   });
