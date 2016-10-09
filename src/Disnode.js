@@ -11,6 +11,8 @@ const CommandDispatcher = require ("./CommandDispatcher.js");
 const ManagerDispatcher = require ("./ManagerDispatcher.js");
 const ShortcutParser    = require ("./ShortcutParser.js");
 
+
+const TestImport    = require ("./Managers/CAHGame");
 class Disnode extends EventEmitter{
   constructor(configPath){
     super();
