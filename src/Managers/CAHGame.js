@@ -61,7 +61,6 @@ class CAHGame extends Manager {
         this.disnode.service.SendMessage("Already joined! Please `"+this.disnode.command.prefix + "leave-game`", data.msg);
         return;
       }
-
       if(data.params[0]){
         code = data.params[0];
       }else{
@@ -142,7 +141,30 @@ class CAHGame extends Manager {
       }
 
     }
-
+    LeaveGame(data){
+      var self = this;
+      var player = self.GetPlayerByID(data.msg.userId);
+      if(player && player.currentGame ){
+        var game = self.GetGameByCode(player.currentGame);
+        if(!game){
+          return;
+        }
+        for(var i = 0; i < game.players.length; i++){
+          if(player.id == game.players[i].id){
+            foundGame.players.splice(i, 1); //Update Players in Game
+            break;
+          }
+        }
+        for(var i = 0; i < self.players.length; i++){
+          if(player.id == self.players[i].id){
+            self.players.splice(i, 1);      //Update All Players
+            break;
+          }
+        }
+        player.currentGame = "";
+        this.disnode.service.SendMessage(player.name + " left! There are: " + game.players.length + " players in the game!", data.msg);
+      }
+    }
     GetPlayerByID(id){
       var self = this;
       var foundPlayer;
