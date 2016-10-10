@@ -25,6 +25,11 @@ class CAHGame extends Manager {
               command: "get-players",
               event: "CAH_Get-Players"
             }
+            ,
+            {
+              command: "leave-game",
+              event: "CAH_Leave-Game"
+            }
           ],
         };
 
@@ -32,11 +37,13 @@ class CAHGame extends Manager {
         this.joinGame = this.joinGame.bind(this);
         this.getPlayers = this.getPlayers.bind(this);
         this.newGame = this.newGame.bind(this);
+        this.LeaveGame = this.LeaveGame.bind(this);
 
         this.disnode.command.on("Command_CAH_Start-Game", this.startGame)
         this.disnode.command.on("Command_CAH_New-Game", this.newGame)
         this.disnode.command.on("Command_CAH_Join-Game", this.joinGame)
         this.disnode.command.on("Command_CAH_Get-Players", this.getPlayers);
+        this.disnode.command.on("Command_CAH_Leave-Game", this.LeaveGame);
 
         this.games = [];
         this.players = [];
@@ -143,6 +150,7 @@ class CAHGame extends Manager {
     }
     LeaveGame(data){
       var self = this;
+      console.log("leaving");
       var player = self.GetPlayerByID(data.msg.userId);
       if(player && player.currentGame ){
         var game = self.GetGameByCode(player.currentGame);
@@ -151,7 +159,7 @@ class CAHGame extends Manager {
         }
         for(var i = 0; i < game.players.length; i++){
           if(player.id == game.players[i].id){
-            foundGame.players.splice(i, 1); //Update Players in Game
+            game.players.splice(i, 1); //Update Players in Game
             break;
           }
         }
