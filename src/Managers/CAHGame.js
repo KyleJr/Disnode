@@ -49,7 +49,7 @@ class CAHGame extends Manager {
         this.games = [];
         this.players = [];
         this.allCards =  require('cah-cards');
-        this.blackCard =  require('cah-cards');
+        this.blackCard =  require('cah-cards/pick1');
         this.whiteCards =  require('cah-cards/answers');
 
     }
@@ -217,17 +217,26 @@ class CAHGame extends Manager {
         self.disnode.service.SendWhisper(player.sender, "Your Deck is: ", {type: player.service})
         var msg = "";
         for (var i = 0; i < 10; i++) {
-          var obj_keys = Object.keys(self.whiteCards);
-          var ran_key = obj_keys[Math.floor(Math.random() *obj_keys.length)];
-          var cardToAdd = self.whiteCards[ran_key];
-          player.cards.push(cardToAdd);
+          var cardToAdd = self.drawCard(player);
 
-          msg += " [" +  cardToAdd.id + " - " + cardToAdd.text + "]\n"
+          msg += " [" + i + " - " + cardToAdd.text + "]\n"
         }
         console.log('sending: ' + player.name );
         self.disnode.service.SendWhisper(player.sender, msg, {type: player.service})
       }
     }
-
+    //This generates a random White card then adds it to the players hand (returns the white card added to hand)
+    drawCard(player){
+      var obj_keys = Object.keys(self.whiteCards);
+      var ran_key = obj_keys[Math.floor(Math.random() *obj_keys.length)];
+      var cardToAdd = self.whiteCards[ran_key];
+      player.cards.push(cardToAdd);
+      return cardToAdd;
+    }
+    //This removes the card in the given index
+    removeCardFromHand(player,index){
+      if(index < 0 || index > 9) return;
+      player.cards.splice(index,1);
+    }
 }
 module.exports = CAHGame;
