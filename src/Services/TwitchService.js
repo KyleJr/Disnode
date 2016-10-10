@@ -53,6 +53,8 @@ class TwitchService extends Service {
                     if (isMentioned) {
                         var convertedPacket = {
                             msg: message,
+                            username: userstate['display-name'],
+                            userId: userstate['display-name'],
                             sender: userstate,
                             channel: channel,
                             object: {
@@ -69,8 +71,11 @@ class TwitchService extends Service {
                 case "whisper":
                     var convertedPacket = {
                         msg: message,
+                        username: userstate['display-name'],
+                        userId: userstate['display-name'],
                         sender: userstate,
                         channel: channel,
+                        username: userstate,
                         object: {
                             message: message,
                             channel: channel,
@@ -93,6 +98,8 @@ class TwitchService extends Service {
         var self = this;
         var convertedPacket = {
             msg: message,
+            username: user['display-name'],
+            userId: user['user-id'],
             sender: user['display-name'],
             channel: channel,
             object: {
@@ -102,6 +109,7 @@ class TwitchService extends Service {
             },
             type: "TwitchService"
         };
+        console.log(convertedPacket);
         self.dispatcher.OnMessage(convertedPacket);
     }
 

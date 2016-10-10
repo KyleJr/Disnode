@@ -5,7 +5,7 @@ const Discord      = require( "discord.js");
 const jsonfile     = require('jsonfile');
 const colors       = require('colors');
 const FS           = require('fs');
-
+var winston = require('winston');
 const ServiceDispatcher = require ("./ServiceDispatcher.js");
 const CommandDispatcher = require ("./CommandDispatcher.js");
 const ManagerDispatcher = require ("./ManagerDispatcher.js");
@@ -22,7 +22,6 @@ class Disnode extends EventEmitter{
 
     };
     this.services = [];
-
 
   }
 

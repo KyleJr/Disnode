@@ -29,6 +29,8 @@ class DiscordService extends Service {
         this.client.on('message', message => {
           var convertedPacket = {
             msg: message.content,
+            username: message.author.username,
+            userId: message.author.id,
             sender: message.author,
             channel: message.channel,
             object: message,

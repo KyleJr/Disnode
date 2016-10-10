@@ -40,19 +40,28 @@ class CAHGame extends Manager {
 
         this.games = [];
         this.players = [];
-
+        this.allCards =  require('cah-cards');
+        this.whiteCards =  require('cah-cards');
+        this.allCards =  require('cah-cards/answers');
     }
     joinGame(data){
       var self = this;
-      //Test
-      var player = data.msg.sender;
+
       var service = data.msg.type;
       var newPlayer = {
-        name: player,
+        name:  data.msg.username,
+        id: data.msg.userId,
+        sender: data.msg.sender,
         service: service
       }
 
       var code = "";
+
+      if(this.GetPlayerByID(data.msg.userId)){
+        this.disnode.service.SendMessage("Already joined! Please `"+this.disnode.command.prefix + "leave-game`", data.msg);
+        return;
+      }
+
       if(data.params[0]){
         code = data.params[0];
       }else{
@@ -60,41 +69,47 @@ class CAHGame extends Manager {
         return;
       }
 
-      var foundGame;
-      for (var i = 0; i < self.games.length; i++) {
-        if(self.games[i].id === code){
-          foundGame = self.games[i];
-        }
-      }
+      var foundGame = self.GetGameByCode(code);
 
       if(!foundGame){
         this.disnode.service.SendMessage("No Game with code: " + code, data.msg);
         return;
       }
 
-      foundGame.players.push(newPlayer);
-      this.disnode.service.SendMessage(player + " joined! There are: " +foundGame.players.length+" players in!", data.msg);
-      self.disnode.service.SendWhisper(newPlayer.name, "Welcome " + newPlayer.name +"!", {type: newPlayer.service});
+      newPlayer.currentGame = code;
+      self.players.push(newPlayer);      //Update All Players
+      foundGame.players.push(newPlayer); //Update Players in Game
+
+      this.disnode.service.SendMessage(newPlayer.name + " joined! There are: " +foundGame.players.length+" players in!", data.msg);
+      self.disnode.service.SendWhisper(newPlayer.sender, "Welcome " + newPlayer.name +"!", {type: newPlayer.service});
     }
 
     getPlayers(data){
-      console.log("get players");
-      var self = this;
-      var msg = "Current Players: \n";
-      for (var i = 0; i < self.players.length; i++) {
-        var curPlayer = self.players[i];
-        console.log(msg);
-        msg += curPlayer.name + " from " + curPlayer.service + '\n';
 
+      var self = this;
+      var player = self.GetPlayerByID(data.msg.userId);
+      if(player && player.currentGame){
+        var game = self.GetGameByCode(player.currentGame);
+        if(!game){
+          return;
+        }
+        var msg = "**Current player in [`"+player.currentGame+"`]: **\n";
+        for (var i = 0; i < game.players.length; i++) {
+          var curPlayer = game.players[i];
+          console.log(msg);
+          msg += " - **" + curPlayer.name + "** from *" + curPlayer.service + '*\n';
+
+        }
+        this.disnode.service.SendMessage(msg, data.msg);
       }
-      this.disnode.service.SendMessage(msg, data.msg);
+
     }
 
     newGame(data){
       var id = shortid.generate();
       var newGame = {
         id: id,
-        host: 12312,
+        host: data.msg.userId,
         players: [],
         hasStarted: false,
         allowJoinInProgress: true,
@@ -108,10 +123,51 @@ class CAHGame extends Manager {
     }
     startGame(data){
       var self = this;
-      for (var i = 0; i < self.players.length; i++) {
+      var player = self.GetPlayerByID(data.msg.userId);
 
-        self.disnode.service.SendWhisper(this.players[i].name, "Starting!", {type: self.players[i].service})
+      if(player && player.currentGame ){
+        var game = self.GetGameByCode(player.currentGame);
+        if(!game){
+          return;
+        }
+        if(game.host != player.id){
+
+          this.disnode.service.SendMessage("You are not host!", data.msg);
+          return;
+        }
+        for (var i = 0; i < game.players.length; i++) {
+
+          self.disnode.service.SendWhisper(game.players[i].sender, "Starting!", {type: game.players[i].service})
+        }
       }
+
     }
+
+    GetPlayerByID(id){
+      var self = this;
+      var foundPlayer;
+
+      for (var i = 0; i < self.players.length; i++) {
+        if(self.players[i].id == id){
+          foundPlayer = self.players[i];
+        }
+      }
+
+      return foundPlayer;
+    }
+
+    GetGameByCode(code){
+      var self = this;
+      var foundGame;
+
+      for (var i = 0; i < self.games.length; i++) {
+        if(self.games[i].id === code){
+          foundGame = self.games[i];
+        }
+      }
+
+      return foundGame;
+    }
+
 }
 module.exports = CAHGame;
