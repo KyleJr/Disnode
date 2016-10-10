@@ -38,6 +38,7 @@ class CAHGame extends Manager {
         this.getPlayers = this.getPlayers.bind(this);
         this.newGame = this.newGame.bind(this);
         this.LeaveGame = this.LeaveGame.bind(this);
+        this.DealCards = this.DealCards.bind(this);
 
         this.disnode.command.on("Command_CAH_Start-Game", this.startGame)
         this.disnode.command.on("Command_CAH_New-Game", this.newGame)
@@ -48,8 +49,9 @@ class CAHGame extends Manager {
         this.games = [];
         this.players = [];
         this.allCards =  require('cah-cards');
-        this.whiteCards =  require('cah-cards');
-        this.allCards =  require('cah-cards/answers');
+        this.blackCard =  require('cah-cards');
+        this.whiteCards =  require('cah-cards/answers');
+
     }
     joinGame(data){
       var self = this;
@@ -145,6 +147,7 @@ class CAHGame extends Manager {
 
           self.disnode.service.SendWhisper(game.players[i].sender, "Starting!", {type: game.players[i].service})
         }
+        self.DealCards(game);
       }
 
     }
@@ -197,6 +200,33 @@ class CAHGame extends Manager {
       }
 
       return foundGame;
+    }
+
+    //// ================ GAME LOGIC ======================== ///
+    //// ================ GAME LOGIC ======================== ///
+    //// ================ GAME LOGIC ======================== ///
+    //// ================ GAME LOGIC ======================== ///
+
+    DealCards(game){
+      var self = this;
+      var players = game.players;
+
+      for (var x = 0; x < players.length; x++) {
+        var player = players[x];
+        player.cards = [];
+        self.disnode.service.SendWhisper(player.sender, "Your Deck is: ", {type: player.service})
+        var msg = "";
+        for (var i = 0; i < 10; i++) {
+          var obj_keys = Object.keys(self.whiteCards);
+          var ran_key = obj_keys[Math.floor(Math.random() *obj_keys.length)];
+          var cardToAdd = self.whiteCards[ran_key];
+          player.cards.push(cardToAdd);
+
+          msg += " [" +  cardToAdd.id + " - " + cardToAdd.text + "]\n"
+        }
+        console.log('sending: ' + player.name );
+        self.disnode.service.SendWhisper(player.sender, msg, {type: player.service})
+      }
     }
 
 }
