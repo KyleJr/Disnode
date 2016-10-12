@@ -178,7 +178,7 @@ class CAHGame extends Manager {
         if(game.hasStarted){
           this.disnode.service.SendMessage("Game is already running!", data.msg);
         }
-        if(game.players.length >= 1){
+        if(game.players.length >= 3){
           self.sendMsgToAllPlayers(game, "Starting!");
           game.hasStarted = true;
           game.origchat = data.msg;
