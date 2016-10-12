@@ -102,7 +102,14 @@ class CAHGame extends Manager {
       newPlayer.currentGame = code;
       self.players.push(newPlayer);      //Update All Players
       foundGame.players.push(newPlayer); //Update Players in Game
-
+      var player = self.GetPlayerByID(data.msg.userId);
+      if(foundGame.hasStarted){
+        player.cards = []
+        for(var i = 0; i < 10; i++){
+          self.drawWhiteCard(player);
+        }
+        self.getHand(player);
+      }
       this.disnode.service.SendMessage(newPlayer.name + " joined! There are: " +foundGame.players.length+" players in!", data.msg);
       self.disnode.service.SendWhisper(newPlayer.sender, "Welcome " + newPlayer.name +"!", {type: newPlayer.service});
     }
@@ -164,9 +171,10 @@ class CAHGame extends Manager {
         if(game.hasStarted){
           this.disnode.service.SendMessage("Game is already running!", data.msg);
         }
-        if(game.players.length >= 3){
+        if(game.players.length >= 1){
           self.sendMsgToAllPlayers(game, "Starting!");
           game.hasStarted = true;
+          game.origchat = data.msg;
           self.DealCards(game);
         }else{
           this.disnode.service.SendMessage("CAH requires at least 3 players! Current: " + game.players.length, data.msg);
@@ -177,7 +185,7 @@ class CAHGame extends Manager {
       var self = this;
       var player = self.GetPlayerByID(data.msg.userId);
       if(player && player.currentGame ){
-        getHand(player);
+        self.getHand(player);
       }
     }
     LeaveGame(data){
@@ -244,7 +252,11 @@ class CAHGame extends Manager {
         if(!game){
           return;
         }
-        if(player.hand.length < 10){
+        if(player.id == game.currentCardCzar.id){
+          self.disnode.service.SendWhisper(player.sender, "You are the Card Czar you cant submit a card!", {type: player.service});
+          return;
+        }
+        if(player.cards.length < 10){
           self.disnode.service.SendWhisper(player.sender, "You already submitted a card!", {type: player.service});
           return;
         }
@@ -258,11 +270,12 @@ class CAHGame extends Manager {
           this.disnode.service.SendMessage("Please enter a card index! get your cards by typing  `"+this.disnode.command.prefix + data.command.command + "`", data.msg);
           return;
         }
-        var submitCard = player.hand[index];
+        var submitCard = player.cards[index];
         submitCard.player = player;
         game.currentWhiteCards.push(submitCard);
-        player.hand.splice(index,1);
+        player.cards.splice(index,1);
         self.disnode.service.SendWhisper(player.sender, "You submitted: " + submitCard.text, {type: player.service});
+        self.GameFunction(game);
       }
     }
 
@@ -272,6 +285,7 @@ class CAHGame extends Manager {
     //// ================ GAME LOGIC ======================== ///
     GameFunction(game){
       var self = this;
+      if(!game.hasStarted)return;
       if(game.stage == 0){
         //Pick a Card Czar, and black card then move on to stage 1
         game.currentCardCzar = game.players[game.CzarOrderCount];
@@ -280,14 +294,24 @@ class CAHGame extends Manager {
         }else game.CzarOrderCount = 0;
 
         game.currentBlackCard = self.drawBlackCard();
-
-        self.sendMsgToAllPlayers(game, "Current Card Czar: " + game.currentCardCzar.name);
-        self.sendMsgToAllPlayers(game, "Current Black Card: " + game.currentBlackCard.text);
+        this.disnode.service.SendMessage("Current Card Czar: " + game.currentCardCzar.name + " \nCurrent Black Card: " + game.currentBlackCard.text, game.origchat);
         game.stage = 1;
+        self.sendMsgToAllPlayers(game, "Now you must submit one of your cards to respond with the black question card to submit use `!submit-card index` - where index is the card number next to your card (unless your the Card Czar where you can relax for this part.)");
       }
       if (game.stage == 1){
         //Allow player to submit a white card for the black card move on to stage 2
-
+        if(game.currentWhiteCards.length < (game.players.length - 1)){
+          this.disnode.service.SendMessage("Submitted Cards: " + game.currentWhiteCards.length + "/" + (game.players.length - 1), game.origchat);
+        }else{
+          this.disnode.service.SendMessage("All cards have been Submitted", game.origchat);
+          this.disnode.service.SendMessage("Current Black Card: " + game.currentBlackCard.text + " \nNow the Card Czar must `!pick-card index` to pick what white card he/she likes the most. The cards are:", game.origchat);
+          var msg = "";
+          for(var i = 0; i < game.currentWhiteCards.length; i++){
+            msg += " [" + i + " - " + game.currentWhiteCards[i].text + "]\n";
+          }
+          this.disnode.service.SendMessage(msg, game.origchat);
+          game.stage = 2;
+        }
       }
       if (game.stage == 2){
         //Card Czar will pick the winning card and points are awarded then move on to stage 3
@@ -338,7 +362,7 @@ class CAHGame extends Manager {
       var self = this;
       var msg = "";
       for (var i = 0; i < 10; i++) {
-        var card = player.hand[i];
+        var card = player.cards[i];
         msg += " [" + i + " - " + card.text + "]\n";
       }
       self.disnode.service.SendWhisper(player.sender, msg, {type: player.service});
