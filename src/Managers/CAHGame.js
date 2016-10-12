@@ -390,8 +390,10 @@ class CAHGame extends Manager {
         return;
       }
       for(var i = 0; i < game.players.length; i++){
-        if(game.players[i].id == self.players[i].id){
-          self.players.splice(i, 1); //Update Players in Game
+        for(var x = 0; x < self.players.length; x++){
+          if(game.players[i].id == self.players[x].id){
+            self.players.splice(i, 1); //Update Players in Game
+          }
         }
         game.players.splice(i,1);
       }
