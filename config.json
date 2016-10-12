@@ -1,0 +1,51 @@
+{
+  "commands": [],
+  "services": {
+    "DiscordService": {
+      "auth": ""
+    }
+  },
+  "managers": {
+    "CustomCommands": {
+      "commands": [
+        {
+          "command": "addCommand",
+          "event": "CC_ADD_COMMAND",
+          "response": "Added Command! [Command]"
+        }
+      ]
+    },
+    "CAHGame": {
+      "commands": [
+        {
+          "command": "new-game",
+          "event": "CAH_New-Game"
+        },
+        {
+          "command": "start-game",
+          "event": "CAH_Start-Game"
+        },
+        {
+          "command": "join-game",
+          "event": "CAH_Join-Game"
+        },
+        {
+          "command": "get-players",
+          "event": "CAH_Get-Players"
+        },
+        {
+          "command": "leave-game",
+          "event": "CAH_Leave-Game"
+        },
+        {
+          "command": "get-hand",
+          "event": "CAH_Get-Hand"
+        },
+        {
+          "command": "submit-card",
+          "event": "CAH_Submit-Card"
+        }
+      ]
+    }
+  }
+}

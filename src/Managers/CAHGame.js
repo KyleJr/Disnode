@@ -31,6 +31,10 @@ class CAHGame extends Manager {
             {
               command: "get-hand",
               event: "CAH_Get-Hand"
+            },
+            {
+              command: "submit-card",
+              event: "CAH_Submit-Card"
             }
           ],
         };
@@ -46,6 +50,7 @@ class CAHGame extends Manager {
         this.removeCardFromHand = this.removeCardFromHand.bind(this);
         this.DrawUpTopTen = this.DrawUpTopTen.bind(this);
         this.GetPlayerHand = this.GetPlayerHand.bind(this);
+        this.submitCard = this.submitCard.bind(this);
 
         this.disnode.command.on("Command_CAH_Start-Game", this.startGame)
         this.disnode.command.on("Command_CAH_New-Game", this.newGame)
@@ -53,6 +58,7 @@ class CAHGame extends Manager {
         this.disnode.command.on("Command_CAH_Get-Players", this.getPlayers);
         this.disnode.command.on("Command_CAH_Leave-Game", this.LeaveGame);
         this.disnode.command.on("Command_CAH_Get-Hand", this.GetPlayerHand);
+        this.disnode.command.on("Command_CAH_Submit-Card", this.submitCard);
 
         this.games = [];
         this.players = [];
@@ -75,7 +81,7 @@ class CAHGame extends Manager {
       var code = "";
 
       if(this.GetPlayerByID(data.msg.userId)){
-        this.disnode.service.SendMessage("Already joined! Please `"+this.disnode.command.prefix + "leave-game`", data.msg);
+        this.disnode.service.SendMessage("Already joined! Please `"+this.disnode.command.prefix + data.command.command + "`", data.msg);
         return;
       }
       if(data.params[0]){
@@ -182,6 +188,11 @@ class CAHGame extends Manager {
         if(!game){
           return;
         }
+        for(var x = 0; x < game.currentWhiteCards.length; x++){
+          if(game.currentWhiteCards[x].player.id == player.id){
+            game.currentWhiteCards.splice(x,1);
+          }
+        }
         for(var i = 0; i < game.players.length; i++){
           if(player.id == game.players[i].id){
             game.players.splice(i, 1); //Update Players in Game
@@ -196,7 +207,7 @@ class CAHGame extends Manager {
         }
         player.currentGame = "";
         self.sendMsgToAllPlayers(game,  player.name + " left! There are: " + game.players.length + " players left in the game!");
-        self.disnode.service.SendWhisper(player.sender, "You left the game!", {type: player.service})
+        self.disnode.service.SendWhisper(player.sender, "You left the game!", {type: player.service});
       }
     }
     GetPlayerByID(id){
@@ -224,15 +235,54 @@ class CAHGame extends Manager {
 
       return foundGame;
     }
+    submitCard(data){
+      var self = this;
+      var player = self.GetPlayerByID(data.msg.userId);
+      if(player && player.currentGame ){
+        var game = self.GetGameByCode(player.currentGame);
+        if(!game){
+          return;
+        }
+        if(player.hand.length < 10){
+          self.disnode.service.SendWhisper(player.sender, "You already submitted a card!", {type: player.service});
+          return;
+        }
+        if(data.params[0]){
+          if(data.params[0] >= 0 && data.params[0] < 10){
+              var index = data.params[0];
+          }else{
+            this.disnode.service.SendMessage("Invalid card index! must be (0-9) get your cards by typing  `"+this.disnode.command.prefix + data.command.command + "`", data.msg);
+          }
+        }else{
+          this.disnode.service.SendMessage("Please enter a card index! get your cards by typing  `"+this.disnode.command.prefix + data.command.command + "`", data.msg);
+          return;
+        }
+        var submitCard = player.hand[index];
+        submitCard.player = player;
+        game.currentWhiteCards.push(submitCard);
+        player.hand.splice(index,1);
+        self.disnode.service.SendWhisper(player.sender, "You submitted: " + submitCard.text, {type: player.service});
+      }
+    }
 
     //// ================ GAME LOGIC ======================== ///
     //// ================ GAME LOGIC ======================== ///
     //// ================ GAME LOGIC ======================== ///
     //// ================ GAME LOGIC ======================== ///
     GameFunction(game){
+      var self = this;
       if(game.stage == 0){
         //Pick a Card Czar, and black card then move on to stage 1
+        game.currentCardCzar = game.players[game.CzarOrderCount];
+        if(game.CzarOrderCount < game.players.length){
+          game.CzarOrderCount++;
+        }else game.CzarOrderCount = 0;
 
+        game.currentBlackCard = drawBlackCard();
+
+        self.sendMsgToAllPlayers(game, "Current Card Czar: " + game.currentCardCzar.name);
+        self.sendMsgToAllPlayers(game, "Current Black Card: " + game.currentBlackCard.text);
+        game.stage = 1;
       }
       if (game.stage == 1){
         //Allow player to submit a white card for the black card move on to stage 2
@@ -240,7 +290,7 @@ class CAHGame extends Manager {
       }
       if (game.stage == 2){
         //Card Czar will pick the winning card and points are awarded then move on to stage 3
-        
+
       }
       if (game.stage == 3){
         //(check if there is a winner if no winner then draw up to ten cards and go back to stage 0)
@@ -265,6 +315,7 @@ class CAHGame extends Manager {
         self.disnode.service.SendWhisper(player.sender, msg, {type: player.service});
         self.disnode.service.SendWhisper(player.sender, "Please wait for the next stage of the game.", {type: player.service});
       }
+      GameFunction(game);
     }
     //This generates a random White card then adds it to the players hand (returns the white card added to hand)
     drawWhiteCard(player){
