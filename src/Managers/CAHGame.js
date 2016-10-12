@@ -276,6 +276,11 @@ class CAHGame extends Manager {
         if(data.params[0]){
           if(data.params[0] >= 0 && data.params[0] < 10){
               var index = data.params[0];
+              var submitCard = player.cards[index];
+              submitCard.player = player;
+              game.currentWhiteCards.push(submitCard);
+              player.cards.splice(index,1);
+              self.disnode.service.SendWhisper(player.sender, "You submitted: " + submitCard.text, {type: player.service});
           }else{
             this.disnode.service.SendMessage("Invalid card index! must be (0-9) get your cards by typing  `"+this.disnode.command.prefix + "get-hand`", data.msg);
           }
@@ -283,11 +288,6 @@ class CAHGame extends Manager {
           this.disnode.service.SendMessage("Please enter a card index! get your cards by typing  `"+this.disnode.command.prefix + "get-hand`", data.msg);
           return;
         }
-        var submitCard = player.cards[index];
-        submitCard.player = player;
-        game.currentWhiteCards.push(submitCard);
-        player.cards.splice(index,1);
-        self.disnode.service.SendWhisper(player.sender, "You submitted: " + submitCard.text, {type: player.service});
         self.GameFunction(game);
       }
     }
@@ -316,6 +316,8 @@ class CAHGame extends Manager {
               }
               this.disnode.service.SendMessage("Card has been picked! Card: " + pickCard.text + " Submitted by: " + pickCard.player.name, game.origchat);
               game.currentWhiteCards = [];
+              game.stage = 2;
+              self.GameFunction(game);
           }else{
             this.disnode.service.SendMessage("Invalid card index! must be (0-" + (game.currentWhiteCards.length - 1) + ")", data.msg);
           }
@@ -323,8 +325,6 @@ class CAHGame extends Manager {
           this.disnode.service.SendMessage("Please enter a card index!", data.msg);
           return;
         }
-        game.stage = 2;
-        self.GameFunction(game);
       }
     }
     //// ================ GAME LOGIC ======================== ///
