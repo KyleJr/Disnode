@@ -39,6 +39,9 @@ class CAHGame extends Manager {
         this.newGame = this.newGame.bind(this);
         this.LeaveGame = this.LeaveGame.bind(this);
         this.DealCards = this.DealCards.bind(this);
+        this.drawCard = this.drawCard.bind(this);
+        this.drawBlackCard = this.drawBlackCard.bind(this);
+        this.removeCardFromHand = this.removeCardFromHand.bind(this);
 
         this.disnode.command.on("Command_CAH_Start-Game", this.startGame)
         this.disnode.command.on("Command_CAH_New-Game", this.newGame)
@@ -122,8 +125,11 @@ class CAHGame extends Manager {
         hasStarted: false,
         allowJoinInProgress: true,
         round: 0,
+        stage: 0,
         currentBlackCard: {},
-        currentWhiteCards: []
+        currentWhiteCards: [],
+        currentCardCzar: {},
+        CzarOrderCount: 0
       };
       this.games.push(newGame);
       console.log(this.games);
@@ -143,11 +149,19 @@ class CAHGame extends Manager {
           this.disnode.service.SendMessage("You are not host!", data.msg);
           return;
         }
-        for (var i = 0; i < game.players.length; i++) {
-
-          self.disnode.service.SendWhisper(game.players[i].sender, "Starting!", {type: game.players[i].service})
+        if(game.hasStarted){
+          this.disnode.service.SendMessage("Game is already running!", data.msg);
         }
-        self.DealCards(game);
+        if(game.players.length >= 3){
+          for (var i = 0; i < game.players.length; i++) {
+
+            self.disnode.service.SendWhisper(game.players[i].sender, "Starting!", {type: game.players[i].service})
+          }
+          game.hasStarted = true;
+          self.DealCards(game);
+        }else{
+          this.disnode.service.SendMessage("CAH requires at least 3 players! Current: " + game.players.length, data.msg);
+        }
       }
 
     }
@@ -173,7 +187,10 @@ class CAHGame extends Manager {
           }
         }
         player.currentGame = "";
-        this.disnode.service.SendMessage(player.name + " left! There are: " + game.players.length + " players in the game!", data.msg);
+        for(var i = 0; i < game.players.length; i++){
+          self.disnode.service.SendWhisper(game.players[i].sender, player.name + " left! There are: " + game.players.length + " players left in the game!", {type: player.service})
+        }
+        self.disnode.service.SendWhisper(player.sender, "You left the game!", {type: player.service})
       }
     }
     GetPlayerByID(id){
@@ -222,7 +239,9 @@ class CAHGame extends Manager {
           msg += " [" + i + " - " + cardToAdd.text + "]\n"
         }
         console.log('sending: ' + player.name );
+        player.points = 0;
         self.disnode.service.SendWhisper(player.sender, msg, {type: player.service})
+        self.disnode.service.SendWhisper(player.sender, "Please wait for the next stage of the game.", {type: player.service})
       }
     }
     //This generates a random White card then adds it to the players hand (returns the white card added to hand)
@@ -231,6 +250,12 @@ class CAHGame extends Manager {
       var ran_key = obj_keys[Math.floor(Math.random() *obj_keys.length)];
       var cardToAdd = self.whiteCards[ran_key];
       player.cards.push(cardToAdd);
+      return cardToAdd;
+    }
+    drawBlackCard(){
+      var obj_keys = Object.keys(self.blackCard);
+      var ran_key = obj_keys[Math.floor(Math.random() *obj_keys.length)];
+      var cardToAdd = self.blackCard[ran_key];
       return cardToAdd;
     }
     //This removes the card in the given index
