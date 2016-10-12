@@ -385,8 +385,21 @@ class CAHGame extends Manager {
       }
     }
     endGame(game){
+      var self = this;
       if(!game){
         return;
+      }
+      for(var i = 0; i < game.players.length; i++){
+        if(game.players[i].id == self.players[i].id){
+          self.players.splice(i, 1); //Update Players in Game
+        }
+        game.players.splice(i,1);
+      }
+      for(var i = 0; i < self.games.length; i++){
+        if(game.id == self.games[i].id){
+          self.games.splice(i,1);
+          break;
+        }
       }
     }
     DealCards(game){
