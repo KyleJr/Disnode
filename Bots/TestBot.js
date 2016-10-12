@@ -4,7 +4,7 @@ var testBot = new DisnodeBot("./Bots/TestBotConfig.json"); //Defines the testBot
 
 var OnLoad = function(){
   //testBot.service.AddService("KikService", "KikService");
-  //testBot.service.AddService("TwitchService", "TwitchService");
+  testBot.service.AddService("TwitchService", "TwitchService");
   testBot.service.AddService("DiscordService", "DiscordService")
   //testBot.service.AddService("KikService", "KikService");
 

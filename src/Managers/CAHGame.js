@@ -51,6 +51,7 @@ class CAHGame extends Manager {
         this.DrawUpTopTen = this.DrawUpTopTen.bind(this);
         this.GetPlayerHand = this.GetPlayerHand.bind(this);
         this.submitCard = this.submitCard.bind(this);
+        this.GameFunction = this.GameFunction.bind(this);
 
         this.disnode.command.on("Command_CAH_Start-Game", this.startGame)
         this.disnode.command.on("Command_CAH_New-Game", this.newGame)
@@ -278,7 +279,7 @@ class CAHGame extends Manager {
           game.CzarOrderCount++;
         }else game.CzarOrderCount = 0;
 
-        game.currentBlackCard = drawBlackCard();
+        game.currentBlackCard = self.drawBlackCard();
 
         self.sendMsgToAllPlayers(game, "Current Card Czar: " + game.currentCardCzar.name);
         self.sendMsgToAllPlayers(game, "Current Black Card: " + game.currentBlackCard.text);
@@ -315,7 +316,7 @@ class CAHGame extends Manager {
         self.disnode.service.SendWhisper(player.sender, msg, {type: player.service});
         self.disnode.service.SendWhisper(player.sender, "Please wait for the next stage of the game.", {type: player.service});
       }
-      GameFunction(game);
+      this.GameFunction(game);
     }
     //This generates a random White card then adds it to the players hand (returns the white card added to hand)
     drawWhiteCard(player){
@@ -360,7 +361,7 @@ class CAHGame extends Manager {
     sendMsgToAllPlayers(game, msg){
       var self = this;
       for(var i = 0; i < game.players.length; i++){
-        self.disnode.service.SendWhisper(game.players[i].sender, msg, {type: player.service})
+        self.disnode.service.SendWhisper(game.players[i].sender, msg, {type: game.players[i].service})
       }
     }
 }
