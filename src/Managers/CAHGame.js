@@ -35,6 +35,10 @@ class CAHGame extends Manager {
             {
               command: "submit-card",
               event: "CAH_Submit-Card"
+            },
+            {
+              command: "pick-card",
+              event: "CAH_Pick-Card"
             }
           ],
         };
@@ -52,6 +56,7 @@ class CAHGame extends Manager {
         this.GetPlayerHand = this.GetPlayerHand.bind(this);
         this.submitCard = this.submitCard.bind(this);
         this.GameFunction = this.GameFunction.bind(this);
+        this.pickCard = this.pickCard.bind(this);
 
         this.disnode.command.on("Command_CAH_Start-Game", this.startGame)
         this.disnode.command.on("Command_CAH_New-Game", this.newGame)
@@ -60,6 +65,8 @@ class CAHGame extends Manager {
         this.disnode.command.on("Command_CAH_Leave-Game", this.LeaveGame);
         this.disnode.command.on("Command_CAH_Get-Hand", this.GetPlayerHand);
         this.disnode.command.on("Command_CAH_Submit-Card", this.submitCard);
+        this.disnode.command.on("Command_CAH_Pick-Card", this.pickCard);
+
 
         this.games = [];
         this.players = [];
@@ -185,6 +192,11 @@ class CAHGame extends Manager {
       var self = this;
       var player = self.GetPlayerByID(data.msg.userId);
       if(player && player.currentGame ){
+        var game = self.GetGameByCode(player.currentGame);
+        if(!game){
+          return;
+        }
+        if(!game.hasStarted)return;
         self.getHand(player);
       }
     }
@@ -252,6 +264,7 @@ class CAHGame extends Manager {
         if(!game){
           return;
         }
+        if(!game.hasStarted)return;
         if(player.id == game.currentCardCzar.id){
           self.disnode.service.SendWhisper(player.sender, "You are the Card Czar you cant submit a card!", {type: player.service});
           return;
@@ -264,10 +277,10 @@ class CAHGame extends Manager {
           if(data.params[0] >= 0 && data.params[0] < 10){
               var index = data.params[0];
           }else{
-            this.disnode.service.SendMessage("Invalid card index! must be (0-9) get your cards by typing  `"+this.disnode.command.prefix + data.command.command + "`", data.msg);
+            this.disnode.service.SendMessage("Invalid card index! must be (0-9) get your cards by typing  `"+this.disnode.command.prefix + "get-hand`", data.msg);
           }
         }else{
-          this.disnode.service.SendMessage("Please enter a card index! get your cards by typing  `"+this.disnode.command.prefix + data.command.command + "`", data.msg);
+          this.disnode.service.SendMessage("Please enter a card index! get your cards by typing  `"+this.disnode.command.prefix + "get-hand`", data.msg);
           return;
         }
         var submitCard = player.cards[index];
@@ -278,7 +291,42 @@ class CAHGame extends Manager {
         self.GameFunction(game);
       }
     }
-
+    pickCard(data){
+      var self = this;
+      var player = self.GetPlayerByID(data.msg.userId);
+      if(player && player.currentGame ){
+        var game = self.GetGameByCode(player.currentGame);
+        if(!game){
+          return;
+        }
+        if(!game.hasStarted)return;
+        if(player.id != game.currentCardCzar.id){
+          self.disnode.service.SendWhisper(player.sender, "You are not the Card Czar you cant pick a card!", {type: player.service});
+          return;
+        }
+        if(data.params[0]){
+          if(data.params[0] >= 0 && data.params[0] < game.currentWhiteCards.length){
+              var index = data.params[0];
+              var pickCard = game.currentWhiteCards[index];
+              for(var i = 0; i < game.players.length; i++){
+                if(game.players[i].id == pickCard.player.id){
+                  game.players[i].points++;
+                  break;
+                }
+              }
+              this.disnode.service.SendMessage("Card has been picked! Card: " + pickCard.text + " Submitted by: " + pickCard.player.name, game.origchat);
+              game.currentWhiteCards = [];
+          }else{
+            this.disnode.service.SendMessage("Invalid card index! must be (0-" + (game.currentWhiteCards.length - 1) + ")", data.msg);
+          }
+        }else{
+          this.disnode.service.SendMessage("Please enter a card index!", data.msg);
+          return;
+        }
+        game.stage = 2;
+        self.GameFunction(game);
+      }
+    }
     //// ================ GAME LOGIC ======================== ///
     //// ================ GAME LOGIC ======================== ///
     //// ================ GAME LOGIC ======================== ///
@@ -310,16 +358,35 @@ class CAHGame extends Manager {
             msg += " [" + i + " - " + game.currentWhiteCards[i].text + "]\n";
           }
           this.disnode.service.SendMessage(msg, game.origchat);
-          game.stage = 2;
         }
       }
       if (game.stage == 2){
         //Card Czar will pick the winning card and points are awarded then move on to stage 3
-
+        this.disnode.service.SendMessage("Current Standings: ", game.origchat);
+        msg = "";
+        for(var i = 0; i < game.players.length; i++){
+          msg += "[" + game.players[i].name + "] Points: " + game.players[i].points + " \n";
+        }
+        this.disnode.service.SendMessage(msg, game.origchat);
+        game.stage = 3;
       }
       if (game.stage == 3){
         //(check if there is a winner if no winner then draw up to ten cards and go back to stage 0)
-
+        for(var i = 0; i < game.players.length; i++){
+          if(game.players[i].points >= 10){
+            this.disnode.service.SendMessage("A player has Won! Winner: " + game.players[i].name, game.origchat);
+            self.endGame(game);
+            return;
+          }
+        }
+        self.DrawUpTopTen(game);
+        game.stage = 0;
+        self.GameFunction(game);
+      }
+    }
+    endGame(game){
+      if(!game){
+        return;
       }
     }
     DealCards(game){
@@ -371,7 +438,7 @@ class CAHGame extends Manager {
       var self = this;
       for(var i = 0; i < game.players.length; i++){
         var player = game.players[i];
-        while(player.hand.length < 10){
+        while(player.cards.length < 10){
           self.drawWhiteCard(player);
         }
       }
