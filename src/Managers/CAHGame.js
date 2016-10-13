@@ -150,7 +150,6 @@ class CAHGame extends Manager {
         players: [],
         hasStarted: false,
         allowJoinInProgress: true,
-        round: 0,
         stage: 0,
         currentBlackCard: {},
         currentWhiteCards: [],
