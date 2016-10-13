@@ -228,6 +228,10 @@ class CAHGame extends Manager {
         }
         player.currentGame = "";
         self.sendMsgToAllPlayers(game,  player.name + " left! There are: " + game.players.length + " players left in the game!");
+        if(game.players.length < 3){
+          self.sendMsgToAllPlayers(game,"There are less than 3 players in the game so the game has ended!");
+          self.endGame(game);
+        }
         self.disnode.service.SendWhisper(player.sender, "You left the game!", {type: player.service});
       }
     }
@@ -304,6 +308,10 @@ class CAHGame extends Manager {
           self.disnode.service.SendWhisper(player.sender, "You are not the Card Czar you cant pick a card!", {type: player.service});
           return;
         }
+        if(game.currentWhiteCards.length < (game.players.length - 1)){
+          self.disnode.service.SendWhisper(player.sender, "You can't pick a card yet!", {type: player.service});
+          return;
+        }
         if(data.params[0]){
           if(data.params[0] >= 0 && data.params[0] < game.currentWhiteCards.length){
               var index = data.params[0];
@@ -336,10 +344,14 @@ class CAHGame extends Manager {
       if(!game.hasStarted)return;
       if(game.stage == 0){
         //Pick a Card Czar, and black card then move on to stage 1
-        game.currentCardCzar = game.players[game.CzarOrderCount];
         if(game.CzarOrderCount < game.players.length){
+          game.currentCardCzar = game.players[game.CzarOrderCount];
           game.CzarOrderCount++;
-        }else game.CzarOrderCount = 0;
+        }else{
+          game.CzarOrderCount = 0;
+          game.currentCardCzar = game.players[game.CzarOrderCount];
+          game.CzarOrderCount++;
+        }
 
         game.currentBlackCard = self.drawBlackCard();
         this.disnode.service.SendMessage("Current Card Czar: " + game.currentCardCzar.name + " \nCurrent Black Card: " + game.currentBlackCard.text, game.origchat);
