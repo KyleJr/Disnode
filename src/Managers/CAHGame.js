@@ -392,6 +392,9 @@ class CAHGame extends Manager {
           }
         }
         self.DrawUpTopTen(game);
+        for(var i = 0; i < game.players.length; i++){
+          self.getHand(player[i]);
+        }
         game.stage = 0;
         self.GameFunction(game);
       }
