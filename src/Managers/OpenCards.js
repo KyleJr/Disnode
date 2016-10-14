@@ -10,15 +10,15 @@ class OpenCards extends Manager {
         this.defaultConfig = {
           commands : [
             {
-              command: "new-game",
+              command: "cards-newgame",
               event: "OC_New-Game"
             },
             {
-              command: "start-game",
+              command: "cards-startgame",
               event: "OC_Start-Game"
             },
             {
-              command: "join-game",
+              command: "cards-joingame",
               event: "OC_Join-Game"
             },
             {
@@ -48,7 +48,8 @@ class OpenCards extends Manager {
     }
     onConnected(){
       console.log("[OpenCards] Connected to Server");
-      socket.emit("request",{type:"Get_InitInfo"});
+      socket.emit("game",{type:"Get_InitInfo"});
+
     }
 
     onResponse(data){
@@ -56,41 +57,16 @@ class OpenCards extends Manager {
     }
     joinGame(data){
       var self = this;
+      socket.emit("player",{type:"SetName",val: data.msg.username});
 
-      var service = data.msg.type;
-      var newPlayer = {
-        name:  data.msg.username,
-        id: data.msg.userId,
-        sender: data.msg.sender,
-        service: service
-      }
+      var gameID = data.params[0];
 
-      var code = "";
-
-      if(this.GetPlayerByID(data.msg.userId)){
-        this.disnode.service.SendMessage("Already joined! Please `"+this.disnode.command.prefix + "leave-game`", data.msg);
-        return;
-      }
-      if(data.params[0]){
-        code = data.params[0];
-      }else{
-        this.disnode.service.SendMessage("Please enter a code!", data.msg);
+      if(!gameID){
+        this.disnode.service.SendMessage("Please Enter a Game ID!", data.msg);
         return;
       }
 
-      var foundGame = self.GetGameByCode(code);
-
-      if(!foundGame){
-        this.disnode.service.SendMessage("No Game with code: " + code, data.msg);
-        return;
-      }
-
-      newPlayer.currentGame = code;
-      self.players.push(newPlayer);      //Update All Players
-      foundGame.players.push(newPlayer); //Update Players in Game
-
-      this.disnode.service.SendMessage(newPlayer.name + " joined! There are: " +foundGame.players.length+" players in!", data.msg);
-      self.disnode.service.SendWhisper(newPlayer.sender, "Welcome " + newPlayer.name +"!", {type: newPlayer.service});
+      socket.emit("player", {type:"JoinGame", val: gameID});
     }
 
     getPlayers(data){

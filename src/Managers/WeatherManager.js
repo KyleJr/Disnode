@@ -38,24 +38,19 @@ class WeatherManager extends Manager {
         self.disnode.service.SendMessage("No City for: " + data.params[0], data.msg);
         return;
       }
-      self.disnode.service.SendMessage("Finding Weather for **"+city.city + ", "+ city.state+"**: ", data.msg);
 
       forecast.get([city.latitude, city.longitude], function(err, weather) {
-
           if (err) return console.dir(err);
           var tempC = weather.currently.temperature.toFixed(2) + "° c";
           var tempF = ((weather.currently.temperature*1.8 ) + 32).toFixed(2) + "° f";
-          self.disnode.service.SendMessage("Weather: \n"
-          + "**Condition:** *" + weather.currently.summary +"*\n"
-          + "**Temp:** *" + tempF + " ["+tempC+"]" +"*\n"
-          + "**Wind:** *" + weather.currently.windSpeed +"*\n", data.msg);
+
+          self.disnode.service.SendMessage("Weather for **_"+city.city + ", "+ city.state+"_**: \n"
+            + "**Condition:** *" + weather.currently.summary +"*\n"
+            + "**Temp:** *" + tempF + " ["+tempC+"]" +"*\n"
+            + "**Wind:** *" + weather.currently.windSpeed +"*\n", data.msg);
       });
 
-
     }
-
-
-
 
 }
 module.exports = WeatherManager;

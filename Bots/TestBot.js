@@ -6,10 +6,10 @@ var OnLoad = function(){
   //testBot.service.AddService("KikService", "KikService");
   testBot.service.AddService("TwitchService", "TwitchService");
   testBot.service.AddService("DiscordService", "DiscordService")
-  //testBot.service.AddService("KikService", "KikService");
+  testBot.service.AddService("KikService", "KikService");
     testBot.manager.AddManager("WeatherManager", "WeatherManager");
   testBot.manager.AddManager("CustomCommands", "CustomCommands");
-testBot.manager.AddManager("CAHGame", "CAHGame");
+testBot.manager.AddManager("OpenCards", "OpenCards");
   testBot.command.on("RawCommand_test",function(commandData){
       testBot.service.SendMessage("Works!",commandData.msg);
   });

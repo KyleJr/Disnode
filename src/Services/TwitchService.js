@@ -1,5 +1,9 @@
 const Service = require("../Service.js");
 const tmi = require("tmi.js");
+
+var MsgQue = [];
+
+
 class TwitchService extends Service {
     constructor(pramas) {
         super(pramas);
@@ -10,6 +14,11 @@ class TwitchService extends Service {
         };
 
         this.client = {};
+        var self = this;
+        setInterval(function () {
+          self.UpdateMessage()
+
+        }, 2000);
     }
     Connect() {
         super.Connect();
@@ -114,13 +123,54 @@ class TwitchService extends Service {
     }
 
     SendMessage(msg, data) {
-        this.client.say(data.channel, msg);
+      ///var re = new RegExp("/**", 'g');
+
+      msg = msg.replace(/[*]/g, ' ');
+      var newLines = getIndicesOf("\n", msg,false);
+
+      if(newLines.length == 0){
+        MsgQue.push({msg: msg, channel: data.channel});
+      }else{
+        var lastStart;
+        for (var i = 0; i < newLines.length; i++) {
+          var startIndex = newLines[i];
+          var endIndex = newLines[i+1] || newLines[newLines.length-1];
+          MsgQue.push({msg: msg.substring(startIndex, endIndex), channel: data.channel});
+
+        }
+      }
+
+
     }
 
     SendWhisper(user, msg){
       this.client.whisper(user, msg);
     }
 
+    UpdateMessage(){
+      if(MsgQue.length != 0){
+        this.client.say(MsgQue[0].channel, MsgQue[0].msg);
+        MsgQue.shift();
+      }
+    }
 
+
+}
+
+function getIndicesOf(searchStr, str, caseSensitive) {
+    var searchStrLen = searchStr.length;
+    if (searchStrLen == 0) {
+        return [];
+    }
+    var startIndex = 0, index, indices = [];
+    if (!caseSensitive) {
+        str = str.toLowerCase();
+        searchStr = searchStr.toLowerCase();
+    }
+    while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+        indices.push(index);
+        startIndex = index + searchStrLen;
+    }
+    return indices;
 }
 module.exports = TwitchService;

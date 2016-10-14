@@ -12,7 +12,7 @@ const ManagerDispatcher = require ("./ManagerDispatcher.js");
 const ShortcutParser    = require ("./ShortcutParser.js");
 
 
-const TestImport    = require ("./Managers/CAHGame");
+const TestImport    = require ("./Managers/WeatherManager");
 class Disnode extends EventEmitter{
   constructor(configPath){
     super();
