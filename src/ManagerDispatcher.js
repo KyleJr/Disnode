@@ -10,7 +10,7 @@ class ManagerDispatcher extends EventEmitter {
     }
 
     AddManager(name, filename, options) {
-        console.log("[ManagerDispatcher] Adding Service:  " + filename);
+        console.log("[ManagerDispatcher] Adding Manager:  " + filename);
         var self = this;
 
         var runManOptions = {
