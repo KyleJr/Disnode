@@ -61,13 +61,14 @@ class CommandDispatcher extends EventEmitter{
     var managers = self.disnode.manager.managers;
     for (var i = 0; i < managers.length; i++) {
       var manager = managers[i];
-      if(!manager.config.prefix){
-        return;
+    
+      if(manager.config.prefix){
+        if(manager.config.prefix.toLowerCase() === prefix){
+          found = true;
+          return true;
+        }
       }
-      if(manager.config.prefix.toLowerCase() === prefix){
-        found = true;
-        return true;
-      }
+
     }
     return found;
   }
@@ -116,6 +117,7 @@ class CommandDispatcher extends EventEmitter{
     if(self.GetManagerPrefix(firstWord)){
       command = secondWord;
       prefix = firstWord;
+      console.log("PREFIX!");
     }else{
       command = firstWord;
     }
