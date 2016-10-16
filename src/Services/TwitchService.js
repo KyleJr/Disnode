@@ -132,6 +132,7 @@ class TwitchService extends Service {
         MsgQue.push({msg: msg, channel: data.channel});
       }else{
         var lastStart;
+        MsgQue.push({msg: msg.substring(0, newLines[0]), channel: data.channel});
         for (var i = 0; i < newLines.length; i++) {
           var startIndex = newLines[i];
           var endIndex = newLines[i+1] || newLines[newLines.length-1];

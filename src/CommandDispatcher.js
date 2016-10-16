@@ -37,20 +37,38 @@ class CommandDispatcher extends EventEmitter{
         console.log("[CommandDispatcher]".grey + " Loaded Command: ".green + toAdd.command);
         self.commands.push(commands[i]);
       }else{
-        self.GetCommand(toAdd.command) = toAdd;
-        console.log("[CommandDispatcher]".grey + " Updated Command: ".green + toAdd.command);
+        //self.GetCommand(toAdd.command) = toAdd;
+        //console.log("[CommandDispatcher]".grey + " Updated Command: ".green + toAdd.command);
       }
     }
   }
 
   GetCommand(command){
     var found;
-
+    var self = this;
     for (var i = 0; i < this.commands.length; i++) {
 
       if(this.commands[i].command.toLowerCase() === command){
           found = this.commands[i];
       }
+    }
+    return found;
+  }
+
+  GetManagerPrefix(prefix){
+    var found = false;
+    var self = this;
+    var managers = self.disnode.manager.managers;
+    for (var i = 0; i < managers.length; i++) {
+      var manager = managers[i];
+    
+      if(manager.config.prefix){
+        if(manager.config.prefix.toLowerCase() === prefix){
+          found = true;
+          return true;
+        }
+      }
+
     }
     return found;
   }
@@ -75,13 +93,36 @@ class CommandDispatcher extends EventEmitter{
     }
 
 
-
+    var firstWord = "";
+    var secondWord = "";
     //Gets Command
     if(CheckSpace(msg)){
-      command = msg.substring(prefixLength, msg.indexOf(" "));
+      var firstSpace = msg.indexOf(" ");
+      var secoundSpace = msg.indexOf(" ", firstSpace + 1);
+
+      firstWord = msg.substring(prefixLength, firstSpace);
+
+      if(secoundSpace != -1){
+          secondWord = msg.substring(firstSpace + 1,secoundSpace);
+      }else{
+          secondWord = msg.substring(firstSpace + 1);
+      }
+
+      console.log(firstWord + " + " + secondWord);
     }else{
-      command = msg.substring(prefixLength);
+      firstWord = msg.substring(prefixLength);
     }
+
+    var prefix;
+    if(self.GetManagerPrefix(firstWord)){
+      command = secondWord;
+      prefix = firstWord;
+      console.log("PREFIX!");
+    }else{
+      command = firstWord;
+    }
+
+
     command = command.toLowerCase();
     console.log(command);
 
@@ -100,14 +141,26 @@ class CommandDispatcher extends EventEmitter{
           self.disnode.service.SendMessage(cmbObject.response,msgObj);
         }
       }
-      self.emit("Command_"+cmbObject.event, returnObj);
+      if(prefix){
+        self.emit("Command_"+prefix+"_"+cmbObject.event, returnObj);
+        console.log("Emitting: " + "Command_"+prefix+"_"+cmbObject.event);
+      }else{
+        self.emit("Command_"+cmbObject.event, returnObj);
+          console.log("Emitting (No Prefix): " + "Command_"+cmbObject.event);
+      }
     }else{
       var returnObj = {};
       returnObj.params = GetParams(msg);
       returnObj.command = command;
       returnObj.msg = msgObj;
+      if(prefix){
+        self.emit("Command_"+prefix, returnObj);
+        console.log("Emitting (No Command): " + "Command_"+prefix);
+      }else{
+        self.emit("RawCommand_"+command, returnObj);
+        console.log("Emitting: " + "RawCommand_"+command);
+      }
 
-      self.emit("RawCommand_"+command, returnObj);
     }
 
 
