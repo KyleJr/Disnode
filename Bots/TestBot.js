@@ -3,15 +3,17 @@ var DisnodeBot = require("../src/Disnode.js"); //defines DisnodeBot
 var testBot = new DisnodeBot("./Bots/TestBotConfig.json"); //Defines the testBot in the "" is where your discord bot oauth token would go
 
 var OnLoad = function(){
-  //testBot.service.AddService("KikService", "KikService");
   testBot.service.AddService("TwitchService", "TwitchService");
   testBot.service.AddService("DiscordService", "DiscordService")
-  testBot.service.AddService("KikService", "KikService");
-    testBot.manager.AddManager("WeatherManager", "WeatherManager");
+  //testBot.service.AddService("KikService", "KikService");
+  //testBot.manager.AddManager("WeatherManager", "WeatherManager");
   testBot.manager.AddManager("CustomCommands", "CustomCommands");
-testBot.manager.AddManager("OpenCards", "OpenCards");
-  testBot.command.on("RawCommand_test",function(commandData){
-      testBot.service.SendMessage("Works!",commandData.msg);
+  testBot.manager.AddManager("MusicManager","MusicManager");
+  //testBot.manager.AddManager("OpenCards", "OpenCards");
+  testBot.command.on("RawCommand_dc",function(commandData){
+    var discord = testBot.service.GetService("DiscordService");
+    testBot.service.SendMessage("Disconnecting!",commandData.msg);
+    discord.client.destroy();
   });
 
   testBot.service.ConnectAll();
