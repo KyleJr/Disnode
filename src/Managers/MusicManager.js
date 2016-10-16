@@ -8,6 +8,7 @@ class MusicManager extends Manager {
     console.log("MusicManager Loaded!");
 
     this.defaultConfig = {
+      prefix:"music",
       defaultVolume : 0.8,
       maxVolume : 3,
       commands : [
@@ -26,6 +27,14 @@ class MusicManager extends Manager {
         {
           command: "skip",
           event: "MM_Skip"
+        },
+        {
+          command: "volume",
+          event: "MM_Volume"
+        },
+        {
+          command: "queue",
+          event: "MM_Queue"
         }
       ]
     }
@@ -33,11 +42,15 @@ class MusicManager extends Manager {
     this.cmdLeaveVoice = this.cmdLeaveVoice.bind(this);
     this.cmdStream = this.cmdStream.bind(this);
     this.cmdSkip = this.cmdSkip.bind(this);
+    this.cmdVolume = this.cmdVolume.bind(this);
+    this.cmdQueue = this.cmdQueue.bind(this);
 
     this.disnode.command.on("Command_MM_JoinVoice", this.cmdJoinVoice);
     this.disnode.command.on("Command_MM_LeaveVoice", this.cmdLeaveVoice);
     this.disnode.command.on("Command_MM_Stream", this.cmdStream);
     this.disnode.command.on("Command_MM_Skip", this.cmdSkip);
+    this.disnode.command.on("Command_MM_Volume", this.cmdVolume);
+    this.disnode.command.on("Command_MM_Queue", this.cmdQueue);
 
     this.streams = [];
   }
@@ -87,7 +100,7 @@ class MusicManager extends Manager {
     if(vc){
       for (var i = 0; i < self.streams.length; i++) {
         if(self.streams[i].chan == vc){
-          var vol = self.getvol(data.params);
+          var vol = self.getvol(data.params, 1);
           if(self.isValidURL(data.params[0])){
             var url = data.params[0];
             var queueItem = self.addToQueue(i, url, vol, data.msg.object.member.user.username);
@@ -128,6 +141,58 @@ class MusicManager extends Manager {
       this.disnode.service.SendMessage("Try joinning a voice channel first!", data.msg);
     }
   }
+  cmdQueue(data){
+    var self = this;
+    if(data.msg.type != "DiscordService"){
+      console.log("Command was ran on a non-Discord service!");
+      this.disnode.service.SendMessage("You can only use this command with Discord!", data.msg);
+      return;
+    }
+    var vc = data.msg.object.member.voiceChannel;
+    if(vc){
+      for (var i = 0; i < self.streams.length; i++) {
+        if(self.streams[i].chan == vc){
+          var sendMsg = "The Current queue is:\n";
+          for (var x = 0; x < self.streams[i].queue.length; x++) {
+            var queueItem = self.streams[i].queue[x];
+            sendMsg += "[" + (x + 1) + "] **" + queueItem.url + "** Volume: **" + queueItem.vol + "** Requested by: **" + queueItem.requester + "**\n";
+          }
+          this.disnode.service.SendMessage(sendMsg, data.msg);
+          return;
+        }
+      }
+      this.disnode.service.SendMessage("Try joinning a voice channel that the bot is in!", data.msg);
+    }else {
+      this.disnode.service.SendMessage("Try joinning a voice channel first!", data.msg);
+    }
+  }
+  cmdVolume(data){
+    var self = this;
+    if(data.msg.type != "DiscordService"){
+      console.log("Command was ran on a non-Discord service!");
+      this.disnode.service.SendMessage("You can only use this command with Discord!", data.msg);
+      return;
+    }
+    var vc = data.msg.object.member.voiceChannel;
+    if(vc){
+      for (var i = 0; i < self.streams.length; i++) {
+        if(self.streams[i].chan == vc){
+          var vol = self.getvol(data.params, 0);
+          if(self.streams[i].dispatcher){
+            self.streams[i].dispatcher.setVolume(vol);
+          }else {
+            this.disnode.service.SendMessage("dispatcher not found (am I playing any sound?)", data.msg);
+            return;
+          }
+          this.disnode.service.SendMessage("Volume set to: **" + vol + "**! (this volume will be overrided by the next songs volume)", data.msg);
+          return;
+        }
+      }
+      this.disnode.service.SendMessage("Try joinning a voice channel that the bot is in!", data.msg);
+    }else {
+      this.disnode.service.SendMessage("Try joinning a voice channel first!", data.msg);
+    }
+  }
   joinv(voiceChannel, data){
     var self = this;
     var addToStreams = {};
@@ -158,9 +223,9 @@ class MusicManager extends Manager {
       return true;
     }else return false;
   }
-  getvol(parms){
+  getvol(parms, index){
     var self = this;
-    var vol = parseFloat(parms[1]);
+    var vol = parseFloat(parms[index]);
     if(vol){
       if(vol >= self.config.maxVolume){
         vol = self.config.defaultVolume;
