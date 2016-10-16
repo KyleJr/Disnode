@@ -1,44 +1,45 @@
 const Manager = require("../Manager.js");
 const Discord = require("discord.js");
 const shortid = require('shortid');
-class CAHGame extends Manager {
+class cahGame extends Manager {
     constructor(pramas) {
         super(pramas);
 
         console.log("Loaded!");
         this.defaultConfig = {
+          prefix: "cah",
           commands : [
             {
               command: "new-game",
-              event: "CAH_New-Game"
+              event: "New-Game"
             },
             {
               command: "start-game",
-              event: "CAH_Start-Game"
+              event: "Start-Game"
             },
             {
               command: "join-game",
-              event: "CAH_Join-Game"
+              event: "Join-Game"
             },
             {
               command: "get-players",
-              event: "CAH_Get-Players"
+              event: "Get-Players"
             },
             {
               command: "leave-game",
-              event: "CAH_Leave-Game"
+              event: "Leave-Game"
             },
             {
               command: "get-hand",
-              event: "CAH_Get-Hand"
+              event: "Get-Hand"
             },
             {
               command: "submit-card",
-              event: "CAH_Submit-Card"
+              event: "Submit-Card"
             },
             {
               command: "pick-card",
-              event: "CAH_Pick-Card"
+              event: "Pick-Card"
             }
           ],
         };
@@ -58,14 +59,14 @@ class CAHGame extends Manager {
         this.GameFunction = this.GameFunction.bind(this);
         this.pickCard = this.pickCard.bind(this);
 
-        this.disnode.command.on("Command_CAH_Start-Game", this.startGame)
-        this.disnode.command.on("Command_CAH_New-Game", this.newGame)
-        this.disnode.command.on("Command_CAH_Join-Game", this.joinGame)
-        this.disnode.command.on("Command_CAH_Get-Players", this.getPlayers);
-        this.disnode.command.on("Command_CAH_Leave-Game", this.LeaveGame);
-        this.disnode.command.on("Command_CAH_Get-Hand", this.GetPlayerHand);
-        this.disnode.command.on("Command_CAH_Submit-Card", this.submitCard);
-        this.disnode.command.on("Command_CAH_Pick-Card", this.pickCard);
+        this.disnode.command.on("Command_cah_Start-Game", this.startGame)
+        this.disnode.command.on("Command_cah_New-Game", this.newGame)
+        this.disnode.command.on("Command_cah_Join-Game", this.joinGame)
+        this.disnode.command.on("Command_cah_Get-Players", this.getPlayers);
+        this.disnode.command.on("Command_cah_Leave-Game", this.LeaveGame);
+        this.disnode.command.on("Command_cah_Get-Hand", this.GetPlayerHand);
+        this.disnode.command.on("Command_cah_Submit-Card", this.submitCard);
+        this.disnode.command.on("Command_cah_Pick-Card", this.pickCard);
 
 
         this.games = [];
@@ -143,6 +144,7 @@ class CAHGame extends Manager {
     }
 
     newGame(data){
+
       var id = shortid.generate();
       var newGame = {
         id: id,
@@ -183,7 +185,7 @@ class CAHGame extends Manager {
           game.origchat = data.msg;
           self.DealCards(game);
         }else{
-          this.disnode.service.SendMessage("CAH requires at least 3 players! Current: " + game.players.length, data.msg);
+          this.disnode.service.SendMessage("cah requires at least 3 players! Current: " + game.players.length, data.msg);
         }
       }
     }
@@ -485,4 +487,4 @@ class CAHGame extends Manager {
       }
     }
 }
-module.exports = CAHGame;
+module.exports = cahGame;

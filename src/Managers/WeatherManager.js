@@ -7,15 +7,10 @@ class WeatherManager extends Manager {
         super(pramas);
         console.log("Loaded!");
         this.defaultConfig = {
-          commands : [
-            {
-              command: "weather",
-              event: "WEA_weather"
-            }
-          ],
+          prefix: "weather"
         };
 
-        this.disnode.command.on("Command_WEA_weather", this.getWeather)
+        this.disnode.command.on("Command_weather", this.getWeather)
         this.getWeather = this.getWeather.bind(this);}
 
 

@@ -26,6 +26,7 @@ class KikService extends Service {
           self.dispatcher.OnServiceConnected(self);
 
           self.bot.onTextMessage((message) => {
+            console.log(message);
             var convertedPacket = {
                 msg: message.body,
                 sender: message.from,
@@ -46,7 +47,9 @@ class KikService extends Service {
       this.bot.send(Bot.Message.text(msg), user);
     }
     SendMessage(msg, data) {
-      this.bot.send(Bot.Message.text(msg), data.channel);
+      msg = msg.replace(/[*]/g, '');
+      msg = msg.replace(/[_]/g, '');
+      this.bot.send(Bot.Message.text(msg), data.channel,data.object.message.chatId);
     }
 
 }
