@@ -35,6 +35,14 @@ class MusicManager extends Manager {
         {
           command: "queue",
           event: "MM_Queue"
+        },
+        {
+          command: "pause",
+          event: "MM_Pause"
+        },
+        {
+          command: "resume",
+          event: "MM_Resume"
         }
       ]
     }
@@ -44,6 +52,8 @@ class MusicManager extends Manager {
     this.cmdSkip = this.cmdSkip.bind(this);
     this.cmdVolume = this.cmdVolume.bind(this);
     this.cmdQueue = this.cmdQueue.bind(this);
+    this.cmdPause = this.cmdPause.bind(this);
+    this.cmdResume = this.cmdResume.bind(this);
 
     this.disnode.command.on("Command_MM_JoinVoice", this.cmdJoinVoice);
     this.disnode.command.on("Command_MM_LeaveVoice", this.cmdLeaveVoice);
@@ -51,8 +61,60 @@ class MusicManager extends Manager {
     this.disnode.command.on("Command_MM_Skip", this.cmdSkip);
     this.disnode.command.on("Command_MM_Volume", this.cmdVolume);
     this.disnode.command.on("Command_MM_Queue", this.cmdQueue);
+    this.disnode.command.on("Command_MM_Pause", this.cmdPause);
+    this.disnode.command.on("Command_MM_Resume", this.cmdResume);
 
     this.streams = [];
+  }
+  cmdPause(data){
+    var self = this;
+    if(data.msg.type != "DiscordService"){
+      console.log("Command was ran on a non-Discord service!");
+      this.disnode.service.SendMessage("You can only use this command with Discord!", data.msg);
+      return;
+    }
+    var vc = data.msg.object.member.voiceChannel;
+    if(vc){
+      for (var i = 0; i < self.streams.length; i++) {
+        if(self.streams[i].chan == vc){
+          if(self.streams[i].dispatcher){
+            self.streams[i].dispatcher.pause();
+            this.disnode.service.SendMessage("Playback **PAUSED**!", data.msg);
+            return;
+          }else {
+            this.disnode.service.SendMessage("There is nothing playing!", data.msg);
+          }
+        }
+      }
+      this.disnode.service.SendMessage("Try joinning a voice channel that the bot is in!", data.msg);
+    }else {
+      this.disnode.service.SendMessage("Try joinning a voice channel first!", data.msg);
+    }
+  }
+  cmdResume(data){
+    var self = this;
+    if(data.msg.type != "DiscordService"){
+      console.log("Command was ran on a non-Discord service!");
+      this.disnode.service.SendMessage("You can only use this command with Discord!", data.msg);
+      return;
+    }
+    var vc = data.msg.object.member.voiceChannel;
+    if(vc){
+      for (var i = 0; i < self.streams.length; i++) {
+        if(self.streams[i].chan == vc){
+          if(self.streams[i].dispatcher){
+            self.streams[i].dispatcher.resume();
+            this.disnode.service.SendMessage("Playback **RESUMED**!", data.msg);
+            return;
+          }else {
+            this.disnode.service.SendMessage("There is nothing playing!", data.msg);
+          }
+        }
+      }
+      this.disnode.service.SendMessage("Try joinning a voice channel that the bot is in!", data.msg);
+    }else {
+      this.disnode.service.SendMessage("Try joinning a voice channel first!", data.msg);
+    }
   }
   cmdJoinVoice(data){
     var self = this;
@@ -130,6 +192,9 @@ class MusicManager extends Manager {
       for (var i = 0; i < self.streams.length; i++) {
         if(self.streams[i].chan == vc){
           self.streams[i].queue.splice(0,1);
+          if(self.streams[i].queue.length == 0){
+            self.streams[i].dispatcher.end();
+          }
           self.streams[i].isPlaying = false;
           self.handleStream(i, data);
           this.disnode.service.SendMessage("Skipped!", data.msg);
