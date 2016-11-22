@@ -9,9 +9,14 @@ class KikService extends Service {
             user: "",
             auth: ""
         };
+
+        this.parseSettings = {
+          newLine: true,
+        }
     }
     Connect() {
         super.Connect();
+
         var self = this;
 
         ngrok.connect(4000, function (err, url) {
@@ -44,9 +49,11 @@ class KikService extends Service {
 
     }
     SendWhisper(user,msg,data){
+
       this.bot.send(Bot.Message.text(msg), user);
     }
     SendMessage(msg, data) {
+
       msg = msg.replace(/[*]/g, '');
       msg = msg.replace(/[_]/g, '');
       this.bot.send(Bot.Message.text(msg), data.channel,data.object.message.chatId);

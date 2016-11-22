@@ -7,6 +7,13 @@ class DiscordService extends Service {
         this.defaultConfig = {
             auth: "",
         };
+
+        this.parseSettings = {
+          newLine: true,
+          bold: "**",
+          italic: "*",
+          special: "`"
+        }
         this.client = new Discord.Client();
 
 

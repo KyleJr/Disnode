@@ -1,6 +1,6 @@
 const Service = require("../Service.js");
 const tmi = require("tmi.js");
-
+const Parser = require('../Parser.js');
 var MsgQue = [];
 
 
@@ -13,6 +13,9 @@ class TwitchService extends Service {
             channels: ["#victoryforphil"]
         };
 
+        this.parseSettings = {
+          newLine: false,
+        }
         this.client = {};
         var self = this;
         setInterval(function () {
@@ -125,21 +128,11 @@ class TwitchService extends Service {
     SendMessage(msg, data) {
       ///var re = new RegExp("/**", 'g');
 
-      msg = msg.replace(/[*]/g, ' ');
-      var newLines = getIndicesOf("\n", msg,false);
 
-      if(newLines.length == 0){
-        MsgQue.push({msg: msg, channel: data.channel});
-      }else{
-        var lastStart;
-        MsgQue.push({msg: msg.substring(0, newLines[0]), channel: data.channel});
-        for (var i = 0; i < newLines.length; i++) {
-          var startIndex = newLines[i];
-          var endIndex = newLines[i+1] || newLines[newLines.length-1];
-          MsgQue.push({msg: msg.substring(startIndex, endIndex), channel: data.channel});
+      msg = Parser.ParseString(msg);
+      console.log(msg);
 
-        }
-      }
+      
 
 
     }
@@ -158,20 +151,5 @@ class TwitchService extends Service {
 
 }
 
-function getIndicesOf(searchStr, str, caseSensitive) {
-    var searchStrLen = searchStr.length;
-    if (searchStrLen == 0) {
-        return [];
-    }
-    var startIndex = 0, index, indices = [];
-    if (!caseSensitive) {
-        str = str.toLowerCase();
-        searchStr = searchStr.toLowerCase();
-    }
-    while ((index = str.indexOf(searchStr, startIndex)) > -1) {
-        indices.push(index);
-        startIndex = index + searchStrLen;
-    }
-    return indices;
-}
+
 module.exports = TwitchService;

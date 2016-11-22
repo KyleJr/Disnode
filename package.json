@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/AtecStudios/Disnode#readme",
   "dependencies": {
+    "@kikinteractive/kik": "^2.0.12",
+    "async": "^2.1.2",
     "cah-cards": "^0.1.0",
+    "cities": "^1.1.2",
     "cleverbot-node": "^0.2.2",
     "colors": "^1.1.2",
     "discord.js": "^9.2.0",
@@ -25,6 +28,7 @@
     "jsonfile": "^2.3.1",
     "ngrok": "^2.2.2",
     "runman": "0.0.8",
+    "shortid": "^2.2.6",
     "socket.io-client": "^1.5.0",
     "tmi.js": "^1.1.1",
     "walk": "^2.3.9",
