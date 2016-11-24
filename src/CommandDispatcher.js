@@ -2,7 +2,7 @@ const EventEmitter = require('events');
 
 class CommandDispatcher extends EventEmitter{
   constructor(disnode){
-    super();
+    super(disnode);
     this.disnode = disnode;
     this.prefix = this.disnode.config.prefix || "!";
     this.commands = [];
