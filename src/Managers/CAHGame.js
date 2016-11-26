@@ -59,6 +59,7 @@ class cahGame extends Manager {
         this.GameFunction = this.GameFunction.bind(this);
         this.pickCard = this.pickCard.bind(this);
 
+        this.disnode.command.on("Command_cah", this.displayHelp);
         this.disnode.command.on("Command_cah_Start-Game", this.startGame)
         this.disnode.command.on("Command_cah_New-Game", this.newGame)
         this.disnode.command.on("Command_cah_Join-Game", this.joinGame)
@@ -76,6 +77,21 @@ class cahGame extends Manager {
         this.whiteCards =  require('cah-cards/answers');
 
     }
+
+    displayHelp(data){
+      var msg = "**Cards Against Humanity Manager**\n";
+      msg+= " ***Commands***: \n";
+      msg+= " `new` - *New Game*\n";
+      msg+= " `start` - *Start Game*\n";
+      msg+= " `join` - *Join Game*\n";
+      msg+= " `players` - *Gets Players in a game*\n";
+      msg+= " `hand` - *Sends Current Hand*\n";
+      msg+= " `pick` - *Pick a card to win*\n";
+      msg+= " `submit` - *Submit your card*\n";
+
+          this.disnode.service.SendMessage(msg, data.msg);
+    }
+
     joinGame(data){
       var self = this;
 

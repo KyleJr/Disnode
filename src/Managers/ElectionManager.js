@@ -1,5 +1,5 @@
 const Manager = require("../Manager.js");
-class ListManager extends Manager {
+class no extends Manager {
     constructor(pramas) {
         super(pramas);
         console.log("Loaded!");

@@ -48,6 +48,15 @@ class KikService extends Service {
         });
 
     }
+    Disconnect(){
+      console.log("[KikService] Killing NGROK");
+      ngrok.disconnect();
+      ngrok.kill();
+
+      console.log("[KikService] Killing HTTP Server");
+      this.server.close();
+      super.Disconnect();
+    }
     SendWhisper(user,msg,data){
 
       this.bot.send(Bot.Message.text(msg), user);

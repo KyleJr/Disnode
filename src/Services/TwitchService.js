@@ -18,7 +18,7 @@ class TwitchService extends Service {
         }
         this.client = {};
         var self = this;
-        setInterval(function () {
+        this.sendTimer = setInterval(function () {
           self.UpdateMessage()
 
         }, 2000);
@@ -104,7 +104,10 @@ class TwitchService extends Service {
         });
 
     }
-
+    Disconnect(){
+      clearInterval(this.sendTimer);
+      super.Disconnect();
+    }
 
     OnMessage(channel, message, user) {
         var self = this;
@@ -132,7 +135,7 @@ class TwitchService extends Service {
       msg = Parser.ParseString(msg);
       console.log(msg);
 
-      
+
 
 
     }

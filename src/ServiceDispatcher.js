@@ -80,10 +80,38 @@ class ServiceDispatcher extends EventEmitter {
       console.log('Connecting to all');
       for (var i = 0; i < this.services.length; i++) {
 
-        this.services[i].Connect();
+        if(this.services[i].connected == false){
+          this.services[i].Connect();
+        }
       }
     }
 
+    Connect(name){
+      var service =  this.GetService(name);
+      if(!service){
+        console.log("Cant find service: " + name);
+        return;
+      }
+      service.Connect();
+    }
+    DisconnectAll(){
+      for (var i = 0; i < this.services.length; i++) {
+        if(this.services[i].connected == true){
+          this.services[i].Connect();
+        }
+      }
+    }
+
+    Disconnect(name){
+
+      var service = this.GetService(name);
+      if(!service){
+        console.log("Cant find service: " + name);
+        return;
+      }
+      service.Disconnect();
+
+    }
     OnServiceConnected(service) {
       console.log(colors.grey("[Service-"+service.name+"]" ) + " Connected!".green);
         this.emit("Service_OnConnected", service);

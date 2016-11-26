@@ -60,7 +60,10 @@ class DiscordService extends Service {
         });
 
     }
-
+    Disconnect() {
+      this.client.destroy();
+      super.Disconnect();
+    }
     OnConnected() {
         super.OnConnected();
         var self = this;

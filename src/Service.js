@@ -9,6 +9,7 @@ class Service extends EventEmitter{
     self.disnode = pramas.disnode;
     self.dispatcher = pramas.dispatcher;
     self.defaultConfig = {};
+    self.connected = false;
 
     if (self.disnode.config.services) {
       console.log(colors.grey("[Service-"+self.name+"]" ) + " Loaded!".green);
@@ -19,7 +20,15 @@ class Service extends EventEmitter{
 
   Connect(){
     console.log(colors.grey("[Service-"+this.name+"]" ) + " Connecting!".cyan);
+    this.connected = true;
   }
+
+  Disconnect(){
+    console.log(colors.grey("[Manager-"+this.name+"]" ) + " Disconnect!".yellow);
+    this.connected = false;
+  }
+
+
 }
 
 module.exports = Service;

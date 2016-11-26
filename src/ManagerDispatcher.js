@@ -74,5 +74,16 @@ class ManagerDispatcher extends EventEmitter {
         }
         return found;
     }
+
+    GetManagerByPrefix(prefix) {
+        var found;
+        for (var i = 0; i < this.managers.length; i++) {
+            console.log(this.managers[i].config.prefix);
+            if (this.managers[i].config.prefix == prefix) {
+                found = this.managers[i].config;
+            }
+        }
+        return found;
+    }
 }
 module.exports = ManagerDispatcher;

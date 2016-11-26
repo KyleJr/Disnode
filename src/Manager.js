@@ -17,9 +17,7 @@ class Manager extends EventEmitter{
 
   }
 
-  Connect(){
-    console.log(colors.grey("[Manager-"+this.name+"]" ) + " Connecting!".cyan);
-  }
+
 
 }
 

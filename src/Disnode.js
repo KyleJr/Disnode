@@ -11,7 +11,7 @@ const CommandDispatcher = require("./CommandDispatcher.js");
 const ManagerDispatcher = require("./ManagerDispatcher.js");
 const ShortcutParser = require("./ShortcutParser.js");
 const async = require('async');
-const Test = require("./Managers/CAHGame.js");
+const Test = require("./Managers/ListManager.js");
 class Disnode extends EventEmitter {
     constructor(configPath) {
         super();
@@ -161,8 +161,9 @@ class Disnode extends EventEmitter {
             // Normal error handling
             console.log(colors.red("Oh no! looks like there was an error, we are sorry if this happened to you, please post the details of the error (which is below this message) on our issues page\nHere: https://github.com/AtecStudios/Disnode/issues\n Thanks for understanding that disnode is constantly under development. and things may change\n\n"));
             console.log(colors.red(err.stack));
-            var discord = this.service.GetService("DiscordService");
-            discord.client.destroy();
+            for (var i = 0; i < this.service.services.length; i++) {
+              this.service.services[i]
+            }
         }
     }
 }

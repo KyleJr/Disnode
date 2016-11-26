@@ -11,6 +11,7 @@ var OnLoad = function(){
   testBot.manager.AddManager("MusicManager","MusicManager");
   testBot.manager.AddManager("ListManager","ListManager");
   testBot.manager.AddManager("CAHGame", "CAHGame");
+  testBot.manager.AddManager("DisnodeManager", "DisnodeManager");
   testBot.command.on("RawCommand_dc",function(commandData){
     var discord = testBot.service.GetService("DiscordService");
     testBot.service.SendMessage("Disconnecting!",commandData.msg);
