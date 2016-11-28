@@ -113,7 +113,7 @@ class CommandDispatcher extends EventEmitter{
       firstWord = msg.substring(prefixLength);
     }
 
-    var prefix;
+    var prefix = null;
     if(self.GetManagerPrefix(firstWord)){
       command = secondWord;
       prefix = firstWord;
@@ -133,7 +133,7 @@ class CommandDispatcher extends EventEmitter{
 
       var returnObj = {};
       returnObj.params = GetParams(msg);
-      returnObj.params.splice(0,1);
+      if(prefix != null)returnObj.params.splice(0,1);
       returnObj.command = cmbObject;
       returnObj.msg = msgObj;
       console.log("FOUND!");
