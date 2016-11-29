@@ -23,6 +23,7 @@ class CommandDispatcher extends EventEmitter{
       self.disnode.service.on("Service_OnMention", function(msgObject){
 
         if(self.disnode.config.mention){
+
           self.ParseMessage(msgObject, false);
         }
       });
@@ -77,7 +78,7 @@ class CommandDispatcher extends EventEmitter{
     var self = this;
     var msg = msgObj.msg;
     var firstLetter = msg.substring(0,1);
-
+    console.log("Parsing: " + msg);
     if(fullCommand && firstLetter != self.prefix){
       return;
     }

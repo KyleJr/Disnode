@@ -6,14 +6,14 @@ var OnLoad = function(){
   testBot.startBot();
   //testBot.service.AddService("TwitchService", "TwitchService");
   testBot.service.AddService("DiscordService", "DiscordService")
-  //testBot.service.AddService("KikService", "KikService");
+  testBot.service.AddService("KikService", "KikService");
   testBot.manager.AddManager("WeatherManager", "WeatherManager");
   testBot.manager.AddManager("CustomCommands", "CustomCommands");
   testBot.manager.AddManager("MusicManager","MusicManager");
   testBot.manager.AddManager("ListManager","ListManager");
   testBot.manager.AddManager("CAHGame", "CAHGame");
   testBot.manager.AddManager("DisnodeManager", "DisnodeManager");
-
+  testBot.manager.AddManager("TranslateManager", "TranslateManager");
   testBot.command.on("RawCommand_dc",function(commandData){
     var discord = testBot.service.GetService("DiscordService");
     testBot.service.SendMessage("Disconnecting!",commandData.msg);
