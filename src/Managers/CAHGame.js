@@ -81,13 +81,14 @@ class cahGame extends Manager {
     displayHelp(data){
       var msg = "**Cards Against Humanity Manager**\n";
       msg+= " ***Commands***: \n";
-      msg+= " `new` - *New Game*\n";
-      msg+= " `start` - *Start Game*\n";
-      msg+= " `join` - *Join Game*\n";
-      msg+= " `players` - *Gets Players in a game*\n";
-      msg+= " `hand` - *Sends Current Hand*\n";
-      msg+= " `pick` - *Pick a card to win*\n";
-      msg+= " `submit` - *Submit your card*\n";
+      msg+= " `cah new` - *New Game*\n";
+      msg+= " `cah start` - *Start Game*\n";
+      msg+= " `cah join` - *Join Game*\n";
+      msg+= " `cah leave` - *Leave Game*\n";
+      msg+= " `cah players` - *Gets Players in a game*\n";
+      msg+= " `cah hand` - *Sends Current Hand*\n";
+      msg+= " `cah pick` - *Pick a card to win*\n";
+      msg+= " `cah submit` - *Submit your card*\n";
 
           this.disnode.service.SendMessage(msg, data.msg);
     }
@@ -100,14 +101,30 @@ class cahGame extends Manager {
         name:  data.msg.username,
         id: data.msg.userId,
         sender: data.msg.sender,
-        service: service
+        service: service,
+        points: 0
       }
 
       var code = "";
 
       if(this.GetPlayerByID(data.msg.userId)){
-        this.disnode.service.SendMessage(" **Already joined! Please** `"+this.disnode.command.prefix + data.command.command + "`", data.msg);
-        return;
+        for(var a = 0; a < self.players.length; a++){
+          if(self.players[a].id == data.msg.userId){
+            for(var b = 0; b < self.games.length; b++){
+              for(var c = 0; c < self.games[b].players.length; c++){
+                if(self.games[b].players[c].id == data.msg.userId){
+                  this.disnode.service.SendMessage(" **Already joined! Please** `"+this.disnode.command.prefix + "cah leave `", data.msg);
+                  return;
+                }
+              }
+            }
+            this.disnode.service.SendMessage(" **I detected you were in a game, however it dosn't exist anymore... ill remove you from my data, please try joining again** `"+this.disnode.command.prefix + "cah join [code] `", data.msg);
+            self.players.splice(a,1);
+            if(self.players[a].id != data.msg.userId){
+              this.disnode.service.SendMessage("Removed!", data.msg);
+            }
+          }
+        }
       }
       if(data.params[0]){
         code = data.params[0];
@@ -150,7 +167,6 @@ class cahGame extends Manager {
         var msg = "**Current player in [`"+player.currentGame+"`]: **\n";
         for (var i = 0; i < game.players.length; i++) {
           var curPlayer = game.players[i];
-          console.log(msg);
           msg += " - **" + curPlayer.name + "** from *" + curPlayer.service + '*\n';
 
         }
@@ -175,8 +191,8 @@ class cahGame extends Manager {
         CzarOrderCount: 0
       };
       this.games.push(newGame);
-      console.log(this.games);
       this.disnode.service.SendMessage("**New Game!** Code: `" + id + '`', data.msg);
+      this.joinGame(data);
     }
     startGame(data){
       var self = this;
@@ -219,7 +235,6 @@ class cahGame extends Manager {
     }
     LeaveGame(data){
       var self = this;
-      console.log("leaving");
       var player = self.GetPlayerByID(data.msg.userId);
       if(player && player.currentGame ){
         var game = self.GetGameByCode(player.currentGame);
@@ -295,15 +310,16 @@ class cahGame extends Manager {
           return;
         }
         if(data.params[0]){
-          if(data.params[0] >= 0 && data.params[0] < 10){
+          if(data.params[0] >= 1 && data.params[0] < 11){
               var index = data.params[0];
+              index--;
               var submitCard = player.cards[index];
               submitCard.player = player;
               game.currentWhiteCards.push(submitCard);
               player.cards.splice(index,1);
               self.disnode.service.SendWhisper(player.sender, "**You submitted:** `" + submitCard.text + '`', {type: player.service});
           }else{
-            this.disnode.service.SendMessage("**Invalid card index! must be (0-9) get your cards by typing  **`"+this.disnode.command.prefix + "get`", data.msg);
+            this.disnode.service.SendMessage("**Invalid card index! must be (1-10) get your cards by typing  **`"+this.disnode.command.prefix + "get`", data.msg);
           }
         }else{
           this.disnode.service.SendMessage("**Please enter a card index! get your cards by typing:** `"+this.disnode.command.prefix + "get`", data.msg);
@@ -371,20 +387,25 @@ class cahGame extends Manager {
         }
 
         game.currentBlackCard = self.drawBlackCard();
-        this.disnode.service.SendMessage("**Current Card Czar: **`" + game.currentCardCzar.name + "` \n**Current Black Card:**__ " + game.currentBlackCard.text, game.origchat);
+        this.disnode.service.SendMessage("**Current Card Czar: **`" + game.currentCardCzar.name + "` \n**Current Black Card:** " + game.currentBlackCard.text, game.origchat);
         game.stage = 1;
+        self.sendMsgToAllPlayers(game, "**Current Black Card:** " + game.currentBlackCard.text)
         self.sendMsgToAllPlayers(game, "**Now you must submit one of your cards to respond with the black question card to submit use `!cah submit [index]` - where index is the card number next to your card (unless your the Card Czar where you can relax for this part.)**");
       }
       if (game.stage == 1){
         //Allow player to submit a white card for the black card move on to stage 2
         if(game.currentWhiteCards.length < (game.players.length - 1)){
-          this.disnode.service.SendMessage("**Submitted Cards: `" + game.currentWhiteCards.length + "/" + (game.players.length - 1) + "`", game.origchat);
+          this.disnode.service.SendMessage("**Submitted Cards: **`" + game.currentWhiteCards.length + "/" + (game.players.length - 1) + "`", game.origchat);
         }else{
           this.disnode.service.SendMessage("**All cards have been Submitted**", game.origchat);
-          this.disnode.service.SendMessage("**Current Black Card: **__" + game.currentBlackCard.text + " __\n**Now the Card Czar must `!cah pick [index]` to pick what white card he/she likes the most. The cards are:**", game.origchat);
+          this.disnode.service.SendMessage("**Current Black Card: **" + game.currentBlackCard.text + "**\n**Now the Card Czar must `!cah pick [index]` to pick what white card he/she likes the most. The cards are:**", game.origchat);
           var msg = " ";
           for(var i = 0; i < game.currentWhiteCards.length; i++){
-            msg += "** [" + i + "** - __" + game.currentWhiteCards[i].text + "]__\n";
+            if(i == (game.currentWhiteCards.length - 1)){
+              msg += "╚[ " + i + " ] - " + game.currentWhiteCards[i].text + "\n";
+            }else{
+              msg += "╠[ " + i + " ] - " + game.currentWhiteCards[i].text + "\n";
+            }
           }
           this.disnode.service.SendMessage(msg, game.origchat);
         }
@@ -394,7 +415,7 @@ class cahGame extends Manager {
         this.disnode.service.SendMessage("**Current Standings: **", game.origchat);
         msg = " ";
         for(var i = 0; i < game.players.length; i++){
-          msg += "**[" + game.players[i].name + "]** Points: __" + game.players[i].points + "__ \n";
+          msg += "**[" + game.players[i].name + "]** Points: " + game.players[i].points + " \n";
         }
         this.disnode.service.SendMessage(msg, game.origchat);
         game.stage = 3;
@@ -444,12 +465,15 @@ class cahGame extends Manager {
         var player = players[x];
         player.cards = [];
         self.disnode.service.SendWhisper(player.sender, "**Your Deck is: **", {type: player.service});
-        var msg = " ";
+        var msg = "";
         for (var i = 0; i < 10; i++) {
           var cardToAdd = self.drawWhiteCard(player);
-          msg += " **[" + i + "** - __" + cardToAdd.text + "]__\n";
+          if(i == 9){
+            msg += "╚[ " + (i+1) + " ] - " + cardToAdd.text + "\n";
+          }else{
+            msg += "╠[ " + (i+1) + " ] - " + cardToAdd.text + "\n";
+          }
         }
-        console.log('sending: ' + player.name );
         player.points = 0;
         self.disnode.service.SendWhisper(player.sender, msg, {type: player.service});
         self.disnode.service.SendWhisper(player.sender, "**Please wait for the next stage of the game.**", {type: player.service});
@@ -477,7 +501,11 @@ class cahGame extends Manager {
       var msg = " ";
       for (var i = 0; i < 10; i++) {
         var card = player.cards[i];
-        msg += " **[" + i + "** - __" + card.text + "]__\n";
+        if(i == 9){
+          msg += "╚**[" + (i+1) + "** - " + card.text + "]\n";
+        }else{
+          msg += "╠**[" + (i+1) + "** - " + card.text + "]\n";
+        }
       }
       self.disnode.service.SendWhisper(player.sender, msg, {type: player.service});
     }
