@@ -108,23 +108,8 @@ class cahGame extends Manager {
       var code = "";
 
       if(this.GetPlayerByID(data.msg.userId)){
-        for(var a = 0; a < self.players.length; a++){
-          if(self.players[a].id == data.msg.userId){
-            for(var b = 0; b < self.games.length; b++){
-              for(var c = 0; c < self.games[b].players.length; c++){
-                if(self.games[b].players[c].id == data.msg.userId){
-                  this.disnode.service.SendMessage(" **Already joined! Please** `"+this.disnode.command.prefix + "cah leave `", data.msg);
-                  return;
-                }
-              }
-            }
-            this.disnode.service.SendMessage(" **I detected you were in a game, however it dosn't exist anymore... ill remove you from my data, please try joining again** `"+this.disnode.command.prefix + "cah join [code] `", data.msg);
-            self.players.splice(a,1);
-            if(self.players[a].id != data.msg.userId){
-              this.disnode.service.SendMessage("Removed!", data.msg);
-            }
-          }
-        }
+        this.disnode.service.SendMessage(" **Already joined! Please** `"+this.disnode.command.prefix + "cah leave `", data.msg);
+        return;
       }
       if(data.params[0]){
         code = data.params[0];
@@ -192,6 +177,7 @@ class cahGame extends Manager {
       };
       this.games.push(newGame);
       this.disnode.service.SendMessage("**New Game!** Code: `" + id + '`', data.msg);
+      data.params[0] = id;
       this.joinGame(data);
     }
     startGame(data){
@@ -241,10 +227,29 @@ class cahGame extends Manager {
         if(!game){
           return;
         }
-        for(var x = 0; x < game.currentWhiteCards.length; x++){
-          if(game.currentWhiteCards[x].player.id == player.id){
-            game.currentWhiteCards.splice(x,1);
+        if(game.hasStarted){
+          for(var x = 0; x < game.currentWhiteCards.length; x++){
+            if(game.currentWhiteCards[x].player.id == player.id){
+              game.currentWhiteCards.splice(x,1);
+            }
           }
+          if(game.currentCardCzar.id == player.id){
+            if(game.CzarOrderCount < game.players.length){
+              game.currentCardCzar = game.players[game.CzarOrderCount];
+              game.CzarOrderCount++;
+            }else{
+              game.CzarOrderCount = 0;
+              game.currentCardCzar = game.players[game.CzarOrderCount];
+              game.CzarOrderCount++;
+            }
+            for(var x = 0; x < game.currentWhiteCards.length; x++){
+              if(game.currentWhiteCards[x].player.id == currentCardCzar.id){
+                game.currentWhiteCards.splice(x,1);
+              }
+            }
+            this.disnode.service.SendMessage("**The current Card Czar has left so we are picking a new one!**\n**Current Card Czar: **`" + game.currentCardCzar.name, game.origchat);
+          }
+          this.GameFunction();
         }
         for(var i = 0; i < game.players.length; i++){
           if(player.id == game.players[i].id){
@@ -442,13 +447,17 @@ class cahGame extends Manager {
       if(!game){
         return;
       }
-      for(var i = 0; i < game.players.length; i++){
-        for(var x = 0; x < self.players.length; x++){
-          if(game.players[i].id == self.players[x].id){
-            self.players.splice(i, 1); //Update Players in Game
+      var gameplayers = game.players.length;
+      for(var i = 0; i < gameplayers; i++){
+        var managerPlayers = self.players.length;
+        var currentPlayer = game.players[0];
+        for(var x = 0; x < managerPlayers; x++){
+          if(self.players[x].id == currentPlayer.id){
+            self.players.splice(x,1);
+            break;
           }
         }
-        game.players.splice(i,1);
+        game.players.splice(0,1);
       }
       for(var i = 0; i < self.games.length; i++){
         if(game.id == self.games[i].id){
@@ -499,7 +508,7 @@ class cahGame extends Manager {
     getHand(player){
       var self = this;
       var msg = " ";
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < player.cards.length; i++) {
         var card = player.cards[i];
         if(i == 9){
           msg += "╚**[" + (i+1) + "** - " + card.text + "]\n";
