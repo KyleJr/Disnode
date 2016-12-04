@@ -7,8 +7,7 @@ var OnLoad = function(){
   testBot.service.AddService("DiscordService", "DiscordService")
   testBot.manager.AddManager("ListManager","ListManager");
   testBot.manager.AddManager("CAHGame", "CAHGame");
-
-testBot.manager.AddManager("DisnodeManager", "DisnodeManager");
+  testBot.manager.AddManager("DisnodeManager", "DisnodeManager");
   testBot.service.ConnectAll();
 }
 

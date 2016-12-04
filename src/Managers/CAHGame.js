@@ -52,6 +52,10 @@ class cahGame extends Manager {
             {
               command: "points",
               event: "Points"
+            },
+            {
+              command: "devmsg",
+              event: "debug-devmsg"
             }
           ],
         };
@@ -73,6 +77,7 @@ class cahGame extends Manager {
         this.debugGame = this.debugGame.bind(this);
         this.joinInProgress = this.joinInProgress.bind(this);
         this.points = this.points.bind(this);
+        this.debugdevmsg = this.debugdevmsg.bind(this);
 
         this.disnode.command.on("Command_cah", this.displayHelp);
         this.disnode.command.on("Command_cah_Start-Game", this.startGame)
@@ -86,6 +91,7 @@ class cahGame extends Manager {
         this.disnode.command.on("Command_cah_Points", this.points);
         this.disnode.command.on("Command_cah_join-in-progress", this.joinInProgress);
         this.disnode.command.on("Command_cah_debug-games", this.debugGame);
+        this.disnode.command.on("Command_cah_debug-devmsg", this.debugdevmsg);
 
 
         this.games = [];
@@ -95,7 +101,14 @@ class cahGame extends Manager {
         this.whiteCards =  require('cah-cards/answers');
 
     }
-
+    debugdevmsg(data){
+      if((data.msg.userId != 112786170655600640) && (data.msg.userId != 131235236402036736))return;
+      if(!data.params[0])return;
+      for(var i = 0; i < this.games.length; i++){
+        this.disnode.service.SendMessage(data.params[0], this.games[i].origchat);
+      }
+      this.disnode.service.SendMessage("**MSG SENT: **" + data.params[0], data.msg);
+    }
     debugGame(data){
       console.log("[CAD] Games: " + this.games.length + ".Players: " + this.players.length);
       this.disnode.service.SendMessage("**Games:** `" + this.games.length + "`. **Players:** `" + this.players.length + "`", data.msg);
@@ -255,6 +268,7 @@ class cahGame extends Manager {
         pointsToWin: 10,
         allowJoinInProgress: true,
         stage: 0,
+        origchat: data.msg,
         currentBlackCard: {},
         currentWhiteCards: [],
         currentCardCzar: {},
