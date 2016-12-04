@@ -23,7 +23,6 @@ class CommandDispatcher extends EventEmitter{
       self.disnode.service.on("Service_OnMention", function(msgObject){
 
         if(self.disnode.config.mention){
-
           self.ParseMessage(msgObject, false);
         }
       });
@@ -78,7 +77,7 @@ class CommandDispatcher extends EventEmitter{
     var self = this;
     var msg = msgObj.msg;
     var firstLetter = msg.substring(0,1);
-    console.log("Parsing: " + msg);
+
     if(fullCommand && firstLetter != self.prefix){
       return;
     }
@@ -109,23 +108,20 @@ class CommandDispatcher extends EventEmitter{
           secondWord = msg.substring(firstSpace + 1);
       }
 
-      console.log(firstWord + " + " + secondWord);
     }else{
       firstWord = msg.substring(prefixLength);
     }
 
-    var prefix = null;
+    var prefix;
     if(self.GetManagerPrefix(firstWord)){
       command = secondWord;
       prefix = firstWord;
-      console.log("PREFIX!");
     }else{
       command = firstWord;
     }
 
 
     command = command.toLowerCase();
-    console.log(command);
 
 
 
@@ -134,10 +130,9 @@ class CommandDispatcher extends EventEmitter{
 
       var returnObj = {};
       returnObj.params = GetParams(msg);
-      if(prefix != null)returnObj.params.splice(0,1);
+      returnObj.params.splice(0,1);
       returnObj.command = cmbObject;
-      returnObj.msg = msgObj;
-      console.log("FOUND!");
+      returnObj.msg = msgObj;;
       if(cmbObject.response){
         if(self.disnode.service){
           self.disnode.service.SendMessage(cmbObject.response,msgObj);
@@ -145,10 +140,10 @@ class CommandDispatcher extends EventEmitter{
       }
       if(prefix){
         self.emit("Command_"+prefix+"_"+cmbObject.event, returnObj);
-        console.log("Emitting: " + "Command_"+prefix+"_"+cmbObject.event);
+        //console.log("Emitting: " + "Command_"+prefix+"_"+cmbObject.event);
       }else{
         self.emit("Command_"+cmbObject.event, returnObj);
-          console.log("Emitting (No Prefix): " + "Command_"+cmbObject.event);
+          //console.log("Emitting (No Prefix): " + "Command_"+cmbObject.event);
       }
     }else{
       var returnObj = {};
@@ -157,10 +152,10 @@ class CommandDispatcher extends EventEmitter{
       returnObj.msg = msgObj;
       if(prefix){
         self.emit("Command_"+prefix, returnObj);
-        console.log("Emitting (No Command): " + "Command_"+prefix);
+        //console.log("Emitting (No Command): " + "Command_"+prefix);
       }else{
         self.emit("RawCommand_"+command, returnObj);
-        console.log("Emitting: " + "RawCommand_"+command);
+        //console.log("Emitting: " + "RawCommand_"+command);
       }
 
     }
@@ -217,8 +212,6 @@ function GetParams(raw){
            EndSpace = EndQuote;
            param = raw.substring(BeginSpace + 1, EndSpace);
 
-
-           console.log(" ");
          }
        }
 

@@ -36,11 +36,12 @@ class WeatherManager extends Manager {
 
       forecast.get([city.latitude, city.longitude], function(err, weather) {
           if (err) return console.dir(err);
-          var tempF = weather.currently.temperature + "° f";
+          var tempC = weather.currently.temperature.toFixed(2) + "° c";
+          var tempF = ((weather.currently.temperature*1.8 ) + 32).toFixed(2) + "° f";
 
           self.disnode.service.SendMessage("Weather for **_"+city.city + ", "+ city.state+"_**: \n"
             + "**Condition:** *" + weather.currently.summary +"*\n"
-            + "**Temp:** *" + tempF +"*\n"
+            + "**Temp:** *" + tempF + " ["+tempC+"]" +"*\n"
             + "**Wind:** *" + weather.currently.windSpeed +"*\n", data.msg);
       });
 

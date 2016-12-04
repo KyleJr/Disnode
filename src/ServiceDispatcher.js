@@ -71,11 +71,6 @@ class ServiceDispatcher extends EventEmitter {
       this.GetService(data.type).SendMessage(msg, data);
     }
 
-    SendEmbed(msg, data){
-      this.GetService(data.type).SendEmbed(msg, data);
-    }
-
-
     SendWhisper(user, msg, data){
       this.GetService(data.type).SendWhisper(user, msg, data);
     }
@@ -127,7 +122,6 @@ class ServiceDispatcher extends EventEmitter {
     }
 
     OnMessage(msgObj) {
-
         this.emit("Service_OnMessage", msgObj);
     }
 

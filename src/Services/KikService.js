@@ -41,10 +41,8 @@ class KikService extends Service {
                 },
                 type: "KikService"
             };
-            console.log("msggg");
             self.dispatcher.OnMessage(convertedPacket);
             self.dispatcher.OnWhisper(convertedPacket);
-
           });
 
         });
