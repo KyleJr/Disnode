@@ -47,7 +47,11 @@ class cahGame extends Manager {
             },
             {
               command: "join-in-progress",
-              event: "oin-in-progress"
+              event: "join-in-progress"
+            },
+            {
+              command: "points",
+              event: "Points"
             }
           ],
         };
@@ -67,6 +71,8 @@ class cahGame extends Manager {
         this.GameFunction = this.GameFunction.bind(this);
         this.pickCard = this.pickCard.bind(this);
         this.debugGame = this.debugGame.bind(this);
+        this.joinInProgress = this.joinInProgress.bind(this);
+        this.points = this.points.bind(this);
 
         this.disnode.command.on("Command_cah", this.displayHelp);
         this.disnode.command.on("Command_cah_Start-Game", this.startGame)
@@ -107,11 +113,11 @@ class cahGame extends Manager {
           this.disnode.service.SendMessage("***You are not host!***", data.msg);
           return;
         }
-        if(game.joinInProgress){
-          game.joinInProgress = false;
+        if(game.allowJoinInProgress){
+          game.allowJoinInProgress = false;
           this.disnode.service.SendMessage("**Join in Progress:** `DISABLED`", data.msg);
         }else{
-          game.joinInProgress = true;
+          game.allowJoinInProgress = true;
           this.disnode.service.SendMessage("**Join in Progress:** `ENABLED`", data.msg);
         }
       }
@@ -135,7 +141,7 @@ class cahGame extends Manager {
           return;
         }
         if(data.params[0]){
-          points = data.params[0];
+          var points = data.params[0];
           if(points >= 5 && points <= 20){
             game.pointsToWin = points;
             this.disnode.service.SendMessage("***Point value set to:*** `" + points + "`***!***", data.msg);
@@ -197,7 +203,7 @@ class cahGame extends Manager {
         this.disnode.service.SendMessage("**No Game with code**: `" + code +'`', data.msg);
         return;
       }
-      if(foundGame.hasStarted && !foundGame.joinInProgress){
+      if(foundGame.hasStarted && !foundGame.allowJoinInProgress){
         this.disnode.service.SendMessage("**This game doesn't allow join in progress!**", data.msg);
         return;
       }
@@ -279,7 +285,7 @@ class cahGame extends Manager {
         }
         if(game.players.length >= 3){
           self.sendMsgToAllPlayers(game, "**Starting...**");
-          console.log("[CAD] Game Started : " + id);
+          console.log("[CAD] Game Started : " + game.id);
           game.hasStarted = true;
           game.origchat = data.msg;
           self.DealCards(game);
