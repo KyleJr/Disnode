@@ -95,11 +95,58 @@ class cahGame extends Manager {
       this.disnode.service.SendMessage("**Games:** `" + this.games.length + "`. **Players:** `" + this.players.length + "`", data.msg);
     }
     joinInProgress(data){
+      var self = this;
+      var player = self.GetPlayerByID(data.msg.userId);
 
+      if(player && player.currentGame ){
+        var game = self.GetGameByCode(player.currentGame);
+        if(!game){
+          return;
+        }
+        if(game.host != player.id){
+          this.disnode.service.SendMessage("***You are not host!***", data.msg);
+          return;
+        }
+        if(game.joinInProgress){
+          game.joinInProgress = false;
+          this.disnode.service.SendMessage("**Join in Progress:** `DISABLED`", data.msg);
+        }else{
+          game.joinInProgress = true;
+          this.disnode.service.SendMessage("**Join in Progress:** `ENABLED`", data.msg);
+        }
+      }
     }
 
     points(data){
+      var self = this;
+      var player = self.GetPlayerByID(data.msg.userId);
 
+      if(player && player.currentGame ){
+        var game = self.GetGameByCode(player.currentGame);
+        if(!game){
+          return;
+        }
+        if(game.host != player.id){
+          this.disnode.service.SendMessage("***You are not host!***", data.msg);
+          return;
+        }
+        if(game.hasStarted){
+          this.disnode.service.SendMessage("***You cant change the point value while in game!***", data.msg);
+          return;
+        }
+        if(data.params[0]){
+          points = data.params[0];
+          if(points >= 5 && points <= 20){
+            game.pointsToWin = points;
+            this.disnode.service.SendMessage("***Point value set to:*** `" + points + "`***!***", data.msg);
+            return;
+          }else {
+            this.disnode.service.SendMessage("***Point value out of range! Must be between*** `5` and `20`", data.msg);
+          }
+        }else{
+          this.disnode.service.SendMessage("***Please enter a point value!***", data.msg);
+        }
+      }
     }
     displayHelp(data){
       var msg = "**Cards Against Humanity Manager**\n";
@@ -112,6 +159,8 @@ class cahGame extends Manager {
       msg+= " `cah hand` - *Sends Current Hand*\n";
       msg+= " `cah pick` - *Pick a card to win*\n";
       msg+= " `cah submit` - *Submit your card*\n";
+      msg+= " `cah points` - *Change the points to win (host only)*\n";
+      msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress*\n";
 
           this.disnode.service.SendMessage(msg, data.msg);
     }
@@ -147,7 +196,10 @@ class cahGame extends Manager {
         this.disnode.service.SendMessage("**No Game with code**: `" + code +'`', data.msg);
         return;
       }
-
+      if(foundGame.hasStarted && !foundGame.joinInProgress){
+        this.disnode.service.SendMessage("**This game doesn't allow join in progress!**", data.msg);
+        return;
+      }
       newPlayer.currentGame = code;
       self.players.push(newPlayer);      //Update All Players
       foundGame.players.push(newPlayer); //Update Players in Game
@@ -193,6 +245,7 @@ class cahGame extends Manager {
         hostName: data.msg.username,
         players: [],
         hasStarted: false,
+        pointsToWin: 10,
         allowJoinInProgress: true,
         stage: 0,
         currentBlackCard: {},
@@ -295,6 +348,7 @@ class cahGame extends Manager {
           self.sendMsgToAllPlayers(game,"**There are less than 3 players in the game so the game has ended!**");
           self.endGame(game);
         }
+
         self.disnode.service.SendWhisper(player.sender, "**You left the game!**", {type: player.service});
       }
     }
@@ -454,7 +508,7 @@ class cahGame extends Manager {
       if (game.stage == 3){
         //(check if there is a winner if no winner then draw up to ten cards and go back to stage 0)
         for(var i = 0; i < game.players.length; i++){
-          if(game.players[i].points >= 10){
+          if(game.players[i].points >= game.pointsToWin){
             this.disnode.service.SendMessage("**A player has Won! Winner: **`" + game.players[i].name + '`', game.origchat);
             self.endGame(game);
             return;
