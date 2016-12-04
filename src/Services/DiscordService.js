@@ -74,6 +74,11 @@ class DiscordService extends Service {
       data.channel.sendMessage(msg);
     }
 
+    SendEmbed(embed, data){
+      data.channel.sendMessage("",{embed:embed}).then(message => console.log(`Sent message: ${message.content}`))
+ .catch(console.error);
+    }
+
     SendWhisper(user, msg,data){
       user.sendMessage(msg);
     }
