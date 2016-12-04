@@ -112,7 +112,7 @@ class cahGame extends Manager {
       msg+= " `cah hand` - *Sends Current Hand*\n";
       msg+= " `cah pick` - *Pick a card to win*\n";
       msg+= " `cah submit` - *Submit your card*\n";
-
+      msg+= "**Join the Disnode Server for Support:** https://discord.gg/gxQ7nbQ";
           this.disnode.service.SendMessage(msg, data.msg);
     }
 
