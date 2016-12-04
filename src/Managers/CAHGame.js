@@ -162,6 +162,7 @@ class cahGame extends Manager {
       msg+= " `cah points` - *Change the points to win (host only)*\n";
       msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress*\n";
 
+      msg+= "**Join the Disnode Server for Support:** https://discord.gg/gxQ7nbQ";
           this.disnode.service.SendMessage(msg, data.msg);
     }
 
