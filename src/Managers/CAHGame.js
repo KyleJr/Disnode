@@ -231,6 +231,7 @@ class cahGame extends Manager {
         }
         self.getHand(player);
       }
+      this.updateGameTimer(foundGame);
       this.disnode.service.SendMessage("`" + newPlayer.name + "` **joined! There are: ** `" +foundGame.players.length+"` **players in!**", data.msg);
       console.log("[CAD] Player ("+newPlayer.name+") joined game: " + code);
       self.disnode.service.SendWhisper(newPlayer.sender, "**Welcome ** `" + newPlayer.name +"`!", {type: newPlayer.service});
@@ -251,6 +252,7 @@ class cahGame extends Manager {
           msg += " - **" + curPlayer.name + "** from *" + curPlayer.service + '*\n';
 
         }
+        this.updateGameTimer(game);
         this.disnode.service.SendMessage(msg, data.msg);
       }
 
@@ -272,8 +274,10 @@ class cahGame extends Manager {
         currentBlackCard: {},
         currentWhiteCards: [],
         currentCardCzar: {},
-        CzarOrderCount: 0
+        CzarOrderCount: 0,
+        timer: {}
       };
+      this.updateGameTimer(newGame);
       this.games.push(newGame);
       this.disnode.service.SendMessage("**New Game!** Code: `" + id + '`', data.msg);
       console.log("[CAD] New Game by ("+newGame.hostName+") : " + id);
@@ -302,6 +306,7 @@ class cahGame extends Manager {
           console.log("[CAD] Game Started : " + game.id);
           game.hasStarted = true;
           game.origchat = data.msg;
+          this.updateGameTimer(game)
           self.DealCards(game);
         }else{
           this.disnode.service.SendMessage("**cah requires at least 3 players!** Current: `" + game.players.length + '`', data.msg);
@@ -369,7 +374,7 @@ class cahGame extends Manager {
           self.sendMsgToAllPlayers(game,"**There are less than 3 players in the game so the game has ended!**");
           self.endGame(game);
         }
-
+        this.updateGameTimer(game);
         self.disnode.service.SendWhisper(player.sender, "**You left the game!**", {type: player.service});
       }
     }
@@ -431,6 +436,7 @@ class cahGame extends Manager {
           this.disnode.service.SendMessage("**Please enter a card index! get your cards by typing:** `"+this.disnode.command.prefix + "get`", data.msg);
           return;
         }
+        this.updateGameTimer(game);
         self.GameFunction(game);
       }
     }
@@ -461,6 +467,7 @@ class cahGame extends Manager {
                   break;
                 }
               }
+              this.updateGameTimer(game);
               this.disnode.service.SendMessage("**Card has been picked! Card: `" + pickCard.text + "` **Submitted by:** `" + pickCard.player.name + '`', game.origchat);
               game.currentWhiteCards = [];
               game.stage = 2;
@@ -548,6 +555,7 @@ class cahGame extends Manager {
       if(!game){
         return;
       }
+      console.log("[CAD] Game: " + game.id + " Has Ended!");
       var gameplayers = game.players.length;
       for(var i = 0; i < gameplayers; i++){
         var managerPlayers = self.players.length;
@@ -560,6 +568,7 @@ class cahGame extends Manager {
         }
         game.players.splice(0,1);
       }
+      clearTimeout(game.timer);
       for(var i = 0; i < self.games.length; i++){
         if(game.id == self.games[i].id){
           self.games.splice(i,1);
@@ -634,9 +643,24 @@ class cahGame extends Manager {
       if(index < 0 || index > 9) return;
       player.cards.splice(index,1);
     }
+    updateGameTimer(game){
+      if(game.timer == {}){
+        game.timer = setTimeout(function() {
+          this.sendMsgToAllPlayers(game, "The game was idle for 1 hour, the game will now end due to inactivity.");
+          console.log("[CAD] Game: " + game.id + " Has EXPIRED!");
+          this.endGame(game);
+        }, 360000);
+      }else{
+        clearTimeout(game.timer);
+        game.timer = setTimeout(function() {
+          this.sendMsgToAllPlayers(game, "The game was idle for 1 hour, the game will now end due to inactivity.");
+          console.log("[CAD] Game: " + game.id + " Has EXPIRED!");
+          this.endGame(game);
+        }, 360000);
+      }
+    }
     sendMsgToAllPlayers(game, msg){
       var self = this;
-
       for(var i = 0; i < game.players.length; i++){
         self.disnode.service.SendWhisper(game.players[i].sender, msg, {type: game.players[i].service})
       }
