@@ -78,6 +78,7 @@ class cahGame extends Manager {
         this.joinInProgress = this.joinInProgress.bind(this);
         this.points = this.points.bind(this);
         this.debugdevmsg = this.debugdevmsg.bind(this);
+        this.updateGameTimer = this.updateGameTimer.bind(this);
 
         this.disnode.command.on("Command_cah", this.displayHelp);
         this.disnode.command.on("Command_cah_Start-Game", this.startGame)
@@ -644,19 +645,21 @@ class cahGame extends Manager {
       player.cards.splice(index,1);
     }
     updateGameTimer(game){
+      var self = this;
       if(game.timer == {}){
         game.timer = setTimeout(function() {
-          this.sendMsgToAllPlayers(game, "The game was idle for 1 hour, the game will now end due to inactivity.");
+          self.sendMsgToAllPlayers(game, "The game was idle for 1 hour, the game will now end due to inactivity.");
           console.log("[CAD] Game: " + game.id + " Has EXPIRED!");
-          this.endGame(game);
-        }, 360000);
+          self.endGame(game);
+        }, 36000000);
+        //36000000
       }else{
         clearTimeout(game.timer);
         game.timer = setTimeout(function() {
-          this.sendMsgToAllPlayers(game, "The game was idle for 1 hour, the game will now end due to inactivity.");
+          self.sendMsgToAllPlayers(game, "The game was idle for 1 hour, the game will now end due to inactivity.");
           console.log("[CAD] Game: " + game.id + " Has EXPIRED!");
-          this.endGame(game);
-        }, 360000);
+          self.endGame(game);
+        }, 36000000);
       }
     }
     sendMsgToAllPlayers(game, msg){
