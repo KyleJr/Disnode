@@ -58,6 +58,10 @@ class DisnodeManager extends Manager {
           var server = client.guilds.array()[i];
           servers += " - **" + server.name + "** \n";
         }
+        var members = 0;
+        for (var i = 0; i < client.guilds.array().length; i++) {
+          members += client.guilds.array()[i].memberCount;
+        }
 
         if (data.msg.type == "DiscordService") {
             disnode.service.SendEmbed({
@@ -74,8 +78,8 @@ class DisnodeManager extends Manager {
                     value: "**Prefix:** " + disnode.config.prefix + "\n" + "**Mention: **" + disnode.config.mention + "\n" ,
                 }, {
                   name: 'Stats',
-                                      inline: true,
-                  value: "**Servers:** " + client.guilds.array().length+"\n ",
+                  inline: true,
+                  value: "**Servers:** " + client.guilds.array().length + "\n **Total Members:** " + members + "\n",
               }, {
                     name: 'Managers',
                     value: managers
