@@ -109,7 +109,7 @@ class cahGame extends Manager {
     var self = this;
     var msg = "**Game Listing:**\n";
     for(var i =0; i < this.games.length; i++){
-      msg += "**|| **`" + (i+1) + "`** - Players: **`" + this.games[i].players.length + "`** -=- Last Active: **`" + this.games[i].lastActive + "`\n";
+      msg += "**|| **`" + (i+1) + "`** - Players: **`" + this.games[i].players.length + "`** -=- Started: **`" + this.games[i].hasStarted + "` ** -=- Creator: **`" + this.games[i].hostName + "`** -=- Last Active: **`" + this.games[i].lastActive + "`\n";
     }
     console.log("[CAD -" + self.getDateTime() + "] Games: " + this.games.length + ".Players: " + this.players.length);
     this.disnode.service.SendMessage("**Games:** `" + this.games.length + "`. ** Total Players:** `" + this.players.length + "`\n\n" + msg, data.msg);
