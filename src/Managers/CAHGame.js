@@ -501,12 +501,12 @@ class cahGame extends Manager {
         if(game.players.length == 3){
           var rand = self.getRandomIntInclusive(0,1);
           var card = game.currentWhiteCards.splice(rand,1);
-          game.currentWhiteCards.push(card);
+          game.currentWhiteCards.push(card[0]);
         }else{
           for (var i = 0; i < game.currentWhiteCards.length; i++) {
             var rand = self.getRandomIntInclusive(0,(game.currentWhiteCards.length - 1));
             var card = game.currentWhiteCards.splice(rand,1);
-            game.currentWhiteCards.push(card);
+            game.currentWhiteCards.push(card[0]);
           }
         }
         self.sendMsgToAllPlayers(game, "**Current Black Card: **" + game.currentBlackCard.text + "**\n**Now the Card Czar must `!cah pick [index]` to pick what white card he/she likes the most. The cards are:**");
