@@ -107,8 +107,12 @@ class cahGame extends Manager {
   }
   debugGame(data){
     var self = this;
+    var msg = "**Game Listing:**\n";
+    for(var i =0; i < this.games.length; i++){
+      msg += "**|| **`" + (i+1) + "`** - Players: **`" + this.games[i].players.length + "`** -=- Last Active: **`" + this.games[i].lastActive + "`\n";
+    }
     console.log("[CAD -" + self.getDateTime() + "] Games: " + this.games.length + ".Players: " + this.players.length);
-    this.disnode.service.SendMessage("**Games:** `" + this.games.length + "`. **Players:** `" + this.players.length + "`", data.msg);
+    this.disnode.service.SendMessage("**Games:** `" + this.games.length + "`. ** Total Players:** `" + this.players.length + "`\n\n" + msg, data.msg);
   }
   joinInProgress(data){
     var self = this;
@@ -165,15 +169,15 @@ class cahGame extends Manager {
     var msg = "**Cards Against Humanity Manager**\n";
     msg+= " ***Commands***: \n";
     msg+= " `cah new` - *New Game*\n";
-    msg+= " `cah start` - *Start Game*\n";
+    msg+= " `cah start` - *Start Game* **(host only / Pre-Game)**\n";
     msg+= " `cah join` - *Join Game*\n";
     msg+= " `cah leave` - *Leave Game*\n";
     msg+= " `cah players` - *Gets Players in a game*\n";
     msg+= " `cah hand` - *Sends Current Hand*\n";
     msg+= " `cah pick` - *Pick a card to win*\n";
     msg+= " `cah submit` - *Submit your card*\n";
-    msg+= " `cah points` - *Change the points to win (host only)*\n";
-    msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress*\n";
+    msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
+    msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
     msg+= "**Join the Disnode Server for Support and More!:** https://discord.gg/gxQ7nbQ";
         this.disnode.service.SendMessage(msg, data.msg);
   }
@@ -257,7 +261,8 @@ class cahGame extends Manager {
       currentWhiteCards: [],
       currentCardCzar: {},
       CzarOrderCount: 0,
-      timer: {}
+      timer: {},
+      lastActive: ""
     };
     this.updateGameTimer(newGame);
     this.games.push(newGame);
@@ -619,6 +624,7 @@ class cahGame extends Manager {
   updateGameTimer(game){
     var self = this;
     console.log("[CAD -" + self.getDateTime() + "] Game: " + game.id + " Timer Reset!");
+    game.lastActive = self.getDateTime();
     if(game.timer == {}){
       game.timer = setTimeout(function() {
         self.sendMsgToAllPlayers(game, "The game was idle for 1 hour, the game will now end due to inactivity.");
