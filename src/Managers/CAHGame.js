@@ -112,7 +112,7 @@ class cahGame extends Manager {
       msg += "**|| **`" + (i+1) + "`** - Players: **`" + this.games[i].players.length + "`** -=- Started: **`" + this.games[i].hasStarted + "` ** -=- Creator: **`" + this.games[i].hostName + "`** -=- Last Active: **`" + this.games[i].lastActive + "`\n";
     }
     console.log("[CAD -" + self.getDateTime() + "] Games: " + this.games.length + ".Players: " + this.players.length);
-    this.disnode.service.SendMessage("**Games:** `" + this.games.length + "`. ** Total Players:** `" + this.players.length + "`\n\n" + msg, data.msg);
+    this.disnode.service.SendMessage("**Games:** `" + this.games.length + "`. ** Total Players:** `" + this.players.length + "`\n**Current Time: **`" + this.getDateTime() + "`\n" + msg, data.msg);
   }
   joinInProgress(data){
     var self = this;
@@ -223,7 +223,7 @@ class cahGame extends Manager {
       self.getHand(player);
     }
     this.updateGameTimer(foundGame);
-    this.disnode.service.SendMessage("`" + newPlayer.name + "` **joined! There are: ** `" +foundGame.players.length+"` **players in!**", data.msg);
+    this.sendMsgToAllPlayers(foundGame,"`" + newPlayer.name + "` **joined! There are: ** `" +foundGame.players.length+"` **players in!**");
     console.log("[CAD -" + self.getDateTime() + "] Player ("+newPlayer.name+") joined game: " + code);
     self.disnode.service.SendWhisper(newPlayer.sender, "**Welcome ** `" + newPlayer.name +"`!", {type: newPlayer.service});
   }
@@ -266,7 +266,7 @@ class cahGame extends Manager {
     };
     this.updateGameTimer(newGame);
     this.games.push(newGame);
-    this.disnode.service.SendMessage("**New Game!** Code: `" + id + '`', data.msg);
+    this.disnode.service.SendMessage("**New Game!** Code: `" + id + '`' + "\n**Tips:**\n1. You join a game you created automatically!\n2. Use `!cah` to see a list of commands some might be useful for game setup!", data.msg);
     console.log("[CAD -" + self.getDateTime() + "] New Game by ("+newGame.hostName+") : " + id);
     data.params[0] = id;
     this.joinGame(data);
@@ -462,6 +462,11 @@ class cahGame extends Manager {
       }
     }
   }
+  getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
   //// ================ GAME LOGIC ======================== ///
   //// ================ GAME LOGIC ======================== ///
   //// ================ GAME LOGIC ======================== ///
@@ -480,9 +485,8 @@ class cahGame extends Manager {
         game.CzarOrderCount++;
       }
       game.currentBlackCard = self.drawBlackCard();
-      self.sendMsgToAllPlayers(game, "**Current Card Czar: **`" + game.currentCardCzar.name + "` \n**Current Black Card:** " + game.currentBlackCard.text);
+      self.sendMsgToAllPlayers(game, "**Current Card Czar: **`" + game.currentCardCzar.name + "` \n**Current Black Card:** " + game.currentBlackCard.text + "\n**Now you must submit one of your cards to respond with the black question card to submit use `!cah submit [index]` - where index is the card number next to your card (unless your the Card Czar where you can relax for this part.)**\n\n**Your Cards:**");
       game.stage = 1;
-      self.sendMsgToAllPlayers(game, "**Now you must submit one of your cards to respond with the black question card to submit use `!cah submit [index]` - where index is the card number next to your card (unless your the Card Czar where you can relax for this part.)**\n\n**Your Cards:**");
       for(var i = 0; i < game.players.length; i++){
         self.getHand(game.players[i]);
       }
@@ -492,7 +496,17 @@ class cahGame extends Manager {
       if(game.currentWhiteCards.length < (game.players.length - 1)){
         self.sendMsgToAllPlayers(game, "**Submitted Cards: **`" + game.currentWhiteCards.length + "/" + (game.players.length - 1) + "`");
       }else{
-        self.sendMsgToAllPlayers(game, "**All cards have been Submitted**");
+        if(game.players.length == 3){
+          var rand = self.getRandomIntInclusive(0,1);
+          var card = game.currentWhiteCards.splice(rand,1);
+          game.currentWhiteCards.push(card);
+        }else{
+          for (var i = 0; i < game.currentWhiteCards.length; i++) {
+            var rand = self.getRandomIntInclusive(0,(game.currentWhiteCards.length - 1));
+            var card = game.currentWhiteCards.splice(rand,1);
+            game.currentWhiteCards.push(card);
+          }
+        }
         self.sendMsgToAllPlayers(game, "**Current Black Card: **" + game.currentBlackCard.text + "**\n**Now the Card Czar must `!cah pick [index]` to pick what white card he/she likes the most. The cards are:**");
         var msg = " ";
         for(var i = 0; i < game.currentWhiteCards.length; i++){
@@ -562,7 +576,6 @@ class cahGame extends Manager {
     for (var x = 0; x < players.length; x++) {
       var player = players[x];
       player.cards = [];
-      self.disnode.service.SendWhisper(player.sender, "**Your Deck is: **", {type: player.service});
       var msg = "";
       for (var i = 0; i < 10; i++) {
         var cardToAdd = self.drawWhiteCard(player);
@@ -573,7 +586,6 @@ class cahGame extends Manager {
         }
       }
       player.points = 0;
-      self.disnode.service.SendWhisper(player.sender, "**Please wait for the next stage of the game.**", {type: player.service});
     }
     this.GameFunction(game);
   }
