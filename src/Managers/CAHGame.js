@@ -320,9 +320,11 @@ class cahGame extends Manager {
         return;
       }
       if(game.hasStarted){
-        for(var x = 0; x < game.currentWhiteCards.length; x++){
-          if(game.currentWhiteCards[x].player.id == player.id){
-            game.currentWhiteCards.splice(x,1);
+        if(game.currentWhiteCards.length != 0){
+          for(var x = 0; x < game.currentWhiteCards.length; x++){
+            if(game.currentWhiteCards[x].player.id == player.id){
+              game.currentWhiteCards.splice(x,1);
+            }
           }
         }
         if(game.currentCardCzar.id == player.id){
