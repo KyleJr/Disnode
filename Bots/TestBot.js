@@ -14,11 +14,6 @@ var OnLoad = function(){
   testBot.manager.AddManager("CAHGame", "CAHGame");
   testBot.manager.AddManager("DisnodeManager", "DisnodeManager");
   testBot.manager.AddManager("TranslateManager", "TranslateManager");
-  testBot.command.on("RawCommand_dc",function(commandData){
-    var discord = testBot.service.GetService("DiscordService");
-    testBot.service.SendMessage("Disconnecting!",commandData.msg);
-    discord.client.destroy();
-  });
 
   testBot.service.ConnectAll();
 }

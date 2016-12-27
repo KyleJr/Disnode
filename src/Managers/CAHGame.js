@@ -8,54 +8,18 @@ class cahGame extends Manager {
       this.defaultConfig = {
         prefix: "cah",
         commands : [
-          {
-            command: "new",
-            event: "New-Game"
-          },
-          {
-            command: "start",
-            event: "Start-Game"
-          },
-          {
-            command: "join",
-            event: "Join-Game"
-          },
-          {
-            command: "players",
-            event: "Get-Players"
-          },
-          {
-            command: "leave",
-            event: "Leave-Game"
-          },
-          {
-            command: "hand",
-            event: "Get-Hand"
-          },
-          {
-            command: "submit",
-            event: "Submit-Card"
-          },
-          {
-            command: "pick",
-            event: "Pick-Card"
-          },
-          {
-            command: "games",
-            event: "debug-games"
-          },
-          {
-            command: "join-in-progress",
-            event: "join-in-progress"
-          },
-          {
-            command: "points",
-            event: "Points"
-          },
-          {
-            command: "devmsg",
-            event: "debug-devmsg"
-          }
+          {command: "new",event: "New-Game"},
+          {command: "start",event: "Start-Game"},
+          {command: "join",event: "Join-Game"},
+          {command: "players",event: "Get-Players"},
+          {command: "leave",event: "Leave-Game"},
+          {command: "hand",event: "Get-Hand"},
+          {command: "submit",event: "Submit-Card"},
+          {command: "pick",event: "Pick-Card"},
+          {command: "games",event: "debug-games"},
+          {command: "join-in-progress",event: "join-in-progress"},
+          {command: "points",event: "Points"},
+          {command: "devmsg",event: "debug-devmsg"}
         ],
       };
       this.startGame = this.startGame.bind(this);
@@ -166,20 +130,52 @@ class cahGame extends Manager {
     }
   }
   displayHelp(data){
-    var msg = "**Cards Against Humanity Manager**\n";
-    msg+= " ***Commands***: \n";
-    msg+= " `cah new` - *New Game*\n";
-    msg+= " `cah start` - *Start Game* **(host only / Pre-Game)**\n";
-    msg+= " `cah join` - *Join Game*\n";
-    msg+= " `cah leave` - *Leave Game*\n";
-    msg+= " `cah players` - *Gets Players in a game*\n";
-    msg+= " `cah hand` - *Sends Current Hand*\n";
-    msg+= " `cah pick` - *Pick a card to win*\n";
-    msg+= " `cah submit` - *Submit your card*\n";
-    msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
-    msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
-    msg+= "**Join the Disnode Server for Support and More!:** https://discord.gg/gxQ7nbQ";
-        this.disnode.service.SendMessage(msg, data.msg);
+    if (data.msg.type == "DiscordService") {
+      var client = this.disnode.service.GetService("DiscordService").client;
+      var msg = "";
+      msg+= " `cah new` - *New Game*\n";
+      msg+= " `cah start` - *Start Game* **(host only / Pre-Game)**\n";
+      msg+= " `cah join` - *Join Game*\n";
+      msg+= " `cah leave` - *Leave Game*\n";
+      msg+= " `cah players` - *Gets Players in a game*\n";
+      msg+= " `cah hand` - *Sends Current Hand*\n";
+      msg+= " `cah pick` - *Pick a card to win*\n";
+      msg+= " `cah submit` - *Submit your card*\n";
+      msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
+      msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
+      this.disnode.service.SendEmbed({
+          color: 3447003,
+          author: {},
+          title: 'Cards Against Discord',
+          description: 'A Discord bot that allows users to play Cards Against Humanity on Discord',
+          fields: [ {
+              name: 'Commands',
+              inline: false,
+              value: msg,
+          }, {
+            name: 'Discord Server',
+            inline: false,
+            value: "**Join the Disnode Server for Support and More!:** https://discord.gg/gxQ7nbQ",
+        }],
+          timestamp: new Date(),
+          footer: {}
+      }, data.msg);
+    }else {
+      var msg = "**Cards Against Humanity Manager**\n";
+      msg+= " ***Commands***: \n";
+      msg+= " `cah new` - *New Game*\n";
+      msg+= " `cah start` - *Start Game* **(host only / Pre-Game)**\n";
+      msg+= " `cah join` - *Join Game*\n";
+      msg+= " `cah leave` - *Leave Game*\n";
+      msg+= " `cah players` - *Gets Players in a game*\n";
+      msg+= " `cah hand` - *Sends Current Hand*\n";
+      msg+= " `cah pick` - *Pick a card to win*\n";
+      msg+= " `cah submit` - *Submit your card*\n";
+      msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
+      msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
+      msg+= "**Join the Disnode Server for Support and More!:** https://discord.gg/gxQ7nbQ";
+      this.disnode.service.SendMessage(msg, data.msg);
+    }
   }
   joinGame(data){
     var self = this;
