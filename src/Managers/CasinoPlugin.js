@@ -14,7 +14,9 @@ class CasinoPlugin extends Manager {
       commands: [
         {command: "self",event: "stats"},
         {command: "slot",event: "slot"},
-
+        {command: "store",event: "store"},
+        {command: "top",event: "top"},
+        {command: "look",event: "look"},
       ]
     }
     this.slotItems = [
@@ -39,6 +41,9 @@ class CasinoPlugin extends Manager {
     this.Starting = true;
 
     this.statsCommand = this.statsCommand.bind(this);
+    this.storeCommand = this.storeCommand.bind(this);
+    this.lookupCommand = this.lookupCommand.bind(this);
+    this.topCommand = this.topCommand.bind(this);
     this.slotCommand = this.slotCommand.bind(this);
     this.getPlayer = this.getPlayer.bind(this);
     this.didWin = this.didWin.bind(this);
@@ -48,6 +53,9 @@ class CasinoPlugin extends Manager {
     this.defaultCommand = this.defaultCommand.bind(this);
 
     this.disnode.command.on("Command_casino_stats", this.statsCommand);
+    this.disnode.command.on("Command_casino_store", this.storeCommand);
+    this.disnode.command.on("Command_casino_look", this.lookupCommand);
+    this.disnode.command.on("Command_casino_top", this.topCommand);
     this.disnode.command.on("Command_casino_slot", this.slotCommand);
     this.disnode.command.on("Command_casino", this.defaultCommand);
   }
@@ -56,6 +64,8 @@ class CasinoPlugin extends Manager {
       var client = this.disnode.service.GetService("DiscordService").client;
       var msg = "";
       msg+= " `casino self` - *Check your personal stats*\n";
+      msg+= " `casino look` - *Givers stats of the given username*\n";
+      msg+= " `casino top` - *Lists the top 10 players based on cash*\n";
       msg+= " `casino slot` - *Slots (general help)*\n";
       msg+= " `casino slot info` - *Slots info (help / Payouts)*\n";
       this.disnode.service.SendEmbed({
@@ -77,6 +87,82 @@ class CasinoPlugin extends Manager {
         },
       data.msg);
     }
+  }
+  topCommand(data){
+    var self = this;
+    var orderTop = []
+    for (var i = 0; i < self.casinoObj.players.length; i++) {
+      var placed = false;
+      for (var x = 0; x < orderTop.length; x++) {
+        if(self.casinoObj.players[i].money > orderTop[x].money){
+          orderTop.splice(x, 0, self.casinoObj.players[i]);
+          placed = true;
+          break;
+        }
+      }
+      if(!placed){
+        orderTop.push(self.casinoObj.players[i]);
+      }
+    }
+    var msg = "";
+    for (var i = 0; i < orderTop.length; i++) {
+      if(i == 9)break;
+      msg += "" + (i + 1) + ". **" + orderTop[i].name + "** - $" + orderTop[i].money + "\n";
+    }
+    this.disnode.service.SendEmbed({
+      color: 3447003,
+      author: {},
+      fields: [ {
+        name: "High Rollers",
+        inline: false,
+        value: msg,
+      }],
+        timestamp: new Date(),
+        footer: {}
+      },
+    data.msg);
+  }
+  lookupCommand(data){
+    var self = this;
+    var player;
+    if(data.params[0]){
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+        if(self.casinoObj.players[i].name == data.params[0]){
+          player = self.casinoObj.players[i];
+          data.msg.userId = player.id;
+          self.statsCommand(data);
+          return;
+        }
+      }
+      this.disnode.service.SendEmbed({
+        color: 3447003,
+        author: {},
+        fields: [ {
+          name: "Error",
+          inline: false,
+          value: ":warning: Could not find a player card for: `" + data.params[0] + "`",
+        }],
+          timestamp: new Date(),
+          footer: {}
+        },
+      data.msg);
+    }else{
+      this.disnode.service.SendEmbed({
+        color: 3447003,
+        author: {},
+        fields: [ {
+          name: "Error",
+          inline: false,
+          value: ":warning: Please enter a username to lookup! example: `!casino look FireGamer3`",
+        }],
+          timestamp: new Date(),
+          footer: {}
+        },
+      data.msg);
+    }
+  }
+  storeCommand(data){
+    var self = this;
   }
   slotCommand(data){
     var self = this;
@@ -128,6 +214,22 @@ class CasinoPlugin extends Manager {
         if(data.params[0] > 0){
           //greater than 0
           var player = self.getPlayer(data);
+          var timeoutInfo = self.checkTimeout(player);
+          if(!timeoutInfo.pass){
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: "Error",
+                inline: false,
+                value: ":warning: You must wait **" + timeoutInfo.remain.sec + " seconds** before playing again.",
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            return;
+          }
           if(data.params[0] > player.money){// Checks to see if player has enough money for their bet
             this.disnode.service.SendEmbed({
               color: 3447003,
@@ -170,17 +272,30 @@ class CasinoPlugin extends Manager {
               value: "$" + slotInfo.winAmount,
             }, {
               name: 'Balance',
-              inline: false,
+              inline: true,
               value: "$" + player.money,
             }, {
               name: 'JACKPOT Value',
-              inline: false,
+              inline: true,
               value: "$" + self.casinoObj.jackpotValue,
+            }, {
+              name: 'XP',
+              inline: true,
+              value: player.xp,
             }],
               timestamp: new Date(),
               footer: {}
             },
           data.msg);
+          var currentDate = new Date();
+          var min  = currentDate.getMinutes();
+          min = (min < 10 ? "0" : "") + min;
+          var sec  = currentDate.getSeconds();
+          sec = (sec < 10 ? "0" : "") + sec;
+          player.lastMessage = {
+            min: parseInt(min),
+            sec: parseInt(sec),
+          }
         }else {
           //not greater than 0 or isn't a number!
           this.disnode.service.SendEmbed({
@@ -223,6 +338,26 @@ class CasinoPlugin extends Manager {
         timestamp: new Date(),
         footer: {}
       }, data.msg);
+  }
+  checkTimeout(player){
+    var currentDate = new Date();
+    var min  = currentDate.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+    var sec  = currentDate.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+    if(player.lastMessage == null){
+      player.lastMessage = {};
+      return {pass: true};
+    }
+    var remainingTime = {
+      min: player.lastMessage.min - min,
+      sec: (player.lastMessage.sec + 5) - sec
+    }
+    if(remainingTime.min < 0){
+      return {pass: true};
+    }else if((remainingTime.min <= 0) & (remainingTime.sec <= 0)){
+      return {pass: true};
+    }else return {pass: false, remain: remainingTime};
   }
   getPlayer(data){
     var self = this;
@@ -321,6 +456,7 @@ class CasinoPlugin extends Manager {
     var self = this;
     if((slot.reel1 == ":100:") && (slot.reel2 == ":100:") && (slot.reel3 == ":100:")){
       slot.winAmount = self.casinoObj.jackpotValue;
+      self.casinoObj.jackpotValue = 1000;
       slot.winText = "JACKPOT JACKPOT JACKPOT!!!!!";
       slot.player.money += slot.winAmount;
       slot.player.xp += 1000;
@@ -356,19 +492,20 @@ class CasinoPlugin extends Manager {
     }
     if((slot.reel1 == ":cherries:") || (slot.reel2 == ":cherries:") || (slot.reel3 == ":cherries:")){
       slot.winAmount = slot.bet / 2;
-      slot.winText = "Well at lease you didn't loose it all...";
+      slot.winText = "Well at least you didn't lose it all...";
       slot.player.money += slot.winAmount;
       slot.player.xp += 5;
       return;
     }
     slot.winAmount = 0;
-    slot.winText = "DANG! Better luck next Time!";
+    slot.winText = "DANG! Better luck next time!";
     slot.player.xp += 1;
   }
   updateCoroutine(){
     var self = this;
     for (var i = 0; i < self.casinoObj.players.length; i++) {
       self.casinoObj.players[i].money += self.casinoObj.players[i].perUpdate;
+      self.casinoObj.players[i].lastMessage = null;
     }
     self.save(self.cobpath, self.casinoObj);
     setTimeout(function() {
