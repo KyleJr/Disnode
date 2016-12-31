@@ -32,6 +32,15 @@ class CasinoPlugin extends Manager {
       {item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},
       {item:":100:"},{item:":100:"},{item:":100:"}
     ]
+    this.store = [
+      {cost: 100, item: "Instant $100"},
+      {cost: 250, item: "Instant $250"},
+      {cost: 500, item: "Instant $500"},
+      {cost: 1000, item: "Instant $1000"},
+      {cost: 100, item: "Add $50 to your \'per update\' amount"},
+      {cost: 200, item: "Add $100 to your \'per update\' amount"},
+      {cost: 400, item: "Add $200 to your \'per update\' amount"}
+    ]
     this.cobpath = "./casinoObj.json";
     this.casinoObj = {
       players:[],
@@ -66,6 +75,7 @@ class CasinoPlugin extends Manager {
       msg+= " `casino self` - *Check your personal stats*\n";
       msg+= " `casino look` - *Givers stats of the given username*\n";
       msg+= " `casino top` - *Lists the top 10 players based on cash*\n";
+      msg+= " `casino store` - *Spend the XP you earn from playing here!*\n";
       msg+= " `casino slot` - *Slots (general help)*\n";
       msg+= " `casino slot info` - *Slots info (help / Payouts)*\n";
       this.disnode.service.SendEmbed({
@@ -153,7 +163,7 @@ class CasinoPlugin extends Manager {
         fields: [ {
           name: "Error",
           inline: false,
-          value: ":warning: Please enter a username to lookup! example: `!casino look FireGamer3`",
+          value: ":warning: Please enter a username to lookup! example: `!casino look FireGamer3`\nIf the username has a space in it use quotes, Example: `!casino look \"VictoryForPhil / Atec\"`",
         }],
           timestamp: new Date(),
           footer: {}
@@ -163,6 +173,117 @@ class CasinoPlugin extends Manager {
   }
   storeCommand(data){
     var self = this;
+    if(data.params[0] == "buy"){
+      if(data.params[1] && (data.params[1] >= 0 && data.params[1] <= (self.store.length - 1))){
+        var player = self.getPlayer(data);
+        var ID = parseInt(data.params[1]);
+        if(player.xp < self.store[ID].cost){
+          this.disnode.service.SendEmbed({
+            color: 3447003,
+            author: {},
+            fields: [ {
+              name: "Error",
+              inline: false,
+              value: ":warning: You dont have that much XP!\nNeed: " + self.store[ID].cost + "XP\nYou have: " + player.xp,
+            }],
+              timestamp: new Date(),
+              footer: {}
+            },
+          data.msg);
+          return;
+        }
+        switch (ID) {
+          case 0:
+            player.xp -= self.store[ID].cost;
+            player.money += 100;
+            break;
+          case 1:
+            player.xp -= self.store[ID].cost;
+            player.money += 250;
+            break;
+          case 2:
+            player.xp -= self.store[ID].cost;
+            player.money += 500;
+            break;
+          case 3:
+            player.xp -= self.store[ID].cost;
+            player.money += 1000;
+            break;
+          case 4:
+            player.xp -= self.store[ID].cost;
+            player.perUpdate += 50;
+            break;
+          case 5:
+            player.xp -= self.store[ID].cost;
+            player.perUpdate += 100;
+            break;
+          case 6:
+            player.xp -= self.store[ID].cost;
+            player.perUpdate += 200;
+            break;
+          default:
+            break;
+        }
+        //:white_check_mark:
+        this.disnode.service.SendEmbed({
+          color: 3447003,
+          author: {},
+          fields: [ {
+            name: "Store",
+            inline: false,
+            value: ":white_check_mark: Your purchase of `" + self.store[ID].item + "` was successful! Thank you for your business!",
+          }],
+            timestamp: new Date(),
+            footer: {}
+          },
+        data.msg);
+      }else {
+        this.disnode.service.SendEmbed({
+          color: 3447003,
+          author: {},
+          fields: [ {
+            name: "Error",
+            inline: false,
+            value: ":warning: Please enter a numeric value for the Item ID you wish to buy `0 - "+ (self.store.length - 1) +"`. Example: `!casino store buy 0`",
+          }],
+            timestamp: new Date(),
+            footer: {}
+          },
+        data.msg);
+      }
+    }else if(data.params[0] == "list"){
+      var msg = "**ID**\t//\t**ITEM**\t//\t**COST**\n";
+      for (var i = 0; i < self.store.length; i++) {
+        self.store[i]
+        msg += "" + i + "\t//\t" + self.store[i].item + "\t//\t" + self.store[i].cost + "XP\n";
+      }
+      msg += "Store items are subject to change, please be aware of prices and items PRIOR to making a purchase!";
+      this.disnode.service.SendEmbed({
+        color: 3447003,
+        author: {},
+        fields: [ {
+          name: "Store List",
+          inline: false,
+          value: msg,
+        }],
+          timestamp: new Date(),
+          footer: {}
+        },
+      data.msg);
+    }else{
+      this.disnode.service.SendEmbed({
+        color: 3447003,
+        author: {},
+        fields: [ {
+          name: "Store",
+          inline: false,
+          value: "Welcome to the store! to see a list of Items use `!casino store list` use the ID of the item when buying for example `!casino store buy 0`",
+        }],
+          timestamp: new Date(),
+          footer: {}
+        },
+      data.msg);
+    }
   }
   slotCommand(data){
     var self = this;

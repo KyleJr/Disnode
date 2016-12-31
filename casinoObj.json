@@ -3,18 +3,15 @@
     {
       "name": "FireGamer3",
       "id": "112786170655600640",
-      "money": 7300,
+      "money": 8000,
       "perUpdate": 100,
-      "xp": 97,
-      "lastMessage": {
-        "min": 41,
-        "sec": 8
-      }
+      "xp": 2550,
+      "lastMessage": null
     },
     {
       "name": "VictoryForPhil / Atec",
       "id": "131235236402036736",
-      "money": 8095,
+      "money": 8795,
       "perUpdate": 100,
       "xp": 15,
       "lastMessage": null
@@ -22,7 +19,7 @@
     {
       "name": "KANG",
       "id": "250889209139691531",
-      "money": 8225,
+      "money": 8925,
       "perUpdate": 100,
       "xp": 5,
       "lastMessage": null
@@ -30,7 +27,7 @@
     {
       "name": "Googie2149",
       "id": "102528327251656704",
-      "money": 1900,
+      "money": 2600,
       "perUpdate": 100,
       "xp": 1064,
       "lastMessage": null
@@ -38,7 +35,7 @@
     {
       "name": "minemidnight",
       "id": "155112606661607425",
-      "money": 1900,
+      "money": 2600,
       "perUpdate": 100,
       "xp": 192,
       "lastMessage": null
@@ -46,7 +43,7 @@
     {
       "name": "SamuraiSigma",
       "id": "218449368225808384",
-      "money": 4250,
+      "money": 4950,
       "perUpdate": 100,
       "xp": 6,
       "lastMessage": null
