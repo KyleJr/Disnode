@@ -628,6 +628,7 @@ class CasinoPlugin extends Manager {
       self.casinoObj.players[i].money += self.casinoObj.players[i].perUpdate;
       self.casinoObj.players[i].lastMessage = null;
     }
+    if(self.casinoObj.jackpotValue == null)self.casinoObj.jackpotValue = 1000;
     self.save(self.cobpath, self.casinoObj);
     setTimeout(function() {
       self.updateCoroutine();
