@@ -44,7 +44,6 @@ class CasinoPlugin extends Manager {
     this.cobpath = "./casinoObj.json";
     this.casinoObj = {
       players:[],
-      jackpotValue: 1000
     }
     this.load(this.cobpath);
     this.Starting = true;
@@ -305,12 +304,8 @@ class CasinoPlugin extends Manager {
           ":third_place::third_place::third_place: - 4x bet 20XP\n"+
           ":second_place::second_place::second_place: - 8x bet 40XP\n"+
           ":first_place::first_place::first_place: - 16x bet 80XP\n"+
-          ":100::100::100: - JACKPOT value - 1000XP",
-        },{
-          name: 'JACKPOT',
-          inline: false,
-          value: "JACKPOT Value is increased every time someone plays slots, the value is increased by the players bet amount and has a default value of $1000\n**Current JACKPOT Value: **$" + self.casinoObj.jackpotValue,
-        }],
+          ":100::100::100: - JACKPOT $100,000 - 1000XP",
+        },],
           timestamp: new Date(),
           footer: {}
         }, data.msg);
@@ -367,7 +362,6 @@ class CasinoPlugin extends Manager {
             return;
           }else{
             player.money -= data.params[0];
-            self.casinoObj.jackpotValue += parseInt(data.params[0]);
           }
           var slotInfo = {
             bet: parseInt(data.params[0]),
@@ -395,10 +389,6 @@ class CasinoPlugin extends Manager {
               name: 'Balance',
               inline: true,
               value: "$" + player.money,
-            }, {
-              name: 'JACKPOT Value',
-              inline: true,
-              value: "$" + self.casinoObj.jackpotValue,
             }, {
               name: 'XP',
               inline: true,
@@ -576,11 +566,11 @@ class CasinoPlugin extends Manager {
   didWin(slot){
     var self = this;
     if((slot.reel1 == ":100:") && (slot.reel2 == ":100:") && (slot.reel3 == ":100:")){
-      slot.winAmount = self.casinoObj.jackpotValue;
-      self.casinoObj.jackpotValue = 1000;
+      slot.winAmount = 100000;
       slot.winText = "JACKPOT JACKPOT JACKPOT!!!!!";
       slot.player.money += slot.winAmount;
       slot.player.xp += 1000;
+      console.log("[" + slot.player.name + "] Won JACKPOT");
       return;
     }
     if((slot.reel1 == ":first_place:") && (slot.reel2 == ":first_place:") && (slot.reel3 == ":first_place:")){
@@ -588,6 +578,7 @@ class CasinoPlugin extends Manager {
       slot.winText = "WINNER WINNER HUUUUGE MONEY!";
       slot.player.money += slot.winAmount;
       slot.player.xp += 80;
+      console.log("[" + slot.player.name + "] Won 16x");
       return;
     }
     if((slot.reel1 == ":second_place:") && (slot.reel2 == ":second_place:") && (slot.reel3 == ":second_place:")){
@@ -595,6 +586,7 @@ class CasinoPlugin extends Manager {
       slot.winText = "WINNER WINNER BIG MONEY!";
       slot.player.money += slot.winAmount;
       slot.player.xp += 40;
+      console.log("[" + slot.player.name + "] Won 8x");
       return;
     }
     if((slot.reel1 == ":third_place:") && (slot.reel2 == ":third_place:") && (slot.reel3 == ":third_place:")){
@@ -602,6 +594,7 @@ class CasinoPlugin extends Manager {
       slot.winText = "WINNER!";
       slot.player.money += slot.winAmount;
       slot.player.xp += 20;
+      console.log("[" + slot.player.name + "] Won 4x");
       return;
     }
     if((slot.reel1 == ":cherries:") && (slot.reel2 == ":cherries:") && (slot.reel3 == ":cherries:")){
@@ -609,6 +602,7 @@ class CasinoPlugin extends Manager {
       slot.winText = "Winner";
       slot.player.money += slot.winAmount;
       slot.player.xp += 10;
+      console.log("[" + slot.player.name + "] Won 2x");
       return;
     }
     if((slot.reel1 == ":cherries:") || (slot.reel2 == ":cherries:") || (slot.reel3 == ":cherries:")){
@@ -616,10 +610,12 @@ class CasinoPlugin extends Manager {
       slot.winText = "Well at least you didn't lose it all...";
       slot.player.money += slot.winAmount;
       slot.player.xp += 5;
+      console.log("[" + slot.player.name + "] Won 1/2");
       return;
     }
     slot.winAmount = 0;
     slot.winText = "DANG! Better luck next time!";
+    console.log("[" + slot.player.name + "] Won NOTHING");
     slot.player.xp += 1;
   }
   updateCoroutine(){
@@ -628,7 +624,6 @@ class CasinoPlugin extends Manager {
       self.casinoObj.players[i].money += self.casinoObj.players[i].perUpdate;
       self.casinoObj.players[i].lastMessage = null;
     }
-    if(self.casinoObj.jackpotValue == null)self.casinoObj.jackpotValue = 1000;
     self.save(self.cobpath, self.casinoObj);
     setTimeout(function() {
       self.updateCoroutine();
