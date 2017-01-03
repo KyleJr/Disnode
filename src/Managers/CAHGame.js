@@ -1,6 +1,7 @@
 const Manager = require("../Manager.js");
 const Discord = require("discord.js");
 const shortid = require('shortid');
+const CardcastAPI = require('cardcast-api');
 class cahGame extends Manager {
   constructor(pramas) {
       super(pramas);
@@ -95,6 +96,7 @@ class cahGame extends Manager {
       this.allCards =  require('cah-cards');
       this.blackCard =  require('cah-cards/pick1');
       this.whiteCards =  require('cah-cards/answers');
+      var ccapi = new CardcastAPI();
   }
   debugdevmsg(data){
     var self = this;
@@ -252,6 +254,9 @@ class cahGame extends Manager {
       host: data.msg.userId,
       hostName: data.msg.username,
       players: [],
+      decks: [
+        {name:"Default Deck", id: 0, calls: self.whiteCards, responses: self.blackCard}
+      ],
       hasStarted: false,
       pointsToWin: 10,
       allowJoinInProgress: true,
@@ -660,6 +665,22 @@ class cahGame extends Manager {
     for(var i = 0; i < game.players.length; i++){
       self.disnode.service.SendWhisper(game.players[i].sender, msg, {type: game.players[i].service})
     }
+  }
+  addCardCastDeck(game, id){
+    var self = this;
+    var apideck = ccapi.deck(id);
+    var rdeck = {name: apideck.name,id: apideck.id, calls: null, responses: null};
+    for (var i = 0; i < apideck.responses.length; i++) {
+      rdeck.responses.push(apideck.responses[i].toJSON);
+    }
+    for (var i = 0; i < apideck.calls.length; i++) {
+      var card = apideck.calls[i].toJSON;
+      if(card.numResponses == 1){
+        rdeck.calls.push(card);
+      }
+    }
+    console.log("[CAD -" + self.getDateTime() + "] Found and populated a deck for CardCast ID: " + id);
+    game.decks.push(rdeck);
   }
   getDateTime() {
     var date = new Date();
