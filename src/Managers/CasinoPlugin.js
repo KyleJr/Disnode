@@ -33,10 +33,10 @@ class CasinoPlugin extends Manager {
       {item:":100:"},{item:":100:"},{item:":100:"}
     ]
     this.store = [
-      {cost: 100, item: "Instant $100"},
-      {cost: 250, item: "Instant $250"},
-      {cost: 500, item: "Instant $500"},
-      {cost: 1000, item: "Instant $1000"},
+      {cost: 100, item: "Instant $1,000"},
+      {cost: 250, item: "Instant $2,500"},
+      {cost: 500, item: "Instant $5,000"},
+      {cost: 1000, item: "Instant $10,000"},
       {cost: 100, item: "Add $50 to your \'per update\' amount"},
       {cost: 200, item: "Add $100 to your \'per update\' amount"},
       {cost: 400, item: "Add $200 to your \'per update\' amount"}
@@ -195,19 +195,19 @@ class CasinoPlugin extends Manager {
         switch (ID) {
           case 0:
             player.xp -= self.store[ID].cost;
-            player.money += 100;
+            player.money += 1000;
             break;
           case 1:
             player.xp -= self.store[ID].cost;
-            player.money += 250;
+            player.money += 2500;
             break;
           case 2:
             player.xp -= self.store[ID].cost;
-            player.money += 500;
+            player.money += 5000;
             break;
           case 3:
             player.xp -= self.store[ID].cost;
-            player.money += 1000;
+            player.money += 10000;
             break;
           case 4:
             player.xp -= self.store[ID].cost;
@@ -332,7 +332,8 @@ class CasinoPlugin extends Manager {
         data.msg);
       }else{
         // there is something in params
-        if(parseFloat(data.params[0]) > 0){
+        if(parseFloat(data.params[0]) > 0.01){
+          var bet = parseFloat(data.params[0]).toFixed(2);
           //greater than 0
           var player = self.getPlayer(data);
           var timeoutInfo = self.checkTimeout(player);
@@ -351,7 +352,7 @@ class CasinoPlugin extends Manager {
             data.msg);
             return;
           }
-          if(parseFloat(data.params[0]) > player.money){// Checks to see if player has enough money for their bet
+          if(bet > player.money){// Checks to see if player has enough money for their bet
             this.disnode.service.SendEmbed({
               color: 3447003,
               author: {},
@@ -366,11 +367,11 @@ class CasinoPlugin extends Manager {
             data.msg);
             return;
           }else{
-            player.money -= parseFloat(data.params[0]);
-            self.casinoObj.jackpotValue += parseFloat(data.params[0]);
+            player.money -= parseFloat(bet);
+            self.casinoObj.jackpotValue += parseFloat(bet);
           }
           var slotInfo = {
-            bet: parseFloat(data.params[0]),
+            bet: bet,
             player: player,
             winText: "",
             winAmount: 0,
@@ -467,7 +468,7 @@ class CasinoPlugin extends Manager {
     var sec  = currentDate.getSeconds();
     sec = (sec < 10 ? "0" : "") + sec;
     if(player.lastMessage == null){
-      player.lastMessage = {};
+      player.lastMessage = null;
       return {pass: true};
     }
     var remainingTime = {
@@ -579,42 +580,42 @@ class CasinoPlugin extends Manager {
       slot.winAmount = self.casinoObj.jackpotValue;
       self.casinoObj.jackpotValue = 1000;
       slot.winText = "JACKPOT JACKPOT JACKPOT!!!!!";
-      slot.player.money += slot.winAmount;
+      slot.player.money += parseFloat(slot.winAmount);
       slot.player.xp += 1000;
       return;
     }
     if((slot.reel1 == ":first_place:") && (slot.reel2 == ":first_place:") && (slot.reel3 == ":first_place:")){
-      slot.winAmount = slot.bet * 16;
+      slot.winAmount = (slot.bet * 16).toFixed(2);
       slot.winText = "WINNER WINNER HUUUUGE MONEY!";
-      slot.player.money += slot.winAmount;
+      slot.player.money += parseFloat(slot.winAmount);
       slot.player.xp += 80;
       return;
     }
     if((slot.reel1 == ":second_place:") && (slot.reel2 == ":second_place:") && (slot.reel3 == ":second_place:")){
-      slot.winAmount = slot.bet * 8;
+      slot.winAmount = (slot.bet * 8).toFixed(2);
       slot.winText = "WINNER WINNER BIG MONEY!";
-      slot.player.money += slot.winAmount;
+      slot.player.money += parseFloat(slot.winAmount);
       slot.player.xp += 40;
       return;
     }
     if((slot.reel1 == ":third_place:") && (slot.reel2 == ":third_place:") && (slot.reel3 == ":third_place:")){
-      slot.winAmount = slot.bet * 4;
+      slot.winAmount = (slot.bet * 4).toFixed(2);
       slot.winText = "WINNER!";
-      slot.player.money += slot.winAmount;
+      slot.player.money += parseFloat(slot.winAmount);
       slot.player.xp += 20;
       return;
     }
     if((slot.reel1 == ":cherries:") && (slot.reel2 == ":cherries:") && (slot.reel3 == ":cherries:")){
-      slot.winAmount = slot.bet * 2;
+      slot.winAmount = (slot.bet * 2).toFixed(2);
       slot.winText = "Winner";
-      slot.player.money += slot.winAmount;
+      slot.player.money += parseFloat(slot.winAmount);
       slot.player.xp += 10;
       return;
     }
     if((slot.reel1 == ":cherries:") || (slot.reel2 == ":cherries:") || (slot.reel3 == ":cherries:")){
-      slot.winAmount = slot.bet / 2;
+      slot.winAmount = (slot.bet / 2).toFixed(2);
       slot.winText = "Well at least you didn't lose it all...";
-      slot.player.money += slot.winAmount;
+      slot.player.money += parseFloat(slot.winAmount);
       slot.player.xp += 5;
       return;
     }
