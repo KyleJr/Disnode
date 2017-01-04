@@ -332,7 +332,7 @@ class CasinoPlugin extends Manager {
         data.msg);
       }else{
         // there is something in params
-        if(data.params[0] > 0){
+        if(parseFloat(data.params[0]) > 0){
           //greater than 0
           var player = self.getPlayer(data);
           var timeoutInfo = self.checkTimeout(player);
@@ -351,7 +351,7 @@ class CasinoPlugin extends Manager {
             data.msg);
             return;
           }
-          if(data.params[0] > player.money){// Checks to see if player has enough money for their bet
+          if(parseFloat(data.params[0]) > player.money){// Checks to see if player has enough money for their bet
             this.disnode.service.SendEmbed({
               color: 3447003,
               author: {},
@@ -366,11 +366,11 @@ class CasinoPlugin extends Manager {
             data.msg);
             return;
           }else{
-            player.money -= data.params[0];
-            self.casinoObj.jackpotValue += parseInt(data.params[0]);
+            player.money -= parseFloat(data.params[0]);
+            self.casinoObj.jackpotValue += parseFloat(data.params[0]);
           }
           var slotInfo = {
-            bet: parseInt(data.params[0]),
+            bet: parseFloat(data.params[0]),
             player: player,
             winText: "",
             winAmount: 0,
