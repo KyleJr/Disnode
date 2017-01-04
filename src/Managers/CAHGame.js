@@ -1,7 +1,6 @@
 const Manager = require("../Manager.js");
 const Discord = require("discord.js");
 const shortid = require('shortid');
-const CardcastAPI = require('cardcast-api');
 class cahGame extends Manager {
   constructor(pramas) {
       super(pramas);
@@ -9,54 +8,19 @@ class cahGame extends Manager {
       this.defaultConfig = {
         prefix: "cah",
         commands : [
-          {
-            command: "new",
-            event: "New-Game"
-          },
-          {
-            command: "start",
-            event: "Start-Game"
-          },
-          {
-            command: "join",
-            event: "Join-Game"
-          },
-          {
-            command: "players",
-            event: "Get-Players"
-          },
-          {
-            command: "leave",
-            event: "Leave-Game"
-          },
-          {
-            command: "hand",
-            event: "Get-Hand"
-          },
-          {
-            command: "submit",
-            event: "Submit-Card"
-          },
-          {
-            command: "pick",
-            event: "Pick-Card"
-          },
-          {
-            command: "games",
-            event: "debug-games"
-          },
-          {
-            command: "join-in-progress",
-            event: "join-in-progress"
-          },
-          {
-            command: "points",
-            event: "Points"
-          },
-          {
-            command: "devmsg",
-            event: "debug-devmsg"
-          }
+          {command: "new",event: "New-Game"},
+          {command: "start",event: "Start-Game"},
+          {command: "join",event: "Join-Game"},
+          {command: "players",event: "Get-Players"},
+          {command: "leave",event: "Leave-Game"},
+          {command: "hand",event: "Get-Hand"},
+          {command: "submit",event: "Submit-Card"},
+          {command: "pick",event: "Pick-Card"},
+          {command: "games",event: "debug-games"},
+          {command: "join-in-progress",event: "join-in-progress"},
+          {command: "points",event: "Points"},
+          {command: "deck",event: "deck"},
+          {command: "devmsg",event: "debug-devmsg"}
         ],
       };
       this.startGame = this.startGame.bind(this);
@@ -78,6 +42,9 @@ class cahGame extends Manager {
       this.points = this.points.bind(this);
       this.debugdevmsg = this.debugdevmsg.bind(this);
       this.updateGameTimer = this.updateGameTimer.bind(this);
+      this.deckCommand = this.deckCommand.bind(this);
+      this.getDeck = this.getDeck.bind(this);
+      this.addCardCastDeck = this.addCardCastDeck.bind(this);
       this.disnode.command.on("Command_cah", this.displayHelp);
       this.disnode.command.on("Command_cah_Start-Game", this.startGame)
       this.disnode.command.on("Command_cah_New-Game", this.newGame)
@@ -88,6 +55,7 @@ class cahGame extends Manager {
       this.disnode.command.on("Command_cah_Submit-Card", this.submitCard);
       this.disnode.command.on("Command_cah_Pick-Card", this.pickCard);
       this.disnode.command.on("Command_cah_Points", this.points);
+      this.disnode.command.on("Command_cah_deck", this.deckCommand);
       this.disnode.command.on("Command_cah_join-in-progress", this.joinInProgress);
       this.disnode.command.on("Command_cah_debug-games", this.debugGame);
       this.disnode.command.on("Command_cah_debug-devmsg", this.debugdevmsg);
@@ -96,7 +64,80 @@ class cahGame extends Manager {
       this.allCards =  require('cah-cards');
       this.blackCard =  require('cah-cards/pick1');
       this.whiteCards =  require('cah-cards/answers');
-      var ccapi = new CardcastAPI();
+      this.cc = require('cardcast-api');
+      this.ccapi = new this.cc.CardcastAPI();
+  }
+  deckCommand(data){
+    var self = this;
+    var player = self.GetPlayerByID(data.msg.userId);
+    if(player && player.currentGame ){
+      var game = self.GetGameByCode(player.currentGame);
+      if(!game){
+        return;
+      }
+      switch (data.params[0]) {
+        case "add":
+          if(game.host != player.id){
+            this.disnode.service.SendMessage("***You are not host!***", data.msg);
+            return;
+          }
+          if(data.params[1] == undefined){
+            self.disnode.service.SendMessage("**Please enter an ID** use `!cah deck list` to get a list of active decks", data.msg);
+            break;
+          }
+          for (var i = 0; i < game.decks.length; i++) {
+            if(game.decks[i].id == data.params[1]){
+              self.disnode.service.SendMessage("A deck with ID:`" + data.params[1] + "` Was already in the Active Decks! Use `!cah deck list` to get a list of active decks", data.msg);
+              break;
+            }
+          }
+          if(data.params[1] == "0"){
+            game.decks.push({name:"Default Deck", id: 0, calls: self.blackCard, responses: self.whiteCards});
+            self.disnode.service.SendMessage("**Default Deck** Added", data.msg);
+            break;
+          }else{
+            self.addCardCastDeck(game, data.params[1], data);
+            break;
+          }
+        case "list":
+          var msg = "**Active Decks for **`" + game.id + "`**:**\n";
+          for (var i = 0; i < game.decks.length; i++) {
+            msg += "**ID:** " + game.decks[i].id + " **NAME:** " + game.decks[i].name + "\n";
+          }
+          self.disnode.service.SendMessage(msg, data.msg);
+          break;
+        case "remove":
+          if(game.host != player.id){
+            this.disnode.service.SendMessage("***You are not host!***", data.msg);
+            return;
+          }
+          if(data.params[1]){
+            if(game.decks.length == 1){
+              self.disnode.service.SendMessage("**ERROR**: You cant remove a deck if you only have one Active deck left!", data.msg);
+              break;
+            }
+            for (var i = 0; i < game.decks.length; i++) {
+              if(game.decks[i].id == data.params[1]){
+                game.decks.splice(i,1);
+                if(data.params[1] == 0){
+                  self.disnode.service.SendMessage("**Default Deck** Removed if you wish to have the default deck back again use `!cah deck add 0`", data.msg);
+                  return;
+                }else{
+                  self.disnode.service.SendMessage("**" + game.decks[i].name + "** `REMOVED`", data.msg);
+                  return;
+                }
+              }
+            }
+            self.disnode.service.SendMessage("**ID:** " + data.params[1] + "Was not found! Be sure that you have the correct ID, use `!cah deck list` to get a list of active decks", data.msg);
+            break;
+          }else{
+            self.disnode.service.SendMessage("**Please enter an ID** use `!cah deck list` to get a list of active decks", data.msg);
+          }
+          break;
+        default:
+          break;
+      }
+    }
   }
   debugdevmsg(data){
     var self = this;
@@ -168,20 +209,52 @@ class cahGame extends Manager {
     }
   }
   displayHelp(data){
-    var msg = "**Cards Against Humanity Manager**\n";
-    msg+= " ***Commands***: \n";
-    msg+= " `cah new` - *New Game*\n";
-    msg+= " `cah start` - *Start Game* **(host only / Pre-Game)**\n";
-    msg+= " `cah join` - *Join Game*\n";
-    msg+= " `cah leave` - *Leave Game*\n";
-    msg+= " `cah players` - *Gets Players in a game*\n";
-    msg+= " `cah hand` - *Sends Current Hand*\n";
-    msg+= " `cah pick` - *Pick a card to win*\n";
-    msg+= " `cah submit` - *Submit your card*\n";
-    msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
-    msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
-    msg+= "**Join the Disnode Server for Support and More!:** https://discord.gg/gxQ7nbQ";
-        this.disnode.service.SendMessage(msg, data.msg);
+    if (data.msg.type == "DiscordService") {
+      var client = this.disnode.service.GetService("DiscordService").client;
+      var msg = "";
+      msg+= " `cah new` - *New Game*\n";
+      msg+= " `cah start` - *Start Game* **(host only / Pre-Game)**\n";
+      msg+= " `cah join` - *Join Game*\n";
+      msg+= " `cah leave` - *Leave Game*\n";
+      msg+= " `cah players` - *Gets Players in a game*\n";
+      msg+= " `cah hand` - *Sends Current Hand*\n";
+      msg+= " `cah pick` - *Pick a card to win*\n";
+      msg+= " `cah submit` - *Submit your card*\n";
+      msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
+      msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
+      this.disnode.service.SendEmbed({
+          color: 3447003,
+          author: {},
+          title: 'Cards Against Discord',
+          description: 'A Discord bot that allows users to play Cards Against Humanity on Discord',
+          fields: [ {
+              name: 'Commands',
+              inline: false,
+              value: msg,
+          }, {
+            name: 'Discord Server',
+            inline: false,
+            value: "**Join the Disnode Server for Support and More!:** https://discord.gg/gxQ7nbQ",
+        }],
+          timestamp: new Date(),
+          footer: {}
+      }, data.msg);
+    }else {
+      var msg = "**Cards Against Humanity Manager**\n";
+      msg+= " ***Commands***: \n";
+      msg+= " `cah new` - *New Game*\n";
+      msg+= " `cah start` - *Start Game* **(host only / Pre-Game)**\n";
+      msg+= " `cah join` - *Join Game*\n";
+      msg+= " `cah leave` - *Leave Game*\n";
+      msg+= " `cah players` - *Gets Players in a game*\n";
+      msg+= " `cah hand` - *Sends Current Hand*\n";
+      msg+= " `cah pick` - *Pick a card to win*\n";
+      msg+= " `cah submit` - *Submit your card*\n";
+      msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
+      msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
+      msg+= "**Join the Disnode Server for Support and More!:** https://discord.gg/gxQ7nbQ";
+      this.disnode.service.SendMessage(msg, data.msg);
+    }
   }
   joinGame(data){
     var self = this;
@@ -255,7 +328,7 @@ class cahGame extends Manager {
       hostName: data.msg.username,
       players: [],
       decks: [
-        {name:"Default Deck", id: 0, calls: self.whiteCards, responses: self.blackCard}
+        {name:"Default Deck", id: 0, calls: self.blackCard, responses: self.whiteCards}
       ],
       hasStarted: false,
       pointsToWin: 10,
@@ -491,7 +564,7 @@ class cahGame extends Manager {
         game.currentCardCzar = game.players[game.CzarOrderCount];
         game.CzarOrderCount++;
       }
-      game.currentBlackCard = self.drawBlackCard();
+      game.currentBlackCard = self.drawBlackCard(game);
       self.sendMsgToAllPlayers(game, "**Current Card Czar: **`" + game.currentCardCzar.name + "` \n**Current Black Card:** " + game.currentBlackCard.text + "\n**Now you must submit one of your cards to respond with the black question card to submit use `!cah submit [index]` - where index is the card number next to your card (unless your the Card Czar where you can relax for this part.)**\n\n**Your Cards:**");
       game.stage = 1;
       for(var i = 0; i < game.players.length; i++){
@@ -583,33 +656,28 @@ class cahGame extends Manager {
     for (var x = 0; x < players.length; x++) {
       var player = players[x];
       player.cards = [];
-      var msg = "";
       for (var i = 0; i < 10; i++) {
-        var cardToAdd = self.drawWhiteCard(player);
-        if(i == 9){
-          msg += "╚[ " + (i+1) + " ] - " + cardToAdd.text + "\n";
-        }else{
-          msg += "╠[ " + (i+1) + " ] - " + cardToAdd.text + "\n";
-        }
+        self.drawWhiteCard(game, player);
       }
       player.points = 0;
     }
     this.GameFunction(game);
   }
   //This generates a random White card then adds it to the players hand (returns the white card added to hand)
-  drawWhiteCard(player){
+  drawWhiteCard(game, player){
     var self = this;
-    var obj_keys = Object.keys(self.whiteCards);
+    var deck = self.getDeck(game);
+    var obj_keys = Object.keys(deck.responses);
     var ran_key = obj_keys[Math.floor(Math.random() *obj_keys.length)];
-    var cardToAdd = self.whiteCards[ran_key];
+    var cardToAdd = deck.responses[ran_key];
     player.cards.push(cardToAdd);
-    return cardToAdd;
   }
-  drawBlackCard(){
+  drawBlackCard(game){
     var self = this;
-    var obj_keys = Object.keys(self.blackCard);
+    var deck = self.getDeck(game);
+    var obj_keys = Object.keys(deck.calls);
     var ran_key = obj_keys[Math.floor(Math.random() *obj_keys.length)];
-    var cardToAdd = self.blackCard[ran_key];
+    var cardToAdd = deck.calls[ran_key];
     return cardToAdd;
   }
   getHand(player){
@@ -630,7 +698,7 @@ class cahGame extends Manager {
     for(var i = 0; i < game.players.length; i++){
       var player = game.players[i];
       while(player.cards.length < 10){
-        self.drawWhiteCard(player);
+        self.drawWhiteCard(game, player);
       }
     }
   }
@@ -666,21 +734,37 @@ class cahGame extends Manager {
       self.disnode.service.SendWhisper(game.players[i].sender, msg, {type: game.players[i].service})
     }
   }
-  addCardCastDeck(game, id){
+  getDeck(game){
     var self = this;
-    var apideck = ccapi.deck(id);
-    var rdeck = {name: apideck.name,id: apideck.id, calls: null, responses: null};
-    for (var i = 0; i < apideck.responses.length; i++) {
-      rdeck.responses.push(apideck.responses[i].toJSON);
-    }
-    for (var i = 0; i < apideck.calls.length; i++) {
-      var card = apideck.calls[i].toJSON;
-      if(card.numResponses == 1){
-        rdeck.calls.push(card);
+    if(game.decks.length == 1)return game.decks[0];
+    return game.decks[self.getRandomIntInclusive(0, (game.decks.length - 1))];
+  }
+  addCardCastDeck(game, id, data){
+    var self = this;
+    return self.ccapi.deck(id).then(function(apideck) {
+      if(apideck == null || apideck == undefined){
+        self.disnode.service.SendMessage("I couldn't find a deck on CardCast with that ID, Sorry!", data.msg);
+        return false;
       }
-    }
-    console.log("[CAD -" + self.getDateTime() + "] Found and populated a deck for CardCast ID: " + id);
-    game.decks.push(rdeck);
+      var rdeck = {name: apideck.name,id: id, calls: [], responses: []};
+      for (var i = 0; i < apideck.responses.length; i++) {
+        rdeck.responses.push(apideck.responses[i].toJSON());
+      }
+      for (var i = 0; i < apideck.calls.length; i++) {
+        var card = apideck.calls[i].toJSON();
+        if(card.numResponses == 1){
+          rdeck.calls.push(card);
+        }
+      }
+      console.log("[CAD -" + self.getDateTime() + "] Found and populated a deck for CardCast ID: " + id);
+      game.decks.push(rdeck);
+      self.disnode.service.SendMessage("Deck ID: `" + data.params[1] + "` Was Added use `!cah deck list` to get a list of active decks", data.msg);
+      return true;
+    }).catch(function(error) {
+      self.disnode.service.SendMessage("I had trouble contacting the API Server. Please try again!\n Reason: " + error, data.msg);
+      console.log("[CAD -" + self.getDateTime() + "] CardCast Request Error: " + error);
+      return false;
+    });
   }
   getDateTime() {
     var date = new Date();
