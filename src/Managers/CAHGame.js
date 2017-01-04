@@ -81,6 +81,10 @@ class cahGame extends Manager {
             this.disnode.service.SendMessage("***You are not host!***", data.msg);
             return;
           }
+          if(game.hasStarted){
+            this.disnode.service.SendMessage("***You cant modify the decks when the game has started!***", data.msg);
+            return;
+          }
           if(data.params[1] == undefined){
             self.disnode.service.SendMessage("**Please enter an ID** use `!cah deck list` to get a list of active decks", data.msg);
             break;
@@ -111,6 +115,10 @@ class cahGame extends Manager {
             this.disnode.service.SendMessage("***You are not host!***", data.msg);
             return;
           }
+          if(game.hasStarted){
+            this.disnode.service.SendMessage("***You cant modify the decks when the game has started!***", data.msg);
+            return;
+          }
           if(data.params[1]){
             if(game.decks.length == 1){
               self.disnode.service.SendMessage("**ERROR**: You cant remove a deck if you only have one Active deck left!", data.msg);
@@ -135,6 +143,24 @@ class cahGame extends Manager {
           }
           break;
         default:
+          var client = this.disnode.service.GetService("DiscordService").client;
+          var msg = "";
+          msg+= " `cah deck list` - *List your current game's Active Decks*\n";
+          msg+= " `cah deck add` - *Add a deck using its cardcast id e.g. *`!cah deck add JJDFG` **(host only / Pre-Game)**\n";
+          msg+= " `cah deck remove` - *Remove a deck using its cardcast id e.g. *`!cah deck remove JJDFG` **(host only / Pre-Game)**\n";
+          this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              title: 'Deck Management',
+              description: 'Manage your deck with packs that you can find on https://www.cardcastgame.com/browse/',
+              fields: [ {
+                  name: 'Commands',
+                  inline: false,
+                  value: msg,
+              }],
+              timestamp: new Date(),
+              footer: {}
+          }, data.msg);
           break;
       }
     }
@@ -220,6 +246,7 @@ class cahGame extends Manager {
       msg+= " `cah hand` - *Sends Current Hand*\n";
       msg+= " `cah pick` - *Pick a card to win*\n";
       msg+= " `cah submit` - *Submit your card*\n";
+      msg+= " `cah deck` - *Deck Management* **(Conditions vary by subcommand)**\n";
       msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
       msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
       this.disnode.service.SendEmbed({
@@ -239,21 +266,6 @@ class cahGame extends Manager {
           timestamp: new Date(),
           footer: {}
       }, data.msg);
-    }else {
-      var msg = "**Cards Against Humanity Manager**\n";
-      msg+= " ***Commands***: \n";
-      msg+= " `cah new` - *New Game*\n";
-      msg+= " `cah start` - *Start Game* **(host only / Pre-Game)**\n";
-      msg+= " `cah join` - *Join Game*\n";
-      msg+= " `cah leave` - *Leave Game*\n";
-      msg+= " `cah players` - *Gets Players in a game*\n";
-      msg+= " `cah hand` - *Sends Current Hand*\n";
-      msg+= " `cah pick` - *Pick a card to win*\n";
-      msg+= " `cah submit` - *Submit your card*\n";
-      msg+= " `cah points` - *Change the points to win* **(host only / Pre-Game)**\n";
-      msg+= " `cah join-in-progress` - *Enables and Disables join-in-progress* **(host only)**\n";
-      msg+= "**Join the Disnode Server for Support and More!:** https://discord.gg/gxQ7nbQ";
-      this.disnode.service.SendMessage(msg, data.msg);
     }
   }
   joinGame(data){
@@ -439,9 +451,8 @@ class cahGame extends Manager {
       if(game.players.length < 3){
         self.sendMsgToAllPlayers(game,"**There are less than 3 players in the game so the game has ended!**");
         self.endGame(game);
-      }
-      this.updateGameTimer(game);
-      self.disnode.service.SendWhisper(player.sender, "**You left the game!**", {type: player.service});
+      }else this.updateGameTimer(game);
+      self.disnode.service.SendWhisper(player.sender, "**You left the game: **" + game.id + "** !**", {type: player.service});
     }
   }
   GetPlayerByID(id){
@@ -741,6 +752,7 @@ class cahGame extends Manager {
   }
   addCardCastDeck(game, id, data){
     var self = this;
+    id = id.toUpperCase();
     return self.ccapi.deck(id).then(function(apideck) {
       if(apideck == null || apideck == undefined){
         self.disnode.service.SendMessage("I couldn't find a deck on CardCast with that ID, Sorry!", data.msg);
@@ -758,7 +770,7 @@ class cahGame extends Manager {
       }
       console.log("[CAD -" + self.getDateTime() + "] Found and populated a deck for CardCast ID: " + id);
       game.decks.push(rdeck);
-      self.disnode.service.SendMessage("Deck ID: `" + data.params[1] + "` Was Added use `!cah deck list` to get a list of active decks", data.msg);
+      self.disnode.service.SendMessage("Deck ID: `" + id + "` Was Added use `!cah deck list` to get a list of active decks", data.msg);
       return true;
     }).catch(function(error) {
       self.disnode.service.SendMessage("I had trouble contacting the API Server. Please try again!\n Reason: " + error, data.msg);
