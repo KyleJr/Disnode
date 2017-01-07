@@ -3,750 +3,1073 @@
     {
       "name": "FireGamer3",
       "id": "112786170655600640",
-      "money": 57439.52,
-      "perUpdate": 350,
-      "xp": 81,
-      "lastMessage": {
-        "min": 2,
-        "sec": 31
-      }
+      "money": 90216.66,
+      "perUpdate": 500,
+      "xp": 21,
+      "lastMessage": null,
+      "Premium": true,
+      "Admin": true
     },
     {
       "name": "VictoryForPhil / Atec",
       "id": "131235236402036736",
-      "money": 31995,
+      "money": 41295,
       "perUpdate": 100,
       "xp": 15,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": true,
+      "Admin": true
     },
     {
       "name": "KANG",
       "id": "250889209139691531",
-      "money": 32125,
+      "money": 41425,
       "perUpdate": 100,
       "xp": 5,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Googie2149",
       "id": "102528327251656704",
-      "money": 25800,
+      "money": 35100,
       "perUpdate": 100,
       "xp": 1064,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "minemidnight",
       "id": "155112606661607425",
-      "money": 25800,
+      "money": 35100,
       "perUpdate": 100,
       "xp": 192,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "SamuraiSigma",
       "id": "218449368225808384",
-      "money": 28150,
+      "money": 37450,
       "perUpdate": 100,
       "xp": 6,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Jakey",
       "id": "197965584669999104",
-      "money": 94310,
+      "money": 103610,
       "perUpdate": 100,
       "xp": 4930,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Jakey 2.0",
       "id": "214290108675784704",
-      "money": 29886.5,
+      "money": 39186.5,
       "perUpdate": 100,
       "xp": 2872,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Joey",
       "id": "249716921342230529",
-      "money": 26160,
+      "money": 35460,
       "perUpdate": 100,
       "xp": 691,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Lvn",
       "id": "140520507211513856",
-      "money": 24200,
+      "money": 33500,
       "perUpdate": 100,
       "xp": 6,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "xIAmEzyx(Hammy)",
       "id": "211179000092033034",
-      "money": 27680,
+      "money": 36980,
       "perUpdate": 100,
       "xp": 232,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Infinity3060",
       "id": "173849050414710785",
-      "money": 23300,
+      "money": 32600,
       "perUpdate": 100,
       "xp": 46,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "John Cena",
       "id": "143514312953036800",
-      "money": 22500,
+      "money": 31800,
       "perUpdate": 100,
       "xp": 12,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "ComoMiPene",
       "id": "225608862089084928",
-      "money": 26350,
+      "money": 35650,
       "perUpdate": 100,
       "xp": 41,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Call Me Enrique",
       "id": "249369568869351438",
-      "money": 22880,
+      "money": 32180,
       "perUpdate": 100,
       "xp": 19,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Feta12",
       "id": "164864126462590977",
-      "money": 24535,
+      "money": 33835,
       "perUpdate": 100,
       "xp": 99,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Teacher from Hell",
       "id": "164889146064633856",
-      "money": 25275,
+      "money": 34575,
       "perUpdate": 100,
       "xp": 55,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "VanSchmidt",
       "id": "173508093030825995",
-      "money": 24925,
+      "money": 34225,
       "perUpdate": 100,
       "xp": 12,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Lonelyghini",
       "id": "183904210188894208",
-      "money": 18900,
+      "money": 28200,
       "perUpdate": 100,
       "xp": 52,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Freekz",
       "id": "174044599679975424",
-      "money": 18900,
+      "money": 28200,
       "perUpdate": 100,
       "xp": 41,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "DanyBv98",
       "id": "120690347029430272",
-      "money": 29000,
+      "money": 38300,
       "perUpdate": 100,
       "xp": 43,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "forgas115",
       "id": "213978043717386242",
-      "money": 17200,
+      "money": 26500,
       "perUpdate": 100,
       "xp": 11,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Mr. Snowbot",
       "id": "71723043096899584",
-      "money": 16597,
+      "money": 25897,
       "perUpdate": 100,
       "xp": 37,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Derpadar",
       "id": "134374730730831872",
-      "money": 16300,
+      "money": 25600,
       "perUpdate": 100,
       "xp": 42,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "SOCC",
       "id": "72331778961977344",
-      "money": 21300,
+      "money": 30600,
       "perUpdate": 100,
       "xp": 0,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "黒心",
       "id": "218654675765952512",
-      "money": 15600,
+      "money": 24900,
       "perUpdate": 100,
       "xp": 31,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Martwain",
       "id": "169276343924555776",
-      "money": 14700,
+      "money": 24000,
       "perUpdate": 100,
       "xp": 6,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Pikachu",
       "id": "222491832435605504",
-      "money": 17812.5,
+      "money": 27112.5,
       "perUpdate": 100,
       "xp": 20,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Blockmask",
       "id": "199532476308258816",
-      "money": 17890,
+      "money": 27190,
       "perUpdate": 100,
       "xp": 1,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "altshifta",
       "id": "232076454039388161",
-      "money": 9700,
+      "money": 19000,
       "perUpdate": 100,
       "xp": 475,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Sofia_The_27th",
       "id": "244986219916820481",
-      "money": 16600,
+      "money": 25900,
       "perUpdate": 100,
       "xp": 1,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "AuRevoir",
       "id": "233921056438484994",
-      "money": 10700,
+      "money": 20000,
       "perUpdate": 100,
       "xp": 201,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "FaithInChaos",
       "id": "148743153518772225",
-      "money": 10400,
+      "money": 29000,
       "perUpdate": 200,
       "xp": 105,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "GodZilla",
       "id": "246402733010059266",
-      "money": 31499,
+      "money": 59399,
       "perUpdate": 300,
       "xp": 477,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Cessnex",
       "id": "245099731481657347",
-      "money": 3500,
+      "money": 12800,
       "perUpdate": 100,
       "xp": 49,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Linchie",
       "id": "225649086135664641",
-      "money": 15250,
+      "money": 24550,
       "perUpdate": 100,
       "xp": 42,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "edison0987",
       "id": "232310129134010378",
-      "money": 16500,
+      "money": 25800,
       "perUpdate": 100,
       "xp": 0,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Zothor",
       "id": "136820861263937536",
-      "money": 16400,
+      "money": 25700,
       "perUpdate": 100,
       "xp": 0,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Definitely Not Orthodoxin",
       "id": "237091679230754817",
-      "money": 11300,
+      "money": 20600,
       "perUpdate": 100,
       "xp": 28,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "AFZ",
       "id": "212437960115748865",
-      "money": 17800,
+      "money": 27100,
       "perUpdate": 100,
       "xp": 189,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Larsa",
       "id": "198376711476215808",
-      "money": 20200.5,
+      "money": 48100.5,
       "perUpdate": 300,
       "xp": 317,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "[DeuceD] A Lonely Reaper",
       "id": "253685437049208833",
-      "money": 5005,
+      "money": 14305,
       "perUpdate": 100,
       "xp": 338,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Cryomance",
       "id": "158395157337735168",
-      "money": 15710,
+      "money": 25010,
       "perUpdate": 100,
       "xp": 34,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Arcmilla",
       "id": "97260381428281344",
-      "money": 15350,
+      "money": 24650,
       "perUpdate": 100,
       "xp": 37,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "4ar0n115",
       "id": "149755419160477698",
-      "money": 15039.4,
+      "money": 24339.4,
       "perUpdate": 100,
       "xp": 35,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Phoenix",
       "id": "238591376286154752",
-      "money": 10550,
+      "money": 19850,
       "perUpdate": 100,
       "xp": 16,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Austin",
       "id": "228131465739632641",
-      "money": 15200,
+      "money": 24500,
       "perUpdate": 100,
       "xp": 1,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "jeremy22598",
       "id": "230858662346752000",
-      "money": 15150,
+      "money": 24450,
       "perUpdate": 100,
       "xp": 5,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "!!Everhunt!!",
       "id": "223012555650498560",
-      "money": 15195,
+      "money": 24495,
       "perUpdate": 100,
       "xp": 5,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "GirlsPower",
       "id": "245898466352431116",
-      "money": 14550,
+      "money": 23850,
       "perUpdate": 100,
       "xp": 25,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "[DeuceD] Muhaku",
       "id": "248240664775491584",
-      "money": 9608,
+      "money": 18908,
       "perUpdate": 100,
       "xp": 55,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Bugcat",
       "id": "167025000623243265",
-      "money": 12465,
+      "money": 21765,
       "perUpdate": 100,
       "xp": 37,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "C0r3y",
       "id": "133729269552513025",
-      "money": 11995,
+      "money": 21295,
       "perUpdate": 100,
       "xp": 15,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Intrix",
       "id": "180466615803052033",
-      "money": 6000,
+      "money": 15300,
       "perUpdate": 100,
       "xp": 144,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Acethemaster",
       "id": "256598880571883537",
-      "money": 7625,
+      "money": 16925,
       "perUpdate": 100,
       "xp": 106,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Elisabella😙",
       "id": "192373156235706369",
-      "money": 7290.5,
+      "money": 16590.5,
       "perUpdate": 100,
       "xp": 64,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Unhuggity",
       "id": "246453977904840715",
-      "money": 2000,
+      "money": 11300,
       "perUpdate": 100,
       "xp": 32,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Fortcool1203",
       "id": "264961025185415168",
-      "money": 2000,
+      "money": 11300,
       "perUpdate": 100,
       "xp": 86,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Gabe",
       "id": "264962906766966785",
-      "money": 6069,
+      "money": 15369,
       "perUpdate": 100,
       "xp": 15,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Harisu",
       "id": "206222758089195521",
-      "money": 8671.5,
-      "perUpdate": 200,
-      "xp": 282,
-      "lastMessage": null
+      "money": 600,
+      "perUpdate": 300,
+      "xp": 146,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Ramsterdamn ~",
       "id": "208849205978988555",
-      "money": 33130,
-      "perUpdate": 850,
-      "xp": 104,
-      "lastMessage": null
+      "money": 57912.5,
+      "perUpdate": 1400,
+      "xp": 38,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "AZNPTSTRIKER",
       "id": "209584999270187018",
-      "money": 51280,
+      "money": 108790,
       "perUpdate": 1300,
-      "xp": 42,
-      "lastMessage": null
+      "xp": 48,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Melancholy",
       "id": "130959657060663296",
-      "money": 5612.5,
+      "money": 14905.5,
       "perUpdate": 100,
-      "xp": 35,
-      "lastMessage": null
+      "xp": 96,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Aistify",
       "id": "120860477302636545",
-      "money": 9983.5,
+      "money": 1100,
       "perUpdate": 100,
-      "xp": 62,
-      "lastMessage": null
+      "xp": 141,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "geQQo",
       "id": "97911398301978624",
-      "money": 9850,
+      "money": 19150,
       "perUpdate": 100,
       "xp": 5,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Lain",
       "id": "252480936472477696",
-      "money": 4900,
+      "money": 14200,
       "perUpdate": 100,
       "xp": 18,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Emily.xo",
       "id": "226971049194029057",
-      "money": 11400,
+      "money": 11700,
       "perUpdate": 300,
-      "xp": 396,
-      "lastMessage": null
+      "xp": 412,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "niveK ~",
       "id": "188184364100616193",
-      "money": 4800,
+      "money": 8499.7,
       "perUpdate": 100,
-      "xp": 70,
-      "lastMessage": null
+      "xp": 81,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Burakku",
       "id": "206361345589903362",
-      "money": 4800,
+      "money": 14100,
       "perUpdate": 100,
       "xp": 76,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "goose 1",
       "id": "194000085929951233",
-      "money": 5925,
+      "money": 15225,
       "perUpdate": 100,
       "xp": 15,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "pussybitchmotherfucker",
       "id": "84479342859538432",
-      "money": 9300,
+      "money": 18600,
       "perUpdate": 100,
       "xp": 1,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Hyuur ~",
       "id": "176245484632014850",
-      "money": 9200,
+      "money": 3500,
       "perUpdate": 100,
-      "xp": 20,
-      "lastMessage": null
+      "xp": 47,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Kroniic",
       "id": "219564143336882187",
-      "money": 4324.5,
+      "money": 13624.5,
       "perUpdate": 100,
       "xp": 21,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "bamitscon",
       "id": "256503355172454400",
-      "money": 3100,
+      "money": 12400,
       "perUpdate": 100,
       "xp": 32,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Sunny",
       "id": "219567244387024897",
-      "money": 7200,
+      "money": 16500,
       "perUpdate": 100,
       "xp": 47,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Skeet",
       "id": "105780863152717824",
-      "money": 6150,
+      "money": 15450,
       "perUpdate": 100,
       "xp": 56,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Shivraj",
       "id": "124102469646024704",
-      "money": 7375,
+      "money": 16675,
       "perUpdate": 100,
       "xp": 7,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "HavvicGames",
       "id": "216588454006489090",
-      "money": 7455,
+      "money": 16755,
       "perUpdate": 100,
       "xp": 10,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Kamakiri Chikai",
       "id": "206234305473675265",
-      "money": 6150,
+      "money": 15450,
       "perUpdate": 100,
       "xp": 15,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "AkicaKenjac",
       "id": "219943408385392640",
-      "money": 7390,
+      "money": 16690,
       "perUpdate": 100,
       "xp": 1,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Shiro",
       "id": "263389362689933313",
-      "money": 10200,
+      "money": 28800,
       "perUpdate": 200,
       "xp": 23,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Leo",
       "id": "122793611451432960",
-      "money": 8243,
+      "money": 17543,
       "perUpdate": 100,
       "xp": 103,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "PADOKA MAGICA",
       "id": "139804927089311745",
-      "money": 7150,
+      "money": 16450,
       "perUpdate": 100,
       "xp": 5,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "...Leozzinn...",
       "id": "198572404342128641",
-      "money": 2100,
+      "money": 11400,
       "perUpdate": 100,
       "xp": 46,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Rody l'incroyable dieu osa",
       "id": "244442831656058881",
-      "money": 1800,
+      "money": 11100,
       "perUpdate": 100,
       "xp": 52,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Chacri",
       "id": "196691213829668864",
-      "money": 1938.5,
+      "money": 11238.5,
       "perUpdate": 100,
       "xp": 40,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Chesra",
       "id": "148182641038852096",
-      "money": 5800,
+      "money": 15100,
       "perUpdate": 100,
       "xp": 20,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "MINT",
       "id": "252848640320602113",
-      "money": 6600,
+      "money": 15900,
       "perUpdate": 100,
       "xp": 0,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Carl",
       "id": "156754871071014912",
-      "money": 1689.05,
+      "money": 900.7,
       "perUpdate": 100,
-      "xp": 41,
-      "lastMessage": null
+      "xp": 181,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Nicolas Pavelov",
       "id": "163230013703979008",
-      "money": 703.5,
-      "perUpdate": 100,
-      "xp": 33,
-      "lastMessage": null
+      "money": 19050,
+      "perUpdate": 150,
+      "xp": 25,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "antony4141",
       "id": "160851744438353921",
-      "money": 5997.5,
+      "money": 8780,
       "perUpdate": 100,
-      "xp": 48,
-      "lastMessage": null
+      "xp": 276,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "Fizzatiq",
       "id": "138353953426374657",
-      "money": 6000,
+      "money": 15300,
       "perUpdate": 100,
       "xp": 0,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     },
     {
       "name": "abrekke83",
       "id": "155215284750385152",
-      "money": 5897.5,
+      "money": 14447.5,
+      "perUpdate": 100,
+      "xp": 11,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "discospider9",
+      "id": "197172476625682442",
+      "money": 12750,
+      "perUpdate": 100,
+      "xp": 6,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "SCRAAH",
+      "id": "177920709085888512",
+      "money": 13550,
+      "perUpdate": 100,
+      "xp": 25,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "wolf3fenrir",
+      "id": "127310224125067264",
+      "money": 13900,
+      "perUpdate": 100,
+      "xp": 10,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "Willn",
+      "id": "100003134474035200",
+      "money": 13400,
+      "perUpdate": 100,
+      "xp": 46,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "KingdomNetwork",
+      "id": "140696533682225153",
+      "money": 13350,
       "perUpdate": 100,
       "xp": 5,
-      "lastMessage": null
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "Kitesune",
+      "id": "161186691808362497",
+      "money": 12151,
+      "perUpdate": 100,
+      "xp": 316,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "ZeeKahtah",
+      "id": "110557133103206400",
+      "money": 8650,
+      "perUpdate": 100,
+      "xp": 39,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "HolyHadouken",
+      "id": "103661396213903360",
+      "money": 12399,
+      "perUpdate": 100,
+      "xp": 1,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "Ayewulf <>",
+      "id": "153837834661265418",
+      "money": 3393.5,
+      "perUpdate": 100,
+      "xp": 161,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "arnina🐢",
+      "id": "225419352193761291",
+      "money": 8250,
+      "perUpdate": 100,
+      "xp": 28,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "🔱Orcus Mabuz😈",
+      "id": "253153782265806850",
+      "money": 8000,
+      "perUpdate": 100,
+      "xp": 0,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "Grimace Hentai",
+      "id": "185581586526371840",
+      "money": 7600,
+      "perUpdate": 100,
+      "xp": 1,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "Loz",
+      "id": "181008682773905409",
+      "money": 7050,
+      "perUpdate": 100,
+      "xp": 5,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
+    },
+    {
+      "name": "n_n",
+      "id": "135256112688660481",
+      "money": 5000,
+      "perUpdate": 100,
+      "xp": 125,
+      "lastMessage": null,
+      "Premium": false,
+      "Admin": false
     }
   ],
-  "jackpotValue": 1100
+  "jackpotValue": 488304.31
 }
