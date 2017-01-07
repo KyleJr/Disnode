@@ -305,7 +305,7 @@ class cahGame extends Manager {
     if(foundGame.hasStarted){
       player.cards = []
       for(var i = 0; i < 10; i++){
-        self.drawWhiteCard(player);
+        self.drawWhiteCard(foundGame, player);
       }
       self.getHand(player);
     }
