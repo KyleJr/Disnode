@@ -147,20 +147,23 @@ class cahGame extends Manager {
             self.disnode.service.SendMessage("**Please enter an ID** use `!cah deck list` to get a list of active decks", data.msg);
             break;
           }
-          for (var i = 0; i < game.decks.length; i++) {
-            if(game.decks[i].id == data.params[1]){
-              self.disnode.service.SendMessage("A deck with ID:`" + data.params[1] + "` Was already in the Active Decks! Use `!cah deck list` to get a list of active decks", data.msg);
-              break;
+          var outmsg = "";
+          for (var i = 1; i < data.params.length; i++) {
+            console.log("FOR: " + data.params[i]);
+            if(data.params[i] == undefined)break;
+            for (var x = 0; x < game.decks.length; x++) {
+              if(game.decks[x].id == data.params[i]){
+                self.disnode.service.SendMessage("A deck with ID:`" + data.params[i] + "` Was already in the Active Decks! Use `!cah deck list` to get a list of active decks", data.msg);
+              }
+            }
+            if(data.params[i] == "0"){
+              game.decks.push({name:"Default Deck", id: 0, calls: self.blackCard, responses: self.whiteCards});
+              self.disnode.service.SendMessage("**Default Deck** Added", data.msg);
+            }else{
+              self.addCardCastDeck(game, data.params[i], data);
             }
           }
-          if(data.params[1] == "0"){
-            game.decks.push({name:"Default Deck", id: 0, calls: self.blackCard, responses: self.whiteCards});
-            self.disnode.service.SendMessage("**Default Deck** Added", data.msg);
-            break;
-          }else{
-            self.addCardCastDeck(game, data.params[1], data);
-            break;
-          }
+          break;
         case "list":
           var msg = "**Active Decks for **`" + game.id + "`**:**\n";
           for (var i = 0; i < game.decks.length; i++) {
@@ -204,8 +207,8 @@ class cahGame extends Manager {
           var client = this.disnode.service.GetService("DiscordService").client;
           var msg = "";
           msg+= " `cah deck list` - *List your current game's Active Decks*\n";
-          msg+= " `cah deck add` - *Add a deck using its cardcast id e.g. *`!cah deck add JJDFG` **(host only / Pre-Game)**\n";
-          msg+= " `cah deck remove` - *Remove a deck using its cardcast id e.g. *`!cah deck remove JJDFG` **(host only / Pre-Game)**\n";
+          msg+= " `cah deck add` - *Add a deck using its cardcast id e.g.* `!cah deck add JJDFG` *You can add more than one deck at a time seperate the decks with spaces! e.g.* `!cah deck add JJDFG DK593` **(host only / Pre-Game)**\n";
+          msg+= " `cah deck remove` - *Remove a deck using its cardcast id e.g.* `!cah deck remove JJDFG` **(host only / Pre-Game)**\n";
           this.disnode.service.SendEmbed({
               color: 3447003,
               author: {},
