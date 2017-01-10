@@ -18,6 +18,7 @@ class CasinoPlugin extends Manager {
         {command: "top",event: "top"},
         {command: "look",event: "look"},
         {command: "admin",event: "admin"},
+        {command: "flip",event: "flip"},
       ]
     }
     this.slotItems = [
@@ -62,6 +63,7 @@ class CasinoPlugin extends Manager {
     this.save = this.save.bind(this);
     this.updateCoroutine = this.updateCoroutine.bind(this);
     this.defaultCommand = this.defaultCommand.bind(this);
+    this.coinflipCommand = this.coinflipCommand.bind(this);
 
     this.disnode.command.on("Command_casino_stats", this.statsCommand);
     this.disnode.command.on("Command_casino_store", this.storeCommand);
@@ -69,6 +71,7 @@ class CasinoPlugin extends Manager {
     this.disnode.command.on("Command_casino_top", this.topCommand);
     this.disnode.command.on("Command_casino_slot", this.slotCommand);
     this.disnode.command.on("Command_casino_admin", this.adminCommand);
+    this.disnode.command.on("Command_casino_flip", this.coinflipCommand);
     this.disnode.command.on("Command_casino", this.defaultCommand);
   }
   defaultCommand(data){
@@ -79,6 +82,7 @@ class CasinoPlugin extends Manager {
       msg+= " `casino look` - *Givers stats of the given username*\n";
       msg+= " `casino top` - *Lists the top 10 players based on cash*\n";
       msg+= " `casino store` - *Spend the XP you earn from playing here!*\n";
+      msg+= " `casino flip` - *Coin Flip (general help)* **BETA**\n";
       msg+= " `casino slot` - *Slots (general help)*\n";
       msg+= " `casino slot info` - *Slots info (help / Payouts)*\n";
       this.disnode.service.SendEmbed({
@@ -103,6 +107,311 @@ class CasinoPlugin extends Manager {
           footer: {}
         },
       data.msg);
+    }
+  }
+  coinflipCommand(data){
+    var self = this;
+    var player = self.getPlayer(data);
+    if(!player.Premium){
+      this.disnode.service.SendEmbed({
+        color: 3447003,
+        author: {},
+        fields: [ {
+          name: "Error",
+          inline: false,
+          value: ":warning: Sorry, but Beta features are locked to **Disnode Premium** Users only!",
+        }, {
+          name: 'Disnode Premium',
+          inline: false,
+          value: "**Help us keep the bots running 24/7 and get great perks by doing so by giving us a pledge of $1 a month :** https://www.patreon.com/Disnode",
+        }],
+          timestamp: new Date(),
+          footer: {}
+        },
+      data.msg);
+      return;
+    }
+    switch (data.params[0]) {
+      case "heads":
+        if(parseFloat(data.params[1]) > 1){
+          var bet = parseFloat(data.params[1]).toFixed(2);
+          var timeoutInfo = self.checkTimeout(player);
+          if(player.Admin || player.Premium)timeoutInfo = {pass: true};
+          if(!timeoutInfo.pass){
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: "Error",
+                inline: false,
+                value: ":warning: You must wait **" + timeoutInfo.remain.sec + " seconds** before playing again.",
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            return;
+          }
+          if(bet > player.money){// Checks to see if player has enough money for their bet
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: "Error",
+                inline: false,
+                value: ":warning: You dont have that much Money! You have $" + player.money,
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            return;
+          }else{
+            player.money -= parseFloat(bet);
+            player.money = parseFloat(player.money.toFixed(2));
+          }
+          var flipinfo = {
+            flip: self.getRandomIntInclusive(0,1),
+            winText: "",
+            winAmount: 0
+          }
+          if(flipinfo.flip == 0){
+            flipinfo.winText = "Heads! You Win!"
+            flipinfo.winAmount = parseFloat(bet * 1.25).toFixed(2);
+            player.money += parseFloat(flipinfo.winAmount).toFixed(2);
+            player.money = parseFloat(player.money).toFixed(2);
+            player.xp += 5;
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: ':moneybag: Coin Flip :moneybag:',
+                inline: false,
+                value: flipinfo.winText,
+              }, {
+                name: 'Winnings',
+                inline: false,
+                value: "$" + flipinfo.winAmount,
+              }, {
+                name: 'Balance',
+                inline: true,
+                value: "$" + player.money,
+              }, {
+                name: 'XP',
+                inline: true,
+                value: player.xp,
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            var currentDate = new Date();
+            var min  = currentDate.getMinutes();
+            min = (min < 10 ? "0" : "") + min;
+            var sec  = currentDate.getSeconds();
+            sec = (sec < 10 ? "0" : "") + sec;
+            player.lastMessage = {
+              min: parseInt(min),
+              sec: parseInt(sec),
+            }
+          }else {
+            flipinfo.winText = "Tails! House Wins!";
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: ':moneybag: Coin Flip :moneybag:',
+                inline: false,
+                value: flipinfo.winText,
+              }, {
+                name: 'Winnings',
+                inline: false,
+                value: "$" + flipinfo.winAmount,
+              }, {
+                name: 'Balance',
+                inline: true,
+                value: "$" + player.money,
+              }, {
+                name: 'XP',
+                inline: true,
+                value: player.xp,
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            var currentDate = new Date();
+            var min  = currentDate.getMinutes();
+            min = (min < 10 ? "0" : "") + min;
+            var sec  = currentDate.getSeconds();
+            sec = (sec < 10 ? "0" : "") + sec;
+            player.lastMessage = {
+              min: parseInt(min),
+              sec: parseInt(sec),
+            }
+          }
+        }else {
+          this.disnode.service.SendEmbed({
+            color: 3447003,
+            author: {},
+            fields: [ {
+              name: "Error",
+              inline: false,
+              value: ":warning: Please enter a bet! Example `!casino flip heads 100`",
+            }],
+              timestamp: new Date(),
+              footer: {}
+            },
+          data.msg);
+        }
+        break;
+      case "tails":
+        if(parseFloat(data.params[1]) > 1){
+          var bet = parseFloat(data.params[1]).toFixed(2);
+          var timeoutInfo = self.checkTimeout(player);
+          if(player.Admin || player.Premium)timeoutInfo = {pass: true};
+          if(!timeoutInfo.pass){
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: "Error",
+                inline: false,
+                value: ":warning: You must wait **" + timeoutInfo.remain.sec + " seconds** before playing again.",
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            return;
+          }
+          if(bet > player.money){// Checks to see if player has enough money for their bet
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: "Error",
+                inline: false,
+                value: ":warning: You dont have that much Money! You have $" + player.money,
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            return;
+          }else{
+            player.money -= parseFloat(bet);
+            player.money = parseFloat(player.money.toFixed(2));
+          }
+          var flipinfo = {
+            flip: self.getRandomIntInclusive(0,1),
+            winText: "",
+            winAmount: 0
+          }
+          if(flipinfo.flip == 1){
+            flipinfo.winText = "Tails! You Win!"
+            flipinfo.winAmount = parseFloat(bet * 1.25).toFixed(2);
+            player.money += parseFloat(flipinfo.winAmount).toFixed(2);
+            player.money = parseFloat(player.money).toFixed(2);
+            player.xp += 5;
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: ':moneybag: Coin Flip :moneybag:',
+                inline: false,
+                value: flipinfo.winText,
+              }, {
+                name: 'Winnings',
+                inline: false,
+                value: "$" + flipinfo.winAmount,
+              }, {
+                name: 'Balance',
+                inline: true,
+                value: "$" + player.money,
+              }, {
+                name: 'XP',
+                inline: true,
+                value: player.xp,
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            var currentDate = new Date();
+            var min  = currentDate.getMinutes();
+            min = (min < 10 ? "0" : "") + min;
+            var sec  = currentDate.getSeconds();
+            sec = (sec < 10 ? "0" : "") + sec;
+            player.lastMessage = {
+              min: parseInt(min),
+              sec: parseInt(sec),
+            }
+          }else {
+            flipinfo.winText = "Heads! House Wins!";
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: ':moneybag: Coin Flip :moneybag:',
+                inline: false,
+                value: flipinfo.winText,
+              }, {
+                name: 'Winnings',
+                inline: false,
+                value: "$" + flipinfo.winAmount,
+              }, {
+                name: 'Balance',
+                inline: true,
+                value: "$" + player.money,
+              }, {
+                name: 'XP',
+                inline: true,
+                value: player.xp,
+              }],
+                timestamp: new Date(),
+                footer: {}
+              },
+            data.msg);
+            var currentDate = new Date();
+            var min  = currentDate.getMinutes();
+            min = (min < 10 ? "0" : "") + min;
+            var sec  = currentDate.getSeconds();
+            sec = (sec < 10 ? "0" : "") + sec;
+            player.lastMessage = {
+              min: parseInt(min),
+              sec: parseInt(sec),
+            }
+          }
+        }else {
+          this.disnode.service.SendEmbed({
+            color: 3447003,
+            author: {},
+            fields: [ {
+              name: "Error",
+              inline: false,
+              value: ":warning: Please enter a bet! Example `!casino flip tails 100`",
+            }],
+              timestamp: new Date(),
+              footer: {}
+            },
+          data.msg);
+        }
+        break;
+      default:
+        this.disnode.service.SendEmbed({
+          color: 3447003,
+          author: {},
+          fields: [ {
+            name: "Coin Flip",
+            inline: false,
+            value: "Welcome to Coin Flip! You can play by using this command `!casino flip [heads/tails] [bet]` Examples `!casino flip heads 100` and `!casino flip tails 100`",
+          }],
+            timestamp: new Date(),
+            footer: {}
+          },
+        data.msg);
+        break;
     }
   }
   adminCommand(data){
@@ -493,7 +802,13 @@ class CasinoPlugin extends Manager {
             winAmount: 0,
             reel1: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
             reel2: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-            reel3: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item
+            reel3: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
+            fake1: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
+            fake2: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
+            fake3: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
+            fake4: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
+            fake5: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
+            fake6: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item
           }
           self.didWin(slotInfo);
           player.money = parseFloat(player.money.toFixed(2));
@@ -502,9 +817,9 @@ class CasinoPlugin extends Manager {
             color: 3447003,
             author: {},
             fields: [ {
-              name: 'Slots Result',
+              name: ':slot_machine: Slots Result :slot_machine:',
               inline: false,
-              value: "[ " + slotInfo.reel1 + slotInfo.reel2 + slotInfo.reel3 +" ]\n\n" + slotInfo.winText,
+              value: "| " + slotInfo.fake1 + slotInfo.fake2 + slotInfo.fake3 + " |\n**>**" + slotInfo.reel1 + slotInfo.reel2 + slotInfo.reel3 +"**<** Pay Line\n| " + slotInfo.fake4 + slotInfo.fake5 + slotInfo.fake6 + " |\n\n" + slotInfo.winText,
             }, {
               name: 'Winnings',
               inline: false,
