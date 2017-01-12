@@ -829,6 +829,7 @@ class cahGame extends Manager {
       }
       for (var i = 0; i < apideck.calls.length; i++) {
         var card = apideck.calls[i].toJSON();
+        card.text = apideck.calls[i].text.join("____");
         if(card.numResponses == 1){
           rdeck.calls.push(card);
         }
