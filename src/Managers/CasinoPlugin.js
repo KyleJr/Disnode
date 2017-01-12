@@ -112,11 +112,11 @@ class CasinoPlugin extends Manager {
   coinflipCommand(data){
     var self = this;
     var player = self.getPlayer(data);
-    player.money = Number(player.money);
+    player.money = Number(parseFloat(player.money).toFixed(2));
     switch (data.params[0]) {
       case "heads":
         if(parseFloat(data.params[1]) > 1){
-          var bet = parseFloat(data.params[1]).toFixed(2);
+          var bet = Number(parseFloat(data.params[1]).toFixed(2));
           var timeoutInfo = self.checkTimeout(player);
           if(player.Admin || player.Premium)timeoutInfo = {pass: true};
           if(!timeoutInfo.pass){
@@ -149,8 +149,8 @@ class CasinoPlugin extends Manager {
             data.msg);
             return;
           }else{
-            player.money -= parseFloat(bet);
-            player.money = parseFloat(player.money.toFixed(2));
+            player.money -= bet;
+            player.money = Number(parseFloat(player.money).toFixed(2));
           }
           var flipinfo = {
             flip: self.getRandomIntInclusive(0,1),
@@ -158,17 +158,17 @@ class CasinoPlugin extends Manager {
             winAmount: 0
           }
           player.stats.coinPlays++;
-          player.stats.moneySpent = parseFloat(parseFloat(player.stats.moneySpent) + parseFloat(bet));
-          player.stats.moneySpent = player.stats.moneySpent.toFixed(2);
+          player.stats.moneySpent += Number(parseFloat(bet).toFixed(2));
+          player.stats.moneySpent = Number(parseFloat(player.stats.moneySpent).toFixed(2));
           if(flipinfo.flip == 0){
             player.stats.coinWins++;
             player.stats.coinHeads++;
             flipinfo.winText = "Heads! You Win!"
-            flipinfo.winAmount = parseFloat(bet * 1.25).toFixed(2);
-            player.stats.moneyWon = parseFloat(parseFloat(player.stats.moneyWon) + parseFloat(flipinfo.winAmount));
-            player.stats.moneyWon = player.stats.moneyWon.toFixed(2);
-            player.money += parseFloat(flipinfo.winAmount).toFixed(2);
-            player.money = parseFloat(player.money).toFixed(2);
+            flipinfo.winAmount = Number(parseFloat(bet * 1.25).toFixed(2));
+            player.stats.moneyWon += Number(parseFloat(flipinfo.winAmount).toFixed(2));
+            player.stats.moneyWon = Number(parseFloat(player.stats.moneyWon).toFixed(2));
+            player.money += Number(parseFloat(flipinfo.winAmount).toFixed(2));
+            player.money = Number(parseFloat(player.money).toFixed(2));
             player.xp += 5;
             this.disnode.service.SendEmbed({
               color: 3447003,
@@ -290,8 +290,8 @@ class CasinoPlugin extends Manager {
             data.msg);
             return;
           }else{
-            player.money -= parseFloat(bet);
-            player.money = parseFloat(player.money.toFixed(2));
+            player.money -= bet;
+            player.money = Number(parseFloat(player.money).toFixed(2));
           }
           var flipinfo = {
             flip: self.getRandomIntInclusive(0,1),
@@ -299,17 +299,17 @@ class CasinoPlugin extends Manager {
             winAmount: 0
           }
           player.stats.coinPlays++;
-          player.stats.moneySpent = parseFloat(parseFloat(player.stats.moneySpent) + parseFloat(bet));
-          player.stats.moneySpent = player.stats.moneySpent.toFixed(2);
+          player.stats.moneySpent += Number(parseFloat(bet).toFixed(2));
+          player.stats.moneySpent = Number(parseFloat(player.stats.moneySpent).toFixed(2));
           if(flipinfo.flip == 1){
             player.stats.coinWins++;
             player.stats.coinTails++;
             flipinfo.winText = "Tails! You Win!"
-            flipinfo.winAmount = parseFloat(bet * 1.25).toFixed(2);
-            player.stats.moneyWon = parseFloat(parseFloat(player.stats.moneyWon) + parseFloat(flipinfo.winAmount));
-            player.stats.moneyWon = player.stats.moneyWon.toFixed(2);
-            player.money += parseFloat(flipinfo.winAmount).toFixed(2);
-            player.money = parseFloat(player.money).toFixed(2);
+            flipinfo.winAmount = Number(parseFloat(bet * 1.25).toFixed(2));
+            player.stats.moneyWon += Number(parseFloat(flipinfo.winAmount).toFixed(2));
+            player.stats.moneyWon = Number(parseFloat(player.stats.moneyWon).toFixed(2));
+            player.money += Number(parseFloat(flipinfo.winAmount).toFixed(2));
+            player.money = Number(parseFloat(player.money).toFixed(2));
             player.xp += 5;
             this.disnode.service.SendEmbed({
               color: 3447003,
