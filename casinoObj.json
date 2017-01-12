@@ -3,13 +3,10 @@
     {
       "name": "FireGamer3",
       "id": "112786170655600640",
-      "money": 1740716.59,
+      "money": 1764116.59,
       "perUpdate": 900,
       "xp": 202,
-      "lastMessage": {
-        "min": 56,
-        "sec": 45
-      },
+      "lastMessage": null,
       "Premium": true,
       "Admin": true,
       "stats": {
@@ -32,7 +29,7 @@
     {
       "name": "VictoryForPhil / Atec",
       "id": "131235236402036736",
-      "money": 67295,
+      "money": 69895,
       "perUpdate": 100,
       "xp": 15,
       "lastMessage": null,
@@ -58,7 +55,7 @@
     {
       "name": "KANG",
       "id": "250889209139691531",
-      "money": 67425,
+      "money": 70025,
       "perUpdate": 100,
       "xp": 5,
       "lastMessage": null,
@@ -84,7 +81,7 @@
     {
       "name": "Googie2149",
       "id": "102528327251656704",
-      "money": 61100,
+      "money": 63700,
       "perUpdate": 100,
       "xp": 1064,
       "lastMessage": null,
@@ -110,7 +107,7 @@
     {
       "name": "minemidnight",
       "id": "155112606661607425",
-      "money": 61100,
+      "money": 63700,
       "perUpdate": 100,
       "xp": 192,
       "lastMessage": null,
@@ -136,7 +133,7 @@
     {
       "name": "SamuraiSigma",
       "id": "218449368225808384",
-      "money": 63450,
+      "money": 66050,
       "perUpdate": 100,
       "xp": 6,
       "lastMessage": null,
@@ -162,7 +159,7 @@
     {
       "name": "Jakey",
       "id": "197965584669999104",
-      "money": 129610,
+      "money": 132210,
       "perUpdate": 100,
       "xp": 4930,
       "lastMessage": null,
@@ -188,7 +185,7 @@
     {
       "name": "Jakey 2.0",
       "id": "214290108675784704",
-      "money": 65186.5,
+      "money": 67786.5,
       "perUpdate": 100,
       "xp": 2872,
       "lastMessage": null,
@@ -214,7 +211,7 @@
     {
       "name": "Joey",
       "id": "249716921342230529",
-      "money": 61460,
+      "money": 64060,
       "perUpdate": 100,
       "xp": 691,
       "lastMessage": null,
@@ -240,7 +237,7 @@
     {
       "name": "Lvn",
       "id": "140520507211513856",
-      "money": 59500,
+      "money": 62100,
       "perUpdate": 100,
       "xp": 6,
       "lastMessage": null,
@@ -266,7 +263,7 @@
     {
       "name": "xIAmEzyx(Hammy)",
       "id": "211179000092033034",
-      "money": 62980,
+      "money": 65580,
       "perUpdate": 100,
       "xp": 232,
       "lastMessage": null,
@@ -292,7 +289,7 @@
     {
       "name": "Infinity3060",
       "id": "173849050414710785",
-      "money": 58600,
+      "money": 61200,
       "perUpdate": 100,
       "xp": 46,
       "lastMessage": null,
@@ -318,7 +315,7 @@
     {
       "name": "John Cena",
       "id": "143514312953036800",
-      "money": 57800,
+      "money": 60400,
       "perUpdate": 100,
       "xp": 12,
       "lastMessage": null,
@@ -344,7 +341,7 @@
     {
       "name": "ComoMiPene",
       "id": "225608862089084928",
-      "money": 61650,
+      "money": 64250,
       "perUpdate": 100,
       "xp": 41,
       "lastMessage": null,
@@ -370,7 +367,7 @@
     {
       "name": "Call Me Enrique",
       "id": "249369568869351438",
-      "money": 58180,
+      "money": 60780,
       "perUpdate": 100,
       "xp": 19,
       "lastMessage": null,
@@ -396,7 +393,7 @@
     {
       "name": "Feta12",
       "id": "164864126462590977",
-      "money": 59835,
+      "money": 62435,
       "perUpdate": 100,
       "xp": 99,
       "lastMessage": null,
@@ -422,7 +419,7 @@
     {
       "name": "Teacher from Hell",
       "id": "164889146064633856",
-      "money": 60575,
+      "money": 63175,
       "perUpdate": 100,
       "xp": 55,
       "lastMessage": null,
@@ -448,7 +445,7 @@
     {
       "name": "VanSchmidt",
       "id": "173508093030825995",
-      "money": 60225,
+      "money": 62825,
       "perUpdate": 100,
       "xp": 12,
       "lastMessage": null,
@@ -474,7 +471,7 @@
     {
       "name": "Lonelyghini",
       "id": "183904210188894208",
-      "money": 54200,
+      "money": 56800,
       "perUpdate": 100,
       "xp": 52,
       "lastMessage": null,
@@ -500,7 +497,7 @@
     {
       "name": "Freekz",
       "id": "174044599679975424",
-      "money": 54200,
+      "money": 56800,
       "perUpdate": 100,
       "xp": 41,
       "lastMessage": null,
@@ -526,7 +523,7 @@
     {
       "name": "DanyBv98",
       "id": "120690347029430272",
-      "money": 64300,
+      "money": 66900,
       "perUpdate": 100,
       "xp": 43,
       "lastMessage": null,
@@ -552,7 +549,7 @@
     {
       "name": "forgas115",
       "id": "213978043717386242",
-      "money": 52500,
+      "money": 55100,
       "perUpdate": 100,
       "xp": 11,
       "lastMessage": null,
@@ -578,7 +575,7 @@
     {
       "name": "Mr. Snowbot",
       "id": "71723043096899584",
-      "money": 51897,
+      "money": 54497,
       "perUpdate": 100,
       "xp": 37,
       "lastMessage": null,
@@ -604,7 +601,7 @@
     {
       "name": "Derpadar",
       "id": "134374730730831872",
-      "money": 51600,
+      "money": 54200,
       "perUpdate": 100,
       "xp": 42,
       "lastMessage": null,
@@ -630,7 +627,7 @@
     {
       "name": "SOCC",
       "id": "72331778961977344",
-      "money": 56600,
+      "money": 59200,
       "perUpdate": 100,
       "xp": 0,
       "lastMessage": null,
@@ -656,7 +653,7 @@
     {
       "name": "黒心",
       "id": "218654675765952512",
-      "money": 50900,
+      "money": 53500,
       "perUpdate": 100,
       "xp": 31,
       "lastMessage": null,
@@ -682,7 +679,7 @@
     {
       "name": "Martwain",
       "id": "169276343924555776",
-      "money": 50000,
+      "money": 52600,
       "perUpdate": 100,
       "xp": 6,
       "lastMessage": null,
@@ -708,7 +705,7 @@
     {
       "name": "Pikachu",
       "id": "222491832435605504",
-      "money": 53112.5,
+      "money": 55712.5,
       "perUpdate": 100,
       "xp": 20,
       "lastMessage": null,
@@ -734,7 +731,7 @@
     {
       "name": "Blockmask",
       "id": "199532476308258816",
-      "money": 53190,
+      "money": 55790,
       "perUpdate": 100,
       "xp": 1,
       "lastMessage": null,
@@ -760,7 +757,7 @@
     {
       "name": "altshifta",
       "id": "232076454039388161",
-      "money": 45000,
+      "money": 47600,
       "perUpdate": 100,
       "xp": 475,
       "lastMessage": null,
@@ -786,7 +783,7 @@
     {
       "name": "Sofia_The_27th",
       "id": "244986219916820481",
-      "money": 51900,
+      "money": 54500,
       "perUpdate": 100,
       "xp": 1,
       "lastMessage": null,
@@ -812,7 +809,7 @@
     {
       "name": "AuRevoir",
       "id": "233921056438484994",
-      "money": 46000,
+      "money": 48600,
       "perUpdate": 100,
       "xp": 201,
       "lastMessage": null,
@@ -838,7 +835,7 @@
     {
       "name": "FaithInChaos",
       "id": "148743153518772225",
-      "money": 81000,
+      "money": 86200,
       "perUpdate": 200,
       "xp": 105,
       "lastMessage": null,
@@ -864,7 +861,7 @@
     {
       "name": "GodZilla",
       "id": "246402733010059266",
-      "money": 137399,
+      "money": 145199,
       "perUpdate": 300,
       "xp": 477,
       "lastMessage": null,
@@ -890,7 +887,7 @@
     {
       "name": "Cessnex",
       "id": "245099731481657347",
-      "money": 38800,
+      "money": 41400,
       "perUpdate": 100,
       "xp": 49,
       "lastMessage": null,
@@ -916,7 +913,7 @@
     {
       "name": "Linchie",
       "id": "225649086135664641",
-      "money": 50550,
+      "money": 53150,
       "perUpdate": 100,
       "xp": 42,
       "lastMessage": null,
@@ -942,7 +939,7 @@
     {
       "name": "edison0987",
       "id": "232310129134010378",
-      "money": 51800,
+      "money": 54400,
       "perUpdate": 100,
       "xp": 0,
       "lastMessage": null,
@@ -968,7 +965,7 @@
     {
       "name": "Zothor",
       "id": "136820861263937536",
-      "money": 51700,
+      "money": 54300,
       "perUpdate": 100,
       "xp": 0,
       "lastMessage": null,
@@ -994,7 +991,7 @@
     {
       "name": "Definitely Not Orthodoxin",
       "id": "237091679230754817",
-      "money": 46600,
+      "money": 49200,
       "perUpdate": 100,
       "xp": 28,
       "lastMessage": null,
@@ -1020,7 +1017,7 @@
     {
       "name": "AFZ",
       "id": "212437960115748865",
-      "money": 53100,
+      "money": 55700,
       "perUpdate": 100,
       "xp": 189,
       "lastMessage": null,
@@ -1046,7 +1043,7 @@
     {
       "name": "Larsa",
       "id": "198376711476215808",
-      "money": 126100.5,
+      "money": 133900.5,
       "perUpdate": 300,
       "xp": 317,
       "lastMessage": null,
@@ -1072,7 +1069,7 @@
     {
       "name": "[DeuceD] A Lonely Reaper",
       "id": "253685437049208833",
-      "money": 40305,
+      "money": 42905,
       "perUpdate": 100,
       "xp": 338,
       "lastMessage": null,
@@ -1098,7 +1095,7 @@
     {
       "name": "Cryomance",
       "id": "158395157337735168",
-      "money": 51010,
+      "money": 53610,
       "perUpdate": 100,
       "xp": 34,
       "lastMessage": null,
@@ -1124,7 +1121,7 @@
     {
       "name": "Arcmilla",
       "id": "97260381428281344",
-      "money": 50650,
+      "money": 53250,
       "perUpdate": 100,
       "xp": 37,
       "lastMessage": null,
@@ -1150,7 +1147,7 @@
     {
       "name": "4ar0n115",
       "id": "149755419160477698",
-      "money": 50339.4,
+      "money": 52939.4,
       "perUpdate": 100,
       "xp": 35,
       "lastMessage": null,
@@ -1176,7 +1173,7 @@
     {
       "name": "Phoenix",
       "id": "238591376286154752",
-      "money": 45850,
+      "money": 48450,
       "perUpdate": 100,
       "xp": 16,
       "lastMessage": null,
@@ -1202,7 +1199,7 @@
     {
       "name": "Austin",
       "id": "228131465739632641",
-      "money": 43995,
+      "money": 46595,
       "perUpdate": 100,
       "xp": 48,
       "lastMessage": null,
@@ -1228,7 +1225,7 @@
     {
       "name": "jeremy22598",
       "id": "230858662346752000",
-      "money": 50450,
+      "money": 53050,
       "perUpdate": 100,
       "xp": 5,
       "lastMessage": null,
@@ -1254,7 +1251,7 @@
     {
       "name": "!!Everhunt!!",
       "id": "223012555650498560",
-      "money": 50495,
+      "money": 53095,
       "perUpdate": 100,
       "xp": 5,
       "lastMessage": null,
@@ -1280,7 +1277,7 @@
     {
       "name": "GirlsPower",
       "id": "245898466352431116",
-      "money": 49850,
+      "money": 52450,
       "perUpdate": 100,
       "xp": 25,
       "lastMessage": null,
@@ -1306,7 +1303,7 @@
     {
       "name": "[DeuceD] Muhaku",
       "id": "248240664775491584",
-      "money": 44908,
+      "money": 47508,
       "perUpdate": 100,
       "xp": 55,
       "lastMessage": null,
@@ -1332,7 +1329,7 @@
     {
       "name": "Bugcat",
       "id": "167025000623243265",
-      "money": 47765,
+      "money": 50365,
       "perUpdate": 100,
       "xp": 37,
       "lastMessage": null,
@@ -1358,7 +1355,7 @@
     {
       "name": "C0r3y",
       "id": "133729269552513025",
-      "money": 47295,
+      "money": 49895,
       "perUpdate": 100,
       "xp": 15,
       "lastMessage": null,
@@ -1384,7 +1381,7 @@
     {
       "name": "Intrix",
       "id": "180466615803052033",
-      "money": 41300,
+      "money": 43900,
       "perUpdate": 100,
       "xp": 144,
       "lastMessage": null,
@@ -1410,7 +1407,7 @@
     {
       "name": "Acethemaster",
       "id": "256598880571883537",
-      "money": 42925,
+      "money": 45525,
       "perUpdate": 100,
       "xp": 106,
       "lastMessage": null,
@@ -1436,7 +1433,7 @@
     {
       "name": "Elisabella😙",
       "id": "192373156235706369",
-      "money": 42590.5,
+      "money": 45190.5,
       "perUpdate": 100,
       "xp": 64,
       "lastMessage": null,
@@ -1462,7 +1459,7 @@
     {
       "name": "Unhuggity",
       "id": "246453977904840715",
-      "money": 37300,
+      "money": 39900,
       "perUpdate": 100,
       "xp": 32,
       "lastMessage": null,
@@ -1488,7 +1485,7 @@
     {
       "name": "Fortcool1203",
       "id": "264961025185415168",
-      "money": 37300,
+      "money": 39900,
       "perUpdate": 100,
       "xp": 86,
       "lastMessage": null,
@@ -1514,7 +1511,7 @@
     {
       "name": "Gabe",
       "id": "264962906766966785",
-      "money": 41369,
+      "money": 43969,
       "perUpdate": 100,
       "xp": 15,
       "lastMessage": null,
@@ -1540,7 +1537,7 @@
     {
       "name": "Harisu",
       "id": "206222758089195521",
-      "money": 44100,
+      "money": 51900,
       "perUpdate": 300,
       "xp": 193,
       "lastMessage": null,
@@ -1566,20 +1563,20 @@
     {
       "name": "Ramsterdamn ~",
       "id": "208849205978988555",
-      "money": 284118,
-      "perUpdate": 1650,
-      "xp": 122,
+      "money": 327667.5,
+      "perUpdate": 1700,
+      "xp": 27,
       "lastMessage": null,
       "Premium": false,
       "Admin": false,
       "stats": {
-        "moneySpent": 0,
-        "moneyWon": 0,
-        "slotPlays": 0,
+        "moneySpent": "1.00",
+        "moneyWon": "0.50",
+        "slotPlays": 1,
         "coinPlays": 0,
-        "slotWins": 0,
+        "slotWins": 1,
         "coinWins": 0,
-        "slotSingleC": 0,
+        "slotSingleC": 1,
         "slotTripleC": 0,
         "slot3s": 0,
         "slot2s": 0,
@@ -1592,7 +1589,7 @@
     {
       "name": "AZNPTSTRIKER",
       "id": "209584999270187018",
-      "money": 252197.5,
+      "money": 285997.5,
       "perUpdate": 1300,
       "xp": 65,
       "lastMessage": null,
@@ -1618,20 +1615,20 @@
     {
       "name": "Melancholy",
       "id": "130959657060663296",
-      "money": 38939.75,
+      "money": 51935.25,
       "perUpdate": 500,
-      "xp": 15,
+      "xp": 51,
       "lastMessage": null,
       "Premium": false,
       "Admin": false,
       "stats": {
-        "moneySpent": 0,
-        "moneyWon": 0,
-        "slotPlays": 0,
+        "moneySpent": "8.00",
+        "moneyWon": "3.50",
+        "slotPlays": 8,
         "coinPlays": 0,
-        "slotWins": 0,
+        "slotWins": 7,
         "coinWins": 0,
-        "slotSingleC": 0,
+        "slotSingleC": 7,
         "slotTripleC": 0,
         "slot3s": 0,
         "slot2s": 0,
@@ -1644,7 +1641,7 @@
     {
       "name": "Aistify",
       "id": "120860477302636545",
-      "money": 27100,
+      "money": 29700,
       "perUpdate": 100,
       "xp": 141,
       "lastMessage": null,
@@ -1670,7 +1667,7 @@
     {
       "name": "geQQo",
       "id": "97911398301978624",
-      "money": 45150,
+      "money": 47750,
       "perUpdate": 100,
       "xp": 5,
       "lastMessage": null,
@@ -1696,7 +1693,7 @@
     {
       "name": "Lain",
       "id": "252480936472477696",
-      "money": 40200,
+      "money": 42800,
       "perUpdate": 100,
       "xp": 18,
       "lastMessage": null,
@@ -1722,7 +1719,7 @@
     {
       "name": "Emily.xo",
       "id": "226971049194029057",
-      "money": 67200,
+      "money": 75000,
       "perUpdate": 300,
       "xp": 418,
       "lastMessage": null,
@@ -1748,7 +1745,7 @@
     {
       "name": "niveK ~",
       "id": "188184364100616193",
-      "money": 19636.87,
+      "money": 22236.87,
       "perUpdate": 100,
       "xp": 111,
       "lastMessage": null,
@@ -1774,7 +1771,7 @@
     {
       "name": "Burakku",
       "id": "206361345589903362",
-      "money": 40100,
+      "money": 42700,
       "perUpdate": 100,
       "xp": 76,
       "lastMessage": null,
@@ -1800,7 +1797,7 @@
     {
       "name": "goose 1",
       "id": "194000085929951233",
-      "money": 41225,
+      "money": 43825,
       "perUpdate": 100,
       "xp": 15,
       "lastMessage": null,
@@ -1826,7 +1823,7 @@
     {
       "name": "pussybitchmotherfucker",
       "id": "84479342859538432",
-      "money": 44600,
+      "money": 47200,
       "perUpdate": 100,
       "xp": 1,
       "lastMessage": null,
@@ -1852,7 +1849,7 @@
     {
       "name": "Hyuur ~",
       "id": "176245484632014850",
-      "money": 29500,
+      "money": 32100,
       "perUpdate": 100,
       "xp": 47,
       "lastMessage": null,
@@ -1878,7 +1875,7 @@
     {
       "name": "Kroniic",
       "id": "219564143336882187",
-      "money": 39624.5,
+      "money": 42224.5,
       "perUpdate": 100,
       "xp": 21,
       "lastMessage": null,
@@ -1904,7 +1901,7 @@
     {
       "name": "bamitscon",
       "id": "256503355172454400",
-      "money": 38400,
+      "money": 41000,
       "perUpdate": 100,
       "xp": 32,
       "lastMessage": null,
@@ -1930,7 +1927,7 @@
     {
       "name": "Sunny",
       "id": "219567244387024897",
-      "money": 42500,
+      "money": 45100,
       "perUpdate": 100,
       "xp": 47,
       "lastMessage": null,
@@ -1956,7 +1953,7 @@
     {
       "name": "Skeet",
       "id": "105780863152717824",
-      "money": 41450,
+      "money": 44050,
       "perUpdate": 100,
       "xp": 56,
       "lastMessage": null,
@@ -1982,7 +1979,7 @@
     {
       "name": "Shivraj",
       "id": "124102469646024704",
-      "money": 42675,
+      "money": 45275,
       "perUpdate": 100,
       "xp": 7,
       "lastMessage": null,
@@ -2008,7 +2005,7 @@
     {
       "name": "HavvicGames",
       "id": "216588454006489090",
-      "money": 42755,
+      "money": 45355,
       "perUpdate": 100,
       "xp": 10,
       "lastMessage": null,
@@ -2034,7 +2031,7 @@
     {
       "name": "Kamakiri Chikai",
       "id": "206234305473675265",
-      "money": 41450,
+      "money": 44050,
       "perUpdate": 100,
       "xp": 15,
       "lastMessage": null,
@@ -2060,7 +2057,7 @@
     {
       "name": "AkicaKenjac",
       "id": "219943408385392640",
-      "money": 42690,
+      "money": 45290,
       "perUpdate": 100,
       "xp": 1,
       "lastMessage": null,
@@ -2086,7 +2083,7 @@
     {
       "name": "Shiro",
       "id": "263389362689933313",
-      "money": 80800,
+      "money": 86000,
       "perUpdate": 200,
       "xp": 23,
       "lastMessage": null,
@@ -2112,7 +2109,7 @@
     {
       "name": "Leo",
       "id": "122793611451432960",
-      "money": 43543,
+      "money": 46143,
       "perUpdate": 100,
       "xp": 103,
       "lastMessage": null,
@@ -2138,7 +2135,7 @@
     {
       "name": "PADOKA MAGICA",
       "id": "139804927089311745",
-      "money": 42450,
+      "money": 45050,
       "perUpdate": 100,
       "xp": 5,
       "lastMessage": null,
@@ -2164,7 +2161,7 @@
     {
       "name": "...Leozzinn...",
       "id": "198572404342128641",
-      "money": 37400,
+      "money": 40000,
       "perUpdate": 100,
       "xp": 46,
       "lastMessage": null,
@@ -2190,7 +2187,7 @@
     {
       "name": "Rody l'incroyable dieu osa",
       "id": "244442831656058881",
-      "money": 37100,
+      "money": 39700,
       "perUpdate": 100,
       "xp": 52,
       "lastMessage": null,
@@ -2216,7 +2213,7 @@
     {
       "name": "Chacri",
       "id": "196691213829668864",
-      "money": 37238.5,
+      "money": 39838.5,
       "perUpdate": 100,
       "xp": 40,
       "lastMessage": null,
@@ -2242,7 +2239,7 @@
     {
       "name": "Chesra",
       "id": "148182641038852096",
-      "money": 41100,
+      "money": 43700,
       "perUpdate": 100,
       "xp": 20,
       "lastMessage": null,
@@ -2268,7 +2265,7 @@
     {
       "name": "MINT",
       "id": "252848640320602113",
-      "money": 41900,
+      "money": 44500,
       "perUpdate": 100,
       "xp": 0,
       "lastMessage": null,
@@ -2294,7 +2291,7 @@
     {
       "name": "Carl",
       "id": "156754871071014912",
-      "money": 26900.7,
+      "money": 29500.7,
       "perUpdate": 100,
       "xp": 181,
       "lastMessage": null,
@@ -2320,7 +2317,7 @@
     {
       "name": "Nicolas Pavelov",
       "id": "163230013703979008",
-      "money": 43600,
+      "money": 48800,
       "perUpdate": 200,
       "xp": 230,
       "lastMessage": null,
@@ -2346,7 +2343,7 @@
     {
       "name": "antony4141",
       "id": "160851744438353921",
-      "money": 34783,
+      "money": 37383,
       "perUpdate": 100,
       "xp": 338,
       "lastMessage": null,
@@ -2372,7 +2369,7 @@
     {
       "name": "Fizzatiq",
       "id": "138353953426374657",
-      "money": 41300,
+      "money": 43900,
       "perUpdate": 100,
       "xp": 0,
       "lastMessage": null,
@@ -2398,7 +2395,7 @@
     {
       "name": "abrekke83",
       "id": "155215284750385152",
-      "money": 40447.5,
+      "money": 43047.5,
       "perUpdate": 100,
       "xp": 11,
       "lastMessage": null,
@@ -2424,7 +2421,7 @@
     {
       "name": "discospider9",
       "id": "197172476625682442",
-      "money": 38750,
+      "money": 41350,
       "perUpdate": 100,
       "xp": 6,
       "lastMessage": null,
@@ -2450,7 +2447,7 @@
     {
       "name": "SCRAAH",
       "id": "177920709085888512",
-      "money": 40050,
+      "money": 42650,
       "perUpdate": 100,
       "xp": 58,
       "lastMessage": null,
@@ -2476,7 +2473,7 @@
     {
       "name": "wolf3fenrir",
       "id": "127310224125067264",
-      "money": 39900,
+      "money": 42500,
       "perUpdate": 100,
       "xp": 10,
       "lastMessage": null,
@@ -2502,7 +2499,7 @@
     {
       "name": "Willn",
       "id": "100003134474035200",
-      "money": 28300,
+      "money": 30900,
       "perUpdate": 100,
       "xp": 76,
       "lastMessage": null,
@@ -2528,7 +2525,7 @@
     {
       "name": "KingdomNetwork",
       "id": "140696533682225153",
-      "money": 39350,
+      "money": 41950,
       "perUpdate": 100,
       "xp": 5,
       "lastMessage": null,
@@ -2554,7 +2551,7 @@
     {
       "name": "Kitesune",
       "id": "161186691808362497",
-      "money": 38153.5,
+      "money": 40753.5,
       "perUpdate": 100,
       "xp": 392,
       "lastMessage": null,
@@ -2580,7 +2577,7 @@
     {
       "name": "ZeeKahtah",
       "id": "110557133103206400",
-      "money": 31900,
+      "money": 34500,
       "perUpdate": 100,
       "xp": 90,
       "lastMessage": null,
@@ -2606,7 +2603,7 @@
     {
       "name": "HolyHadouken",
       "id": "103661396213903360",
-      "money": 38399,
+      "money": 40999,
       "perUpdate": 100,
       "xp": 1,
       "lastMessage": null,
@@ -2632,21 +2629,21 @@
     {
       "name": "Ayewulf <>",
       "id": "153837834661265418",
-      "money": 43862.5,
+      "money": 66760.5,
       "perUpdate": 900,
-      "xp": 112,
+      "xp": 127,
       "lastMessage": null,
       "Premium": false,
       "Admin": false,
       "stats": {
-        "moneySpent": 0,
-        "moneyWon": 0,
-        "slotPlays": 0,
+        "moneySpent": "1002.00",
+        "moneyWon": "501.00",
+        "slotPlays": 4,
         "coinPlays": 0,
-        "slotWins": 0,
+        "slotWins": 4,
         "coinWins": 0,
-        "slotSingleC": 0,
-        "slotTripleC": 0,
+        "slotSingleC": 3,
+        "slotTripleC": 1,
         "slot3s": 0,
         "slot2s": 0,
         "slot1s": 0,
@@ -2658,7 +2655,7 @@
     {
       "name": "arnina🐢",
       "id": "225419352193761291",
-      "money": 34250,
+      "money": 36850,
       "perUpdate": 100,
       "xp": 28,
       "lastMessage": null,
@@ -2684,7 +2681,7 @@
     {
       "name": "🔱Orcus Mabuz😈",
       "id": "253153782265806850",
-      "money": 34000,
+      "money": 36600,
       "perUpdate": 100,
       "xp": 0,
       "lastMessage": null,
@@ -2710,7 +2707,7 @@
     {
       "name": "Grimace Hentai",
       "id": "185581586526371840",
-      "money": 33600,
+      "money": 36200,
       "perUpdate": 100,
       "xp": 1,
       "lastMessage": null,
@@ -2736,7 +2733,7 @@
     {
       "name": "Loz",
       "id": "181008682773905409",
-      "money": 33050,
+      "money": 35650,
       "perUpdate": 100,
       "xp": 5,
       "lastMessage": null,
@@ -2762,7 +2759,7 @@
     {
       "name": "n_n",
       "id": "135256112688660481",
-      "money": 29900,
+      "money": 32500,
       "perUpdate": 100,
       "xp": 184,
       "lastMessage": null,
@@ -2788,7 +2785,7 @@
     {
       "name": "TheApexPredator5",
       "id": "115940598669770757",
-      "money": 27249.5,
+      "money": 29849.5,
       "perUpdate": 100,
       "xp": 103,
       "Premium": false,
@@ -2814,7 +2811,7 @@
     {
       "name": "WaddupNiggerz",
       "id": "212607488112066562",
-      "money": 23800,
+      "money": 26400,
       "perUpdate": 100,
       "xp": 17,
       "Premium": false,
@@ -2840,7 +2837,7 @@
     {
       "name": "Sherrinford4869",
       "id": "217518123606081536",
-      "money": 23800,
+      "money": 26400,
       "perUpdate": 100,
       "xp": 134,
       "Premium": false,
@@ -2866,7 +2863,7 @@
     {
       "name": "☭=ϜΓϵϱⅰ₸αΩσ=☭",
       "id": "233292166141706240",
-      "money": 22400,
+      "money": 25000,
       "perUpdate": 100,
       "xp": 177,
       "Premium": false,
@@ -2892,7 +2889,7 @@
     {
       "name": "9qu✅",
       "id": "174905127050674176",
-      "money": 24905,
+      "money": 27505,
       "perUpdate": 100,
       "xp": 54,
       "Premium": false,
@@ -2918,7 +2915,7 @@
     {
       "name": "Joshua AKA ブラインドアルティス",
       "id": "236508840458190850",
-      "money": 21372.9,
+      "money": 23972.9,
       "perUpdate": 100,
       "xp": 47,
       "Premium": false,
@@ -2944,7 +2941,7 @@
     {
       "name": "nuubix.",
       "id": "203932952680202240",
-      "money": 24437.5,
+      "money": 27037.5,
       "perUpdate": 100,
       "xp": 17,
       "Premium": false,
@@ -2970,7 +2967,7 @@
     {
       "name": "Arabchen",
       "id": "266663638092349440",
-      "money": 16749.75,
+      "money": 19349.75,
       "perUpdate": 100,
       "xp": 30,
       "Premium": false,
@@ -2996,7 +2993,7 @@
     {
       "name": "mrspeedy2009",
       "id": "219771059988201472",
-      "money": 26500,
+      "money": 29100,
       "perUpdate": 100,
       "xp": 20,
       "Premium": false,
@@ -3022,7 +3019,7 @@
     {
       "name": "Swivelraptor",
       "id": "194120510118821888",
-      "money": 26742.5,
+      "money": 29342.5,
       "perUpdate": 100,
       "xp": 20,
       "Premium": false,
@@ -3048,7 +3045,7 @@
     {
       "name": "dbrandt01",
       "id": "131747716911988736",
-      "money": 26400,
+      "money": 29000,
       "perUpdate": 100,
       "xp": 10,
       "Premium": false,
@@ -3074,7 +3071,7 @@
     {
       "name": "SpacesAreImpossible",
       "id": "267316220523577346",
-      "money": 25895,
+      "money": 28495,
       "perUpdate": 100,
       "xp": 56,
       "Premium": false,
@@ -3100,7 +3097,7 @@
     {
       "name": "SoloFreed",
       "id": "208870539819876353",
-      "money": 20100,
+      "money": 22700,
       "perUpdate": 100,
       "xp": 34,
       "Premium": false,
@@ -3126,7 +3123,7 @@
     {
       "name": "ᕙYeskiᕗ",
       "id": "161666391609573376",
-      "money": 22900,
+      "money": 25500,
       "perUpdate": 100,
       "xp": 88,
       "Premium": false,
@@ -3152,7 +3149,7 @@
     {
       "name": "Hoe Lee Sin",
       "id": "122826149763088388",
-      "money": 20475,
+      "money": 23075,
       "perUpdate": 100,
       "xp": 10,
       "Premium": false,
@@ -3178,7 +3175,7 @@
     {
       "name": "thehoe",
       "id": "227527602795970560",
-      "money": 20325,
+      "money": 22925,
       "perUpdate": 100,
       "xp": 15,
       "Premium": false,
@@ -3204,7 +3201,7 @@
     {
       "name": "Steal_Yo_Girl",
       "id": "267007263359631380",
-      "money": 22300,
+      "money": 24900,
       "perUpdate": 100,
       "xp": 0,
       "Premium": false,
@@ -3230,7 +3227,7 @@
     {
       "name": "Elio",
       "id": "114881772331728896",
-      "money": 20750,
+      "money": 23350,
       "perUpdate": 100,
       "xp": 10,
       "Premium": false,
@@ -3256,47 +3253,47 @@
     {
       "name": "HikimoriNEET",
       "id": "177197198012841984",
-      "money": 124654.75,
+      "money": 122624.76,
       "perUpdate": 2600,
-      "xp": 332,
+      "xp": 347,
       "Premium": false,
       "Admin": false,
       "lastMessage": null,
       "stats": {
-        "moneySpent": 0,
-        "moneyWon": 0,
+        "moneySpent": "15030.00",
+        "moneyWon": "10037.50",
         "slotPlays": 0,
-        "coinPlays": 0,
+        "coinPlays": 5,
         "slotWins": 0,
-        "coinWins": 0,
+        "coinWins": 3,
         "slotSingleC": 0,
         "slotTripleC": 0,
         "slot3s": 0,
         "slot2s": 0,
         "slot1s": 0,
         "slotJackpots": 0,
-        "coinHeads": 0,
-        "coinTails": 0
+        "coinHeads": 2,
+        "coinTails": 3
       }
     },
     {
       "name": "scattey",
       "id": "259975076760256523",
-      "money": 2739000,
+      "money": 2822750,
       "perUpdate": 3250,
-      "xp": 57,
+      "xp": 85,
       "Premium": false,
       "Admin": false,
       "lastMessage": null,
       "stats": {
-        "moneySpent": 0,
-        "moneyWon": 0,
-        "slotPlays": 0,
+        "moneySpent": "800.00",
+        "moneyWon": "250.00",
+        "slotPlays": 10,
         "coinPlays": 0,
-        "slotWins": 0,
+        "slotWins": 7,
         "coinWins": 0,
-        "slotSingleC": 0,
-        "slotTripleC": 0,
+        "slotSingleC": 5,
+        "slotTripleC": 2,
         "slot3s": 0,
         "slot2s": 0,
         "slot1s": 0,
@@ -3308,7 +3305,7 @@
     {
       "name": "princejesse99",
       "id": "184948655546040320",
-      "money": 27397,
+      "money": 45597,
       "perUpdate": 700,
       "xp": 58,
       "Premium": false,
@@ -3334,7 +3331,7 @@
     {
       "name": "TFranklin",
       "id": "227682689698889728",
-      "money": 20594.5,
+      "money": 25794.5,
       "perUpdate": 200,
       "xp": 31,
       "Premium": false,
@@ -3360,7 +3357,7 @@
     {
       "name": "Cancer",
       "id": "235299434148265985",
-      "money": 3300,
+      "money": 5900,
       "perUpdate": 100,
       "xp": 75,
       "Premium": false,
@@ -3386,7 +3383,7 @@
     {
       "name": "hi im gosu ~",
       "id": "194366795098882048",
-      "money": 16725,
+      "money": 19325,
       "perUpdate": 100,
       "xp": 31,
       "Premium": false,
@@ -3412,7 +3409,7 @@
     {
       "name": "Happy Meal",
       "id": "156270798808547339",
-      "money": 13850,
+      "money": 16450,
       "perUpdate": 100,
       "xp": 5,
       "Premium": false,
@@ -3438,7 +3435,7 @@
     {
       "name": "Shinerz1",
       "id": "167571565473431552",
-      "money": 13397,
+      "money": 15997,
       "perUpdate": 100,
       "xp": 30,
       "Premium": false,
@@ -3464,7 +3461,7 @@
     {
       "name": "Wanhakettu",
       "id": "264173598657216512",
-      "money": 12100,
+      "money": 14700,
       "perUpdate": 100,
       "xp": 0,
       "Premium": false,
@@ -3490,7 +3487,7 @@
     {
       "name": "Tumeme",
       "id": "178096126094868480",
-      "money": 12100,
+      "money": 14700,
       "perUpdate": 100,
       "xp": 0,
       "Premium": false,
@@ -3516,7 +3513,7 @@
     {
       "name": "SoloThisGFX",
       "id": "183645568751370240",
-      "money": 11050,
+      "money": 13650,
       "perUpdate": 100,
       "xp": 16,
       "Premium": false,
@@ -3542,7 +3539,7 @@
     {
       "name": "Joseph Kim (Durant)",
       "id": "237440874819092480",
-      "money": 5800,
+      "money": 8400,
       "perUpdate": 100,
       "xp": 208,
       "Premium": false,
@@ -3568,7 +3565,7 @@
     {
       "name": "mattkinghatesdiscord",
       "id": "238467086874050560",
-      "money": 10337.5,
+      "money": 12937.5,
       "perUpdate": 100,
       "xp": 72,
       "Premium": false,
@@ -3594,7 +3591,7 @@
     {
       "name": "DarkDeath",
       "id": "64973112923402240",
-      "money": 9400,
+      "money": 12000,
       "perUpdate": 100,
       "xp": 339,
       "Premium": false,
@@ -3620,7 +3617,7 @@
     {
       "name": "klan123",
       "id": "114815477745844233",
-      "money": 9700,
+      "money": 12300,
       "perUpdate": 100,
       "xp": 0,
       "Premium": false,
@@ -3646,7 +3643,7 @@
     {
       "name": "nolan1111111111111111",
       "id": "121395526905233411",
-      "money": 6298.5,
+      "money": 8898.5,
       "perUpdate": 100,
       "xp": 177,
       "Premium": false,
@@ -3672,7 +3669,7 @@
     {
       "name": "JonMoy",
       "id": "133642639282143232",
-      "money": 3300,
+      "money": 5900,
       "perUpdate": 100,
       "xp": 1,
       "Premium": false,
@@ -3698,7 +3695,7 @@
     {
       "name": "konk",
       "id": "84813138771312640",
-      "money": 7480,
+      "money": 10080,
       "perUpdate": 100,
       "xp": 21,
       "Premium": false,
@@ -3724,7 +3721,7 @@
     {
       "name": "D470N36UY",
       "id": "189895609115869185",
-      "money": 6400,
+      "money": 10300,
       "perUpdate": 150,
       "xp": 3,
       "Premium": false,
@@ -3746,7 +3743,137 @@
         "coinHeads": 0,
         "coinTails": 0
       }
+    },
+    {
+      "name": "tastysupreme",
+      "id": "125418289663836161",
+      "money": 7542.5,
+      "perUpdate": 100,
+      "xp": 46,
+      "Premium": false,
+      "Admin": false,
+      "stats": {
+        "moneySpent": "260.00",
+        "moneyWon": "302.50",
+        "slotPlays": 7,
+        "coinPlays": 0,
+        "slotWins": 6,
+        "coinWins": 0,
+        "slotSingleC": 5,
+        "slotTripleC": 0,
+        "slot3s": 1,
+        "slot2s": 0,
+        "slot1s": 0,
+        "slotJackpots": 0,
+        "coinHeads": 0,
+        "coinTails": 0
+      },
+      "lastMessage": null
+    },
+    {
+      "name": "beenie",
+      "id": "227621338200801281",
+      "money": 7300,
+      "perUpdate": 100,
+      "xp": 0,
+      "Premium": false,
+      "Admin": false,
+      "stats": {
+        "moneySpent": 0,
+        "moneyWon": 0,
+        "slotPlays": 1,
+        "coinPlays": 0,
+        "slotWins": 1,
+        "coinWins": 0,
+        "slotSingleC": 0,
+        "slotTripleC": 1,
+        "slot3s": 0,
+        "slot2s": 0,
+        "slot1s": 0,
+        "slotJackpots": 0,
+        "coinHeads": 0,
+        "coinTails": 0
+      },
+      "lastMessage": null
+    },
+    {
+      "name": "Maizefarms",
+      "id": "140121060497555456",
+      "money": 6170,
+      "perUpdate": 100,
+      "xp": 5,
+      "Premium": false,
+      "Admin": false,
+      "stats": {
+        "moneySpent": "60.00",
+        "moneyWon": "30.00",
+        "slotPlays": 1,
+        "coinPlays": 0,
+        "slotWins": 1,
+        "coinWins": 0,
+        "slotSingleC": 1,
+        "slotTripleC": 0,
+        "slot3s": 0,
+        "slot2s": 0,
+        "slot1s": 0,
+        "slotJackpots": 0,
+        "coinHeads": 0,
+        "coinTails": 0
+      },
+      "lastMessage": null
+    },
+    {
+      "name": "your name here",
+      "id": "260905200988979203",
+      "money": 5804.54,
+      "perUpdate": 100,
+      "xp": 31,
+      "Premium": false,
+      "Admin": false,
+      "stats": {
+        "moneySpent": "350.00",
+        "moneyWon": "230.75",
+        "slotPlays": 3,
+        "coinPlays": 6,
+        "slotWins": 2,
+        "coinWins": 4,
+        "slotSingleC": 2,
+        "slotTripleC": 0,
+        "slot3s": 0,
+        "slot2s": 0,
+        "slot1s": 0,
+        "slotJackpots": 0,
+        "coinHeads": 2,
+        "coinTails": 4
+      },
+      "lastMessage": null
+    },
+    {
+      "name": "GangstaX",
+      "id": "196047318015934464",
+      "money": 5925,
+      "perUpdate": 100,
+      "xp": 5,
+      "Premium": false,
+      "Admin": false,
+      "stats": {
+        "moneySpent": "100.00",
+        "moneyWon": "25.00",
+        "slotPlays": 1,
+        "coinPlays": 1,
+        "slotWins": 1,
+        "coinWins": 0,
+        "slotSingleC": 1,
+        "slotTripleC": 0,
+        "slot3s": 0,
+        "slot2s": 0,
+        "slot1s": 0,
+        "slotJackpots": 0,
+        "coinHeads": 1,
+        "coinTails": 0
+      },
+      "lastMessage": null
     }
   ],
-  "jackpotValue": 954226.14
+  "jackpotValue": 956847.14
 }

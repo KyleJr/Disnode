@@ -1139,7 +1139,7 @@ class CasinoPlugin extends Manager {
       }
       slot.player.stats.slotTripleC++;
       slot.player.stats.slotWins++;
-      sslot.player.money += parseFloat(slot.winAmount);
+      slot.player.money += parseFloat(slot.winAmount);
       slot.player.xp += 10;
       return;
     }
