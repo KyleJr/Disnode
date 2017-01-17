@@ -11,7 +11,7 @@ const CommandDispatcher = require("./CommandDispatcher.js");
 const ManagerDispatcher = require("./ManagerDispatcher.js");
 const ShortcutParser = require("./ShortcutParser.js");
 const async = require('async');
-const Test = require("./Managers/ListManager.js");
+//const Test = require("./Managers/CasinoPlugin.js");
 class Disnode extends EventEmitter {
     constructor(configPath) {
         super();
