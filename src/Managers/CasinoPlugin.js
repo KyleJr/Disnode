@@ -4,6 +4,7 @@ const async = require('async');
 const jsonfile = require('jsonfile');
 const FS = require('fs');
 const colors = require('colors');
+const numeral = require('numeral')
 
 class CasinoPlugin extends Manager {
   constructor(pramas) {
@@ -38,7 +39,7 @@ class CasinoPlugin extends Manager {
       {item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},
       {item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},
       {item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},
-      {item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"}
+      {item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"}
     ]
     this.store = [
       {cost: 200, type:0, item: "Instant $1,000"},
@@ -47,12 +48,12 @@ class CasinoPlugin extends Manager {
       {cost: 2000, type:0, item: "Instant $10,000"},
       {cost: 4000, type:0, item: "Instant $20,000"},
       {cost: 6000, type:0, item: "Instant $30,000"},
-      {cost: 100, type:0, item: "Add $50 to your \'per update\' amount"},
-      {cost: 200, type:0, item: "Add $100 to your \'per update\' amount"},
-      {cost: 400, type:0, item: "Add $200 to your \'per update\' amount"},
-      {cost: 800, type:0, item: "Add $400 to your \'per update\' amount"},
-      {cost: 1600, type:0, item: "Add $800 to your \'per update\' amount"},
-      {cost: 3200, type:0, item: "Add $1600 to your \'per update\' amount"},
+      {cost: 100, type:0, item: "Add $50 to your income"},
+      {cost: 200, type:0, item: "Add $100 to your income"},
+      {cost: 400, type:0, item: "Add $200 to your income"},
+      {cost: 800, type:0, item: "Add $400 to your income"},
+      {cost: 1600, type:0, item: "Add $800 to your income"},
+      {cost: 3200, type:0, item: "Add $1600 to your income"},
       {cost: 10000, type:1, item: "Instant 50XP"},
       {cost: 20000, type:1, item: "Instant 100XP"},
       {cost: 40000, type:1, item: "Instant 200XP"},
@@ -154,7 +155,7 @@ class CasinoPlugin extends Manager {
       fields: [ {
         name: 'JACKPOT',
         inline: true,
-        value: "$" + self.casinoObj.jackpotValue,
+        value: "$" + numeral(self.casinoObj.jackpotValue).format('0,0.00'),
       }, {
         name: 'JACKPOT History',
         inline: false,
@@ -178,11 +179,11 @@ class CasinoPlugin extends Manager {
       fields: [ {
         name: 'Money',
         inline: true,
-        value: "$" + player.money,
+        value: "$" + numeral(player.money).format('0,0.00'),
       }, {
         name: 'Income / 30min.',
         inline: true,
-        value: "$" + player.perUpdate,
+        value: "$" + numeral(player.perUpdate).format('0,0.00'),
       }, {
         name: 'XP',
         inline: true,
@@ -201,7 +202,7 @@ class CasinoPlugin extends Manager {
     switch (data.params[0]) {
       case "spin":
         if(parseFloat(data.params[1]) > 1){
-          var bet = Number(parseFloat(data.params[1]).toFixed(2));
+          var bet = numeral(data.params[0]).value();
           var timeoutInfo = self.checkTimeout(player, 5);
           if(player.Admin || player.Premium)timeoutInfo = self.checkTimeout(player, 2);
           if(!timeoutInfo.pass){
@@ -226,7 +227,7 @@ class CasinoPlugin extends Manager {
               fields: [ {
                 name: "Error",
                 inline: false,
-                value: ":warning: You dont have that much Money! You have $" + player.money,
+                value: ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'),
               }],
                 timestamp: new Date(),
                 footer: {}
@@ -272,8 +273,8 @@ class CasinoPlugin extends Manager {
       for (var i = 0; i < self.casinoObj.players.length; i++) {
         if(self.casinoObj.players[i].name == data.params[0]){
           transferPlayer = self.casinoObj.players[i];
-          if(Number(parseFloat(data.params[1])) > 0){
-            var toTransfer = Number(parseFloat(data.params[1]));
+          var toTransfer = numeral(data.params[1]).value();
+          if(toTransfer > 0){
             if(toTransfer > player.money){
               this.disnode.service.SendEmbed({
                 color: 3447003,
@@ -281,7 +282,7 @@ class CasinoPlugin extends Manager {
                 fields: [ {
                   name: "Error",
                   inline: false,
-                  value: ":warning: You dont have that much Money! You have $" + player.money,
+                  value: ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'),
                 }],
                   timestamp: new Date(),
                   footer: {}
@@ -303,15 +304,15 @@ class CasinoPlugin extends Manager {
               fields: [ {
                 name: 'From',
                 inline: false,
-                value: player.name + "\nBalance Proir: $" + pbalbef + "\nBalance After: $" + player.money,
+                value: player.name + "\nBalance Proir: $" + numeral(pbalbef).format('0,0.00') + "\nBalance After: $" + numeral(player.money).format('0,0.00'),
               }, {
                 name: 'To',
                 inline: false,
-                value: transferPlayer.name + "\nBalance Proir: $" + sbalbef + "\nBalance After: $" + transferPlayer.money,
+                value: transferPlayer.name + "\nBalance Proir: $" + numeral(sbalbef).format('0,0.00') + "\nBalance After: $" + numeral(transferPlayer.money).format('0,0.00'),
               }, {
                 name: 'Amount',
                 inline: true,
-                value: "$ " + toTransfer,
+                value: "$ " + numeral(toTransfer).format('0,0.00'),
               }, {
                 name: "Status",
                 inline: false,
@@ -373,8 +374,8 @@ class CasinoPlugin extends Manager {
     player.money = Number(parseFloat(player.money).toFixed(2));
     switch (data.params[0]) {
       case "heads":
-        if(parseFloat(data.params[1]) > 1){
-          var bet = Number(parseFloat(data.params[1]).toFixed(2));
+        if(numeral(data.params[1]).value() >= 1){
+          var bet = numeral(data.params[1]).value();
           var timeoutInfo = self.checkTimeout(player, 5);
           if(player.Admin || player.Premium)timeoutInfo = self.checkTimeout(player, 2);
           if(!timeoutInfo.pass){
@@ -399,7 +400,7 @@ class CasinoPlugin extends Manager {
               fields: [ {
                 name: "Error",
                 inline: false,
-                value: ":warning: You dont have that much Money! You have $" + player.money,
+                value: ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'),
               }],
                 timestamp: new Date(),
                 footer: {}
@@ -439,19 +440,19 @@ class CasinoPlugin extends Manager {
               }, {
                 name: 'Bet',
                 inline: false,
-                value: "$" + bet,
+                value: "$" + numeral(bet).format('0,0.00'),
               }, {
                 name: 'Winnings',
                 inline: false,
-                value: "$" + flipinfo.winAmount,
+                value: "$" + numeral(flipinfo.winAmount).format('0,0.00'),
               }, {
                 name: 'Net Gain',
                 inline: false,
-                value: "What you gained from your winnings $" + (flipinfo.winAmount - bet),
+                value: "$" + numeral(flipinfo.winAmount - bet).format('0,0.00'),
               }, {
                 name: 'Balance',
                 inline: true,
-                value: "$" + player.money,
+                value: "$" + numeral(player.money).format('0,0.00'),
               }, {
                 name: 'XP',
                 inline: true,
@@ -484,19 +485,19 @@ class CasinoPlugin extends Manager {
               }, {
                 name: 'Bet',
                 inline: false,
-                value: "$" + bet,
+                value: "$" + numeral(bet).format('0,0.00'),
               }, {
                 name: 'Winnings',
                 inline: false,
-                value: "$" + flipinfo.winAmount,
+                value: "$" + numeral(flipinfo.winAmount).format('0,0.00'),
               }, {
                 name: 'Net Gain',
                 inline: false,
-                value: "What you gained from your winnings $" + (flipinfo.winAmount - bet),
+                value: "$" + numeral(flipinfo.winAmount - bet).format('0,0.00'),
               }, {
                 name: 'Balance',
                 inline: true,
-                value: "$" + player.money,
+                value: "$" + numeral(player.money).format('0,0.00'),
               }, {
                 name: 'XP',
                 inline: true,
@@ -532,8 +533,8 @@ class CasinoPlugin extends Manager {
         }
         break;
       case "tails":
-        if(parseFloat(data.params[1]) > 1){
-          var bet = parseFloat(data.params[1]).toFixed(2);
+        if(numeral(data.params[1]).value() >= 1){
+          var bet = numeral(data.params[1]).value();
           var timeoutInfo = self.checkTimeout(player, 5);
           if(player.Admin || player.Premium)timeoutInfo = self.checkTimeout(player, 2);
           if(!timeoutInfo.pass){
@@ -558,7 +559,7 @@ class CasinoPlugin extends Manager {
               fields: [ {
                 name: "Error",
                 inline: false,
-                value: ":warning: You dont have that much Money! You have $" + player.money,
+                value: ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'),
               }],
                 timestamp: new Date(),
                 footer: {}
@@ -597,20 +598,20 @@ class CasinoPlugin extends Manager {
                 value: flipinfo.winText,
               }, {
                 name: 'Bet',
-                inline: true,
-                value: "$" + bet,
+                inline: false,
+                value: "$" + numeral(bet).format('0,0.00'),
               }, {
                 name: 'Winnings',
-                inline: true,
-                value: "$" + flipinfo.winAmount,
+                inline: false,
+                value: "$" + numeral(flipinfo.winAmount).format('0,0.00'),
               }, {
                 name: 'Net Gain',
-                inline: true,
-                value: "What you gained from your winnings $" + (flipinfo.winAmount - bet),
+                inline: false,
+                value: "$" + numeral(flipinfo.winAmount - bet).format('0,0.00'),
               }, {
                 name: 'Balance',
                 inline: true,
-                value: "$" + player.money,
+                value: "$" + numeral(player.money).format('0,0.00'),
               }, {
                 name: 'XP',
                 inline: true,
@@ -642,20 +643,20 @@ class CasinoPlugin extends Manager {
                 value: flipinfo.winText,
               }, {
                 name: 'Bet',
-                inline: true,
-                value: "$" + bet,
+                inline: false,
+                value: "$" + numeral(bet).format('0,0.00'),
               }, {
                 name: 'Winnings',
-                inline: true,
-                value: "$" + flipinfo.winAmount,
+                inline: false,
+                value: "$" + numeral(flipinfo.winAmount).format('0,0.00'),
               }, {
                 name: 'Net Gain',
-                inline: true,
-                value: "What you gained from your winnings $" + (flipinfo.winAmount - bet),
+                inline: false,
+                value: "$" + numeral(flipinfo.winAmount - bet).format('0,0.00'),
               }, {
                 name: 'Balance',
                 inline: true,
-                value: "$" + player.money,
+                value: "$" + numeral(player.money).format('0,0.00'),
               }, {
                 name: 'XP',
                 inline: true,
@@ -803,7 +804,7 @@ class CasinoPlugin extends Manager {
         }
           break;
         case "testslot":
-          var bet = parseFloat(data.params[1]).toFixed(2);
+          var bet = numeral(data.params[0]).value();
           var modifier = data.params[2];
           switch (modifier) {
             case "100":
@@ -870,7 +871,7 @@ class CasinoPlugin extends Manager {
               }, {
                 name: 'Balance',
                 inline: false,
-                value: "$" + player.money,
+                value: "$" + numeral(player.money).format('0,0.00'),
               }, {
                 name: 'JACKPOT Value',
                 inline: true,
@@ -931,7 +932,7 @@ class CasinoPlugin extends Manager {
               }, {
                 name: 'Balance',
                 inline: false,
-                value: "$" + player.money,
+                value: "$" + numeral(player.money).format('0,0.00'),
               }, {
                 name: 'JACKPOT Value',
                 inline: true,
@@ -1079,7 +1080,7 @@ class CasinoPlugin extends Manager {
     var msg = "**Page:** " + page + "\n";
     for (var i = startindex; i < orderTop.length; i++) {
       if(i == maxindex)break;
-      msg += "" + (i + 1) + ". **" + orderTop[i].name + "** - $" + orderTop[i].money + "\n";
+      msg += "" + (i + 1) + ". **" + orderTop[i].name + "** - $" + numeral(orderTop[i].money).format('0,0.00') + "\n";
     }
     this.disnode.service.SendEmbed({
       color: 3447003,
@@ -1140,13 +1141,19 @@ class CasinoPlugin extends Manager {
     var player = self.getPlayer(data);
     if(self.checkBan(player, data))return;
     if(data.params[0] == "buy"){
+      var costString = "";
       if(data.params[1] && (data.params[1] >= 0 && data.params[1] <= (self.store.length - 1))){
+        var quantity = numeral(data.params[2]).value();
+        if(quantity < 1){
+          quantity = 1;
+        }
         var ID = parseInt(data.params[1]);
         var cost;
         if(player.Admin || player.Premium){
-          cost = (self.store[ID].cost /2)
-        }else cost = self.store[ID].cost;
+          cost = (self.store[ID].cost /2) * quantity;
+        }else cost = self.store[ID].cost * quantity;
         if(self.store[ID].type == 0){
+          costString = cost + " XP"
           if(player.xp < cost){
             this.disnode.service.SendEmbed({
               color: 3447003,
@@ -1163,6 +1170,7 @@ class CasinoPlugin extends Manager {
             return;
           }
         }else {
+          costString = "$" + numeral(cost).format('0,0.00');
           if(player.money < cost){
             this.disnode.service.SendEmbed({
               color: 3447003,
@@ -1170,7 +1178,7 @@ class CasinoPlugin extends Manager {
               fields: [ {
                 name: "Error",
                 inline: false,
-                value: ":warning: You dont have that much Money!\nNeed: $" + cost + "\nYou have: $" + player.money,
+                value: ":warning: You dont have that much Money!\nNeed: $" + numeral(cost).format('0,0.00') + "\nYou have: $" + numeral(player.money).format('0,0.00'),
               }],
                 timestamp: new Date(),
                 footer: {}
@@ -1182,79 +1190,79 @@ class CasinoPlugin extends Manager {
         switch (ID) {
           case 0:
             player.xp -= cost;
-            player.money += 1000;
+            player.money += (1000 * quantity);
             break;
           case 1:
             player.xp -= cost;
-            player.money += 2500;
+            player.money += (2500 * quantity);
             break;
           case 2:
             player.xp -= cost;
-            player.money += 5000;
+            player.money += (5000 * quantity);
             break;
           case 3:
             player.xp -= cost;
-            player.money += 10000;
+            player.money += (10000 * quantity);
             break;
           case 4:
             player.xp -= cost;
-            player.money += 20000;
+            player.money += (20000 * quantity);
             break;
           case 5:
             player.xp -= cost;
-            player.money += 30000;
+            player.money += (30000 * quantity);
             break;
           case 6:
             player.xp -= cost;
-            player.perUpdate += 50;
+            player.perUpdate += (50 * quantity);
             break;
           case 7:
             player.xp -= cost;
-            player.perUpdate += 100;
+            player.perUpdate += (100 * quantity);
             break;
           case 8:
             player.xp -= cost;
-            player.perUpdate += 200;
+            player.perUpdate += (200 * quantity);
             break;
           case 9:
             player.xp -= cost;
-            player.perUpdate += 400;
+            player.perUpdate += (400 * quantity);
             break;
           case 10:
             player.xp -= cost;
-            player.perUpdate += 800;
+            player.perUpdate += (800 * quantity);
             break;
           case 11:
             player.xp -= cost;
-            player.perUpdate += 1600;
+            player.perUpdate += (1600 * quantity);
             break;
           case 12:
             player.money -= cost;
-            player.xp += 50;
+            player.xp += (50 * quantity);
             break;
           case 13:
             player.money -= cost;
-            player.xp += 100;
+            player.xp += (100 * quantity);
             break;
           case 14:
             player.money -= cost;
-            player.xp += 200;
+            player.xp += (200 * quantity);
             break;
           case 15:
             player.money -= cost;
-            player.xp += 400;
+            player.xp += (400 * quantity);
             break;
           case 16:
             player.money -= cost;
-            player.xp += 800;
+            player.xp += (800 * quantity);
             break;
           case 17:
             player.money -= cost;
-            player.xp += 1600;
+            player.xp += (1600 * quantity);
             break;
           case 18:
             player.money -= cost;
-            player.xp += 3200;
+            player.xp += (3200 * quantity);
             break;
           default:
             break;
@@ -1266,7 +1274,19 @@ class CasinoPlugin extends Manager {
           fields: [ {
             name: "Store",
             inline: false,
-            value: ":white_check_mark: Your purchase of `" + self.store[ID].item + "` was successful! Thank you for your business!\n Your XP: " + player.xp + "\nYour money: $" + player.money + "\nIncome / 30 Min: $" + player.perUpdate,
+            value: ":white_check_mark: Your purchase of `" + quantity + "x " + self.store[ID].item + "` was successful! Thank you for your business!",
+          }, {
+            name: 'Money',
+            inline: true,
+            value: "$" + numeral(player.money).format('0,0.00'),
+          }, {
+            name: 'Income / 30min.',
+            inline: true,
+            value: "$" + numeral(player.perUpdate).format('0,0.00'),
+          }, {
+            name: 'XP',
+            inline: true,
+            value: player.xp,
           }],
             timestamp: new Date(),
             footer: {}
@@ -1296,7 +1316,7 @@ class CasinoPlugin extends Manager {
         if(self.store[i].type == 0){
           msg += "" + i + "\t//\t" + self.store[i].item + "\t//\t" + cost + "XP\n";
         }else {
-          msg += "" + i + "\t//\t" + self.store[i].item + "\t//\t$" + cost + "\n";
+          msg += "" + i + "\t//\t" + self.store[i].item + "\t//\t$" + numeral(cost).format('0,0.00') + "\n";
         }
       }
       msg += "Store items are subject to change, please be aware of prices and items PRIOR to making a purchase!";
@@ -1361,7 +1381,7 @@ class CasinoPlugin extends Manager {
           ":third_place::third_place::third_place: - 4x bet 20XP\n"+
           ":second_place::second_place::second_place: - 8x bet 40XP\n"+
           ":first_place::first_place::first_place: - 16x bet 80XP\n"+
-          ":100::100::100: - JACKPOT value (Minimum bet: $" + minJackpotBet + " (if money < 50,000 min bet = 1000) else (min bet = money * 0.015 or 1.5%)) - 1000XP",
+          ":100::100::100: - JACKPOT value (Minimum bet: $" + numeral(minJackpotBet).format('0,0.00') + " (if money < 50,000 min bet = 1000) else (min bet = money * 0.015 or 1.5%)) - 1000XP",
         },{
           name: 'XP',
           inline: false,
@@ -1369,7 +1389,7 @@ class CasinoPlugin extends Manager {
         },{
           name: 'JACKPOT',
           inline: false,
-          value: "JACKPOT Value is increased every time someone plays slots, the value is increased by the players bet amount and has a default value of $100,000\n**Current JACKPOT Value: **$" + self.casinoObj.jackpotValue,
+          value: "JACKPOT Value is increased every time someone plays slots, the value is increased by the players bet amount and has a default value of $100,000\n**Current JACKPOT Value: **$" + numeral(self.casinoObj.jackpotValue).format('0,0.00'),
         }, {
           name: 'JACKPOT History',
           inline: true,
@@ -1397,7 +1417,7 @@ class CasinoPlugin extends Manager {
       }else{
         // there is something in params
         if(parseFloat(data.params[0]) > 0.01){
-          var bet = parseFloat(data.params[0]).toFixed(2);
+          var bet = numeral(data.params[0]).value();
           //greater than 0
 
           var timeoutInfo = self.checkTimeout(player, 5);
@@ -1417,15 +1437,15 @@ class CasinoPlugin extends Manager {
             data.msg);
             return;
           }
-          if(bet > player.money){// Checks to see if player has enough money for their bet
-            console.log("Bet: " + bet + " Money: " + player.money);
+          if(bet > player.money || bet == "NaN"){// Checks to see if player has enough money for their bet
+            console.log("Bet: " + bet + " Money: " + numeral(player.money).format('0,0.00'));
             this.disnode.service.SendEmbed({
               color: 3447003,
               author: {},
               fields: [ {
                 name: "Error",
                 inline: false,
-                value: ":warning: You dont have that much Money! You have $" + player.money,
+                value: ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'),
               }],
                 timestamp: new Date(),
                 footer: {}
@@ -1475,27 +1495,27 @@ class CasinoPlugin extends Manager {
             }, {
               name: 'Bet',
               inline: true,
-              value: "$" + bet,
+              value: "$" + numeral(bet).format('0,0.00'),
             }, {
               name: 'Winnings',
               inline: true,
-              value: "$" + slotInfo.winAmount,
+              value: "$" + numeral(slotInfo.winAmount).format('0,0.00'),
             }, {
               name: 'Net Gain',
               inline: true,
-              value: "$" + (slotInfo.winAmount - bet),
+              value: "$" + numeral(slotInfo.winAmount - bet).format('0,0.00'),
             }, {
               name: 'Balance',
               inline: false,
-              value: "$" + player.money,
+              value: "$" + numeral(player.money).format('0,0.00'),
             }, {
               name: 'Minimum JACKPOT bet',
               inline: true,
-              value: "$" + minJackpotBet,
+              value: "$" + numeral(minJackpotBet).format('0,0.00'),
             }, {
               name: 'JACKPOT Value',
               inline: true,
-              value: "$" + self.casinoObj.jackpotValue,
+              value: "$" + numeral(self.casinoObj.jackpotValue).format('0,0.00'),
             }, {
               name: 'XP',
               inline: true,
@@ -1562,8 +1582,8 @@ class CasinoPlugin extends Manager {
       }
     }
     var statsMessage = "" +
-      "**Money Spent**: $" + player.stats.moneySpent + "\n" +
-      "**Money Won**: $" + player.stats.moneyWon + "\n\n" +
+      "**Money Spent**: $" + numeral(player.stats.moneySpent).format('0,0.00') + "\n" +
+      "**Money Won**: $" + numeral(player.stats.moneyWon).format('0,0.00') + "\n\n" +
       placement + "\n\n" +
       "**Slot -=- Wins / Plays**:\t  " + player.stats.slotWins + " / " + player.stats.slotPlays + "\n" +
       "**Coin Flip -=- Wins / Plays**:\t  " + player.stats.coinWins + " / " + player.stats.coinPlays + "\n\n" +
@@ -1585,11 +1605,11 @@ class CasinoPlugin extends Manager {
       fields: [ {
         name: 'Money',
         inline: false,
-        value: "$" + player.money,
+        value: "$" + numeral(player.money).format('0,0.00'),
       }, {
         name: 'Income / 30min.',
         inline: false,
-        value: "$" + player.perUpdate + " **This amount is added to your current money in 30 Min increments**",
+        value: "$" + numeral(player.perUpdate).format('0,0.00') + " **This amount is added to your current money in 30 Min increments**",
       }, {
         name: 'XP',
         inline: true,
