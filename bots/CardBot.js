@@ -1,6 +1,5 @@
-var DisnodeBot = require("../src/Disnode.js"); //defines DisnodeBot
-// above is testing require use require("disnode"); instead if you installed via NPM
-var testBot = new DisnodeBot("./bots/TestBotConfig.json"); //Defines the testBot in the "" is where your discord bot oauth token would go
+var DisnodeBot = require("../src/Disnode.js");
+var testBot = new DisnodeBot("./bots/TestBotConfig.json");
 
 var OnLoad = function(){
   testBot.startBot();

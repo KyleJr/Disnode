@@ -43,6 +43,9 @@ class DiscordService extends Service {
             object: message,
             type: "DiscordService"
           };
+          if(message.author.bot){
+            return;
+          }
           if(message.type === "DM"){
             self.dispatcher.OnWhisper(convertedPacket);
 
