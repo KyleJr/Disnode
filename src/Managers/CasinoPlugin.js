@@ -167,8 +167,64 @@ class CasinoPlugin extends Manager {
     var self = this;
     var player = self.getPlayer(data);
     if(self.checkBan(player, data))return;
-    var player = self.getPlayer(data);
     player.money = Number(parseFloat(player.money).toFixed(2));
+    if(data.params[0]){
+      var otherID = self.parseMention(data.params[0]);
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+        if(self.casinoObj.players[i].id == otherID){
+          var transferPlayer = self.casinoObj.players[i];
+          this.disnode.service.SendEmbed({
+            color: 3447003,
+            author: {},
+            title: transferPlayer.name + ' Quick Balance',
+            fields: [ {
+              name: 'Money',
+              inline: true,
+              value: "$" + numeral(transferPlayer.money).format('0,0.00'),
+            }, {
+              name: 'Income / 30min.',
+              inline: true,
+              value: "$" + numeral(transferPlayer.perUpdate).format('0,0.00'),
+            }, {
+              name: 'XP',
+              inline: true,
+              value: transferPlayer.xp,
+            }],
+              footer: {}
+            },
+          data.msg);
+          return;
+        }
+      }
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+        if(self.casinoObj.players[i].name.toLowerCase() == data.params[0].toLowerCase()){
+          var transferPlayer = self.casinoObj.players[i];
+          this.disnode.service.SendEmbed({
+            color: 3447003,
+            author: {},
+            title: transferPlayer.name + ' Quick Balance',
+            fields: [ {
+              name: 'Money',
+              inline: true,
+              value: "$" + numeral(transferPlayer.money).format('0,0.00'),
+            }, {
+              name: 'Income / 30min.',
+              inline: true,
+              value: "$" + numeral(transferPlayer.perUpdate).format('0,0.00'),
+            }, {
+              name: 'XP',
+              inline: true,
+              value: transferPlayer.xp,
+            }],
+              footer: {}
+            },
+          data.msg);
+          return;
+        }
+      }
+      this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to look up or make sure you spelt their name correct if not using @mentions! Also make sure they have a account on the game!", data);
+      return;
+    }
     this.disnode.service.SendEmbed({
       color: 3447003,
       author: {},
@@ -262,8 +318,9 @@ class CasinoPlugin extends Manager {
     if(self.checkBan(player, data))return;
     var transferPlayer;
     if(data.params[0]){
+      var otherID = self.parseMention(data.params[0]);
       for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(self.casinoObj.players[i].name == data.params[0]){
+        if(self.casinoObj.players[i].id == otherID){
           transferPlayer = self.casinoObj.players[i];
           var toTransfer = numeral(data.params[1]).value();
           if(toTransfer > 0){
@@ -309,7 +366,54 @@ class CasinoPlugin extends Manager {
           return;
         }
       }
-      this.sendCompactEmbed("Error", ":warning: Could not find a player card for: `" + data.params[0] + "`", data);
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+        if(self.casinoObj.players[i].name.toLowerCase() == data.params[0].toLowerCase()){
+          transferPlayer = self.casinoObj.players[i];
+          var toTransfer = numeral(data.params[1]).value();
+          if(toTransfer > 0){
+            if(toTransfer > player.money){
+              this.sendCompactEmbed("Error", ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'), data);
+              return;
+            }else {
+              var pbalbef = player.money
+              var sbalbef = transferPlayer.money
+              player.money -= toTransfer;
+              transferPlayer.money += toTransfer
+              player.money = Number(parseFloat(player.money).toFixed(2));
+              transferPlayer.money = Number(parseFloat(transferPlayer.money).toFixed(2));
+            }
+            self.save(self.cobpath, self.casinoObj);
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: 'From',
+                inline: false,
+                value: player.name + "\nBalance Proir: $" + numeral(pbalbef).format('0,0.00') + "\nBalance After: $" + numeral(player.money).format('0,0.00'),
+              }, {
+                name: 'To',
+                inline: false,
+                value: transferPlayer.name + "\nBalance Proir: $" + numeral(sbalbef).format('0,0.00') + "\nBalance After: $" + numeral(transferPlayer.money).format('0,0.00'),
+              }, {
+                name: 'Amount',
+                inline: true,
+                value: "$ " + numeral(toTransfer).format('0,0.00'),
+              }, {
+                name: "Status",
+                inline: false,
+                value: ":white_check_mark: Transfer complete!",
+              }],
+                footer: {}
+              },
+            data.msg);
+            return;
+          }else {
+            this.sendCompactEmbed("Error", ":warning: Please enter a number for the transfer amount! example `!casino transfer FireGamer3 100`", data);
+          }
+          return;
+        }
+      }
+      this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!", data);
     }else{
       this.sendCompactEmbed("Error", ":warning: Please enter a username to send to! example: `!casino transfer FireGamer3 100`\nIf the username has a space in it use quotes, Example: `!casino transfer \"VictoryForPhil / Atec\" 100`", data);
     }
@@ -378,15 +482,15 @@ class CasinoPlugin extends Manager {
             value: flipinfo.winText,
           }, {
             name: 'Bet',
-            inline: false,
+            inline: true,
             value: "$" + numeral(bet).format('0,0.00'),
           }, {
             name: 'Winnings',
-            inline: false,
+            inline: true,
             value: "$" + numeral(flipinfo.winAmount).format('0,0.00'),
           }, {
             name: 'Net Gain',
-            inline: false,
+            inline: true,
             value: "$" + numeral(flipinfo.winAmount - bet).format('0,0.00'),
           }, {
             name: 'Balance',
@@ -424,15 +528,15 @@ class CasinoPlugin extends Manager {
             value: flipinfo.winText,
           }, {
             name: 'Bet',
-            inline: false,
+            inline: true,
             value: "$" + numeral(bet).format('0,0.00'),
           }, {
             name: 'Winnings',
-            inline: false,
+            inline: true,
             value: "$" + numeral(flipinfo.winAmount).format('0,0.00'),
           }, {
             name: 'Net Gain',
-            inline: false,
+            inline: true,
             value: "$" + numeral(flipinfo.winAmount - bet).format('0,0.00'),
           }, {
             name: 'Balance',
@@ -730,8 +834,9 @@ class CasinoPlugin extends Manager {
     var player = self.getPlayer(data);
     if(self.checkBan(player, data))return;
     if(data.params[0]){
+      var otherID = self.parseMention(data.params[0])
       for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(self.casinoObj.players[i].name == data.params[0]){
+        if(self.casinoObj.players[i].id == otherID){
           player = self.casinoObj.players[i];
           data.msg.userId = player.id;
           data.ranbynotbanned = true;
@@ -739,9 +844,18 @@ class CasinoPlugin extends Manager {
           return;
         }
       }
-      this.sendCompactEmbed("Error", ":warning: Could not find a player card for: `" + data.params[0] + "`", data);
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+        if(self.casinoObj.players[i].name.toLowerCase() == data.params[0].toLowerCase()){
+          player = self.casinoObj.players[i];
+          data.msg.userId = player.id;
+          data.ranbynotbanned = true;
+          self.statsCommand(data);
+          return;
+        }
+      }
+      this.sendCompactEmbed("Error", ":warning: Could not find a player card! Make sure you typed the correct name or make sure the player has a Player Card if using @mentions", data);
     }else{
-      this.sendCompactEmbed("Error", ":warning: Please enter a username to lookup! example: `!casino look FireGamer3`\nIf the username has a space in it use quotes, Example: `!casino look \"VictoryForPhil / Atec\"`", data);
+      this.sendCompactEmbed("Error", ":warning: Please enter a username to lookup! example: `!casino look FireGamer3`\nIf the username has a space in it use quotes, Example: `!casino look \"VictoryForPhil / Atec\"` alternatively you can use @mentions to find players as well", data);
     }
   }
   storeCommand(data){
@@ -912,7 +1026,7 @@ class CasinoPlugin extends Manager {
     }
     player.money = Number(player.money);
     if(data.params[0] == "info"){
-      if(player.money > 50000){
+      if(player.money > 66000){
         var minJackpotBet = (player.money * 0.015);
       }else var minJackpotBet = 1000;
       minJackpotBet = parseFloat(minJackpotBet.toFixed(2));
@@ -933,7 +1047,7 @@ class CasinoPlugin extends Manager {
           ":third_place::third_place::third_place: - 4x bet 20XP\n"+
           ":second_place::second_place::second_place: - 8x bet 40XP\n"+
           ":first_place::first_place::first_place: - 16x bet 80XP\n"+
-          ":100::100::100: - JACKPOT value (Minimum bet: $" + numeral(minJackpotBet).format('0,0.00') + " (if money < 50,000 min bet = 1000) else (min bet = money * 0.015 or 1.5%)) - 1000XP",
+          ":100::100::100: - JACKPOT value (Minimum bet: $" + numeral(minJackpotBet).format('0,0.00') + " (if money < 66,000 min bet = 1000) else (min bet = money * 0.015 or 1.5%)) - 1000XP",
         },{
           name: 'XP',
           inline: false,
@@ -992,7 +1106,7 @@ class CasinoPlugin extends Manager {
               fake6: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item
             }
             self.didWin(slotInfo);
-            if(player.money > 50000){
+            if(player.money > 66000){
               var minJackpotBet = (player.money * 0.015);
             }else var minJackpotBet = 1000;
             console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Slot Winnings: " + slotInfo.winAmount + " original bet: " + bet);
@@ -1274,7 +1388,7 @@ class CasinoPlugin extends Manager {
   }
   didWin(slot){
     var self = this;
-    if(slot.player.money > 50000){
+    if(slot.player.money > 66000){
       var minJackpotBet = (slot.player.money * 0.015);
     }else var minJackpotBet = 1000;
     minJackpotBet = parseFloat(minJackpotBet.toFixed(2));
@@ -1438,6 +1552,11 @@ class CasinoPlugin extends Manager {
         footer: {}
       },
     data.msg);
+  }
+  parseMention(dataString){
+    var returnV = dataString;
+    returnV = returnV.replace(/\D/g,'');
+    return returnV;
   }
   updateCoroutine(){
     var self = this;
