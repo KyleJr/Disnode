@@ -22,6 +22,7 @@ class CasinoPlugin extends Manager {
         {command: "flip",event: "flip"},
         {command: "transfer",event: "transfer"},
         {command: "bal",event: "bal"},
+        {command: "betters",event: "betters"},
         {command: "wheel",event: "wheel"},
       ]
     }
@@ -69,9 +70,11 @@ class CasinoPlugin extends Manager {
         HighestBy: "N/A"
       }
     }
+    this.recentBetters = [];
     this.load(this.cobpath);
     this.Starting = true;
     this.transferCommand = this.transferCommand.bind(this);
+    this.recentBettersCommand = this.recentBettersCommand.bind(this);
     this.quickbalCommand = this.quickbalCommand.bind(this);
     this.quickJPCommand = this.quickJPCommand.bind(this);
     this.statsCommand = this.statsCommand.bind(this);
@@ -98,6 +101,7 @@ class CasinoPlugin extends Manager {
     this.disnode.command.on("Command_casino_admin", this.adminCommand);
     this.disnode.command.on("Command_casino_flip", this.coinflipCommand);
     this.disnode.command.on("Command_casino_transfer", this.transferCommand);
+    this.disnode.command.on("Command_casino_betters", this.recentBettersCommand);
     this.disnode.command.on("Command_casino_bal", this.quickbalCommand);
     this.disnode.command.on("Command_casino_jackpot", this.quickJPCommand);
     this.disnode.command.on("Command_casino_wheel", this.wheelCommand);
@@ -112,6 +116,7 @@ class CasinoPlugin extends Manager {
       var msg = "";
       msg+= " `casino profile` - *Check your personal stats*\n";
       msg+= " `casino bal` - *Check your Money and XP Quickly*\n";
+      msg+= " `casino betters` - *View a list of who is currently Betting*\n";
       msg+= " `casino jackpot` - *Check the JACKPOT value Quickly*\n";
       msg+= " `casino look` - *Givers stats of the given username*\n";
       msg+= " `casino top` - *Lists the top 10 players based on cash*\n";
@@ -143,17 +148,34 @@ class CasinoPlugin extends Manager {
       data.msg);
     }
   }
+  recentBettersCommand(data){
+    var self = this;
+    var player = self.getPlayer(data);
+    var msg = "Name // Last Time Played\n";
+    for (var i = 0; i < self.recentBetters.length; i++) {
+      msg += (i+1) + ". **" + self.recentBetters[i].name + "** -=- `" + self.recentBetters[i].time + "`\n";
+    }
+    self.sendCompactEmbed("Recent Betters -=- Current Time: " + self.getDateTime(), msg, data);
+  }
   quickJPCommand(data){
     var self = this;
     var player = self.getPlayer(data);
     if(self.checkBan(player, data))return;
+    if(player.money > 66000){
+      var minJackpotBet = (player.money * 0.015);
+    }else var minJackpotBet = 1000;
+    self.updateLastSeen(player);
     this.disnode.service.SendEmbed({
       color: 3447003,
       author: {},
       fields: [ {
-        name: 'JACKPOT',
+        name: 'JACKPOT Value',
         inline: true,
         value: "$" + numeral(self.casinoObj.jackpotValue).format('0,0.00'),
+      },{
+        name: 'Minimum bet to Win JACKPOT',
+        inline: false,
+        value: "$" + numeral(minJackpotBet).format('0,0.00')
       }, {
         name: 'JACKPOT History',
         inline: false,
@@ -225,6 +247,7 @@ class CasinoPlugin extends Manager {
       this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to look up or make sure you spelt their name correct if not using @mentions! Also make sure they have a account on the game!", data);
       return;
     }
+    self.updateLastSeen(player);
     this.disnode.service.SendEmbed({
       color: 3447003,
       author: {},
@@ -247,6 +270,7 @@ class CasinoPlugin extends Manager {
     data.msg);
   }
   wheelCommand(data){
+    return;
     var self = this;
     var player = self.getPlayer(data);
     if(self.checkBan(player, data))return;
@@ -441,8 +465,13 @@ class CasinoPlugin extends Manager {
     }else {
       this.sendCompactEmbed("Coin Flip", "Welcome to Coin Flip! You can play by using this command `!casino flip [heads/tails] [bet]` Examples `!casino flip heads 100` and `!casino flip tails 100`", data);
       return;
+    }if(data.params[1]){
+      if(data.params[1].toLowerCase() == "allin"){
+        data.params[1] = player.money;
+      }
     }
     if(numeral(data.params[1]).value() >= 1){
+      var bet;
       var bet = numeral(data.params[1]).value();
       var timeoutInfo = self.checkTimeout(player, 5);
       if(player.Admin || player.Premium)timeoutInfo = self.checkTimeout(player, 2);
@@ -471,8 +500,13 @@ class CasinoPlugin extends Manager {
         player.stats.moneyWon = Number(parseFloat(player.stats.moneyWon).toFixed(2));
         player.money += Number(parseFloat(flipinfo.winAmount).toFixed(2));
         player.money = Number(parseFloat(player.money).toFixed(2));
-        player.xp += 5;
+        if(bet >= 1000){
+          player.xp += 5;
+        }else {
+          flipinfo.winText += " `You bet lower than $1,000 fair warning here, you wont get any XP`"
+        }
         console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Has Won Coin Flip Winnings: " + flipinfo.winAmount + "original bet: " + bet);
+        self.updateLastSeen(player);
         this.disnode.service.SendEmbed({
           color: 3447003,
           author: {},
@@ -505,20 +539,27 @@ class CasinoPlugin extends Manager {
           },
         data.msg);
         var currentDate = new Date();
+        var hour = currentDate.getHours();
+        hour = (hour < 10 ? "0" : "") + hour;
         var min  = currentDate.getMinutes();
         min = (min < 10 ? "0" : "") + min;
         var sec  = currentDate.getSeconds();
         sec = (sec < 10 ? "0" : "") + sec;
         player.lastMessage = {
+          hour: parseInt(hour),
           min: parseInt(min),
           sec: parseInt(sec),
         }
       }else {
         flipinfo.winText = flipinfo.ltag + " House Wins!";
+        if(bet >= 1000){}else {
+          flipinfo.winText += " `You bet lower than $1,000 fair warning here, you wont get any XP`"
+        }
         if(flipinfo.playerPick == 0){
           player.stats.coinTails++;
         }else player.stats.coinHeads++;
         console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Has Lost Coin Flip Winnings: " + flipinfo.winAmount + "original bet: " + bet);
+        self.updateLastSeen(player);
         this.disnode.service.SendEmbed({
           color: 3447003,
           author: {},
@@ -551,11 +592,14 @@ class CasinoPlugin extends Manager {
           },
         data.msg);
         var currentDate = new Date();
+        var hour = currentDate.getHours();
+        hour = (hour < 10 ? "0" : "") + hour;
         var min  = currentDate.getMinutes();
         min = (min < 10 ? "0" : "") + min;
         var sec  = currentDate.getSeconds();
         sec = (sec < 10 ? "0" : "") + sec;
         player.lastMessage = {
+          hour: parseInt(hour),
           min: parseInt(min),
           sec: parseInt(sec),
         }
@@ -590,8 +634,8 @@ class CasinoPlugin extends Manager {
                 }
                 this.sendCompactEmbed("Action Complete", ":white_check_mark: Player: " + players.name + "Is now banned with the Reason: " + players.banreason, data);
               }else {
-                players.money = 5000;
-                players.perUpdate = 100;
+                players.money = 50000;
+                players.perUpdate = 10000;
                 players.xp = 0;
                 players.banned = false;
                 players.banreason = "";
@@ -605,147 +649,27 @@ class CasinoPlugin extends Manager {
           this.sendCompactEmbed("Error", ":warning: Please enter a username!", data);
         }
           break;
-        case "testslot":
-          var bet = numeral(data.params[0]).value();
-          var modifier = data.params[2];
-          switch (modifier) {
-            case "100":
-              modifier = ":100:";
-              break;
-            case "first_place":
-              modifier = ":first_place:";
-              break;
-            case "second_place":
-              modifier = ":second_place:";
-              break;
-            case "third_place":
-              modifier = ":third_place:";
-              break;
-            case "cherries":
-              modifier = ":cherries:";
-              break;
-            default:
-              break;
-          }
-          if(modifier == undefined){
-            var slotInfo = {
-              bet: bet,
-              player: player,
-              winText: "",
-              winAmount: 0,
-              reel1: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              reel2: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              reel3: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake1: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake2: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake3: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake4: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake5: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake6: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item
+        case "eval":
+          if(data.msg.userId == 112786170655600640){
+            function clean(text) {
+              if (typeof(text) === "string")
+                return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+              else
+                  return text;
             }
-            self.didWin(slotInfo);
-            console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Slot Winnings: " + slotInfo.winAmount + " original bet: " + bet);
-            player.money = parseFloat(player.money.toFixed(2));
-            player.stats.moneySpent = parseFloat(parseFloat(player.stats.moneySpent) + parseFloat(bet));
-            player.stats.moneyWon = parseFloat(parseFloat(player.stats.moneyWon) + parseFloat(slotInfo.winAmount));
-            player.stats.moneySpent = player.stats.moneySpent.toFixed(2);
-            player.stats.moneyWon = player.stats.moneyWon.toFixed(2);
-            self.casinoObj.jackpotValue = parseFloat(self.casinoObj.jackpotValue.toFixed(2));
-            this.disnode.service.SendEmbed({
-              color: 3447003,
-              author: {},
-              fields: [ {
-                name: ':slot_machine: Slots Result :slot_machine:',
-                inline: false,
-                value: "| " + slotInfo.fake1 + slotInfo.fake2 + slotInfo.fake3 + " |\n**>**" + slotInfo.reel1 + slotInfo.reel2 + slotInfo.reel3 +"**<** Pay Line\n| " + slotInfo.fake4 + slotInfo.fake5 + slotInfo.fake6 + " |\n\n" + slotInfo.winText,
-              }, {
-                name: 'Bet',
-                inline: true,
-                value: "$" + bet,
-              }, {
-                name: 'Winnings',
-                inline: true,
-                value: "$" + slotInfo.winAmount,
-              }, {
-                name: 'Net Gain',
-                inline: true,
-                value: "$" + (slotInfo.winAmount - bet),
-              }, {
-                name: 'Balance',
-                inline: false,
-                value: "$" + numeral(player.money).format('0,0.00'),
-              }, {
-                name: 'JACKPOT Value',
-                inline: true,
-                value: "$" + self.casinoObj.jackpotValue,
-              }, {
-                name: 'XP',
-                inline: true,
-                value: player.xp,
-              }],
-                footer: {}
-              },
-            data.msg);
-          }else {
-            var slotInfo = {
-              bet: bet,
-              player: player,
-              winText: "",
-              winAmount: 0,
-              reel1: modifier,
-              reel2: modifier,
-              reel3: modifier,
-              fake1: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake2: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake3: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake4: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake5: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item,
-              fake6: self.slotItems[self.getRandomIntInclusive(0,(self.slotItems.length - 1))].item
-            }
-            self.didWin(slotInfo);
+            try {
+              data.params.splice(0,1);
+              var code = data.params.join(" ");
+              console.log(code);
+              var evaled = eval(code);
 
-            console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Slot Winnings: " + slotInfo.winAmount + " original bet: " + bet);
-            player.money = parseFloat(player.money.toFixed(2));
-            player.stats.moneySpent = parseFloat(parseFloat(player.stats.moneySpent) + parseFloat(bet));
-            player.stats.moneyWon = parseFloat(parseFloat(player.stats.moneyWon) + parseFloat(slotInfo.winAmount));
-            player.stats.moneySpent = player.stats.moneySpent.toFixed(2);
-            player.stats.moneyWon = player.stats.moneyWon.toFixed(2);
-            self.casinoObj.jackpotValue = parseFloat(self.casinoObj.jackpotValue.toFixed(2));
-            this.disnode.service.SendEmbed({
-              color: 3447003,
-              author: {},
-              fields: [ {
-                name: ':slot_machine: Slots Result :slot_machine:',
-                inline: false,
-                value: "| " + slotInfo.fake1 + slotInfo.fake2 + slotInfo.fake3 + " |\n**>**" + slotInfo.reel1 + slotInfo.reel2 + slotInfo.reel3 +"**<** Pay Line\n| " + slotInfo.fake4 + slotInfo.fake5 + slotInfo.fake6 + " |\n\n" + slotInfo.winText,
-              }, {
-                name: 'Bet',
-                inline: true,
-                value: "$" + bet,
-              }, {
-                name: 'Winnings',
-                inline: true,
-                value: "$" + slotInfo.winAmount,
-              }, {
-                name: 'Net Gain',
-                inline: true,
-                value: "$" + (slotInfo.winAmount - bet),
-              }, {
-                name: 'Balance',
-                inline: false,
-                value: "$" + numeral(player.money).format('0,0.00'),
-              }, {
-                name: 'JACKPOT Value',
-                inline: true,
-                value: "$" + self.casinoObj.jackpotValue,
-              }, {
-                name: 'XP',
-                inline: true,
-                value: player.xp,
-              }],
-                footer: {}
-              },
-            data.msg);
+              if (typeof evaled !== "string")
+                evaled = require("util").inspect(evaled);
+
+              data.msg.channel.sendCode("xl", clean(evaled));
+            } catch (err) {
+              data.msg.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+            }
           }
           break;
         case "jackpot":
@@ -827,7 +751,7 @@ class CasinoPlugin extends Manager {
       if(i == maxindex)break;
       msg += "" + (i + 1) + ". **" + orderTop[i].name + "** - $" + numeral(orderTop[i].money).format('0,0.00') + "\n";
     }
-    this.sendCompactEmbed("High Rollers", msg, data);
+    this.sendCompactEmbed("Wealthiest Players", msg, data);
   }
   lookupCommand(data){
     var self = this;
@@ -1047,7 +971,11 @@ class CasinoPlugin extends Manager {
           ":third_place::third_place::third_place: - 4x bet 20XP\n"+
           ":second_place::second_place::second_place: - 8x bet 40XP\n"+
           ":first_place::first_place::first_place: - 16x bet 80XP\n"+
-          ":100::100::100: - JACKPOT value (Minimum bet: $" + numeral(minJackpotBet).format('0,0.00') + " (if money < 66,000 min bet = 1000) else (min bet = money * 0.015 or 1.5%)) - 1000XP",
+          ":100::100::100: - JACKPOT value - 1000XP",
+        },{
+          name: 'Minimum bet to Win JACKPOT',
+          inline: false,
+          value: "Minimum bet: $**" + numeral(minJackpotBet).format('0,0.00') + "** (if money < 66,000 min bet = 1000) else (min bet = money * 0.015 or 1.5%))"
         },{
           name: 'XP',
           inline: false,
@@ -1055,7 +983,7 @@ class CasinoPlugin extends Manager {
         },{
           name: 'JACKPOT',
           inline: false,
-          value: "JACKPOT Value is increased every time someone plays slots, the value is increased by the players bet amount and has a default value of $100,000\n**Current JACKPOT Value: **$" + numeral(self.casinoObj.jackpotValue).format('0,0.00'),
+          value: "JACKPOT Value is increased every time someone plays slots, the value is increased by the players bet amount and has a default value of $1,000,000\n**Current JACKPOT Value: **$" + numeral(self.casinoObj.jackpotValue).format('0,0.00'),
         }, {
           name: 'JACKPOT History',
           inline: true,
@@ -1069,6 +997,9 @@ class CasinoPlugin extends Manager {
         //no params give tidbit of info
         this.sendCompactEmbed("Error", "Hi, Welcome to the slots! If you need info on the slots the run `!casino slot info`\n\nIf you want to try the slots then do `!casino slot [bet]` for example `casino slot 100` that will run the slot with $100 as the bet", data);
       }else{
+        if(data.params[0].toLowerCase() == "allin"){
+          data.params[0] = player.money;
+        }
         // there is something in params
         if(parseFloat(data.params[0]) > 0.01){
           var bet = numeral(data.params[0]).value();
@@ -1076,6 +1007,7 @@ class CasinoPlugin extends Manager {
           var timeoutInfo = self.checkTimeout(player, 5);
           if(player.Admin || player.Premium)timeoutInfo = self.checkTimeout(player, 2);
           if(!timeoutInfo.pass){
+            console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Tried the slots before their delay of: " + timeoutInfo.remain.sec);
             this.sendCompactEmbed("Error", ":warning: You must wait **" + timeoutInfo.remain.sec + " seconds** before playing again.", data);
             return;
           }
@@ -1109,7 +1041,11 @@ class CasinoPlugin extends Manager {
             if(player.money > 66000){
               var minJackpotBet = (player.money * 0.015);
             }else var minJackpotBet = 1000;
-            console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Slot Winnings: " + slotInfo.winAmount + " original bet: " + bet);
+            if(timeoutInfo.remain){
+              console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Slot Winnings: " + slotInfo.winAmount + " original bet: " + bet + " Time since they could use this command again: " + timeoutInfo.remain.sec);
+            }else {
+              console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Slot Winnings: " + slotInfo.winAmount + " original bet: " + bet);
+            }
             player.money = parseFloat(player.money.toFixed(2));
             minJackpotBet = parseFloat(minJackpotBet.toFixed(2));
             player.stats.moneySpent = parseFloat(parseFloat(player.stats.moneySpent) + parseFloat(bet));
@@ -1117,11 +1053,13 @@ class CasinoPlugin extends Manager {
             player.stats.moneySpent = player.stats.moneySpent.toFixed(2);
             player.stats.moneyWon = player.stats.moneyWon.toFixed(2);
             self.casinoObj.jackpotValue = parseFloat(self.casinoObj.jackpotValue.toFixed(2));
+            self.handleRecentBetters(player);
+            self.updateLastSeen(player);
             this.disnode.service.SendEmbed({
               color: 3447003,
               author: {},
               fields: [ {
-                name: ':slot_machine: Slots Result :slot_machine:',
+                name: ':slot_machine: ' + player.name + ' Slots Result :slot_machine:',
                 inline: false,
                 value: "| " + slotInfo.fake1 + slotInfo.fake2 + slotInfo.fake3 + " |\n**>**" + slotInfo.reel1 + slotInfo.reel2 + slotInfo.reel3 +"**<** Pay Line\n| " + slotInfo.fake4 + slotInfo.fake5 + slotInfo.fake6 + " |\n\n" + slotInfo.winText,
               }, {
@@ -1268,9 +1206,9 @@ class CasinoPlugin extends Manager {
       sec: Number((player.lastMessage.sec + seconds) - sec)
     }
     if(remainingTime.min < 0 || remainingTime.sec < 0 || remainingTime.hour < 0){
-      return {pass: true};
+      return {pass: true,  remain: remainingTime};
     }else if((remainingTime.min <= 0) & (remainingTime.sec <= 0)){
-      return {pass: true};
+      return {pass: true,  remain: remainingTime};
     }else return {pass: false, remain: remainingTime};
   }
   getPlayer(data){
@@ -1399,7 +1337,7 @@ class CasinoPlugin extends Manager {
         slot.winText = "YOU GOT A JACKPOT! however you didnt meet the minimum bet requirement ($" + minJackpotBet + ") to get the JACKPOT value so here is 60x your bet";
       }else {
         slot.winAmount = parseFloat(self.casinoObj.jackpotValue);
-        self.casinoObj.jackpotValue = 100000;
+        self.casinoObj.jackpotValue = 1000000;
         slot.winText = "JACKPOT JACKPOT JACKPOT!!!!!";
         self.casinoObj.jackpotstat.lastWon = slot.player.name;
         if(slot.winAmount > self.casinoObj.jackpotstat.HighestWin){
@@ -1503,6 +1441,43 @@ class CasinoPlugin extends Manager {
       slot.winText += " `You bet lower than $1,000 fair warning here, you wont get any XP and you cant win the true JACKPOT`"
     }
   }
+  updateLastSeen(player){
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    month = numeral((month < 10 ? "0" : "") + month).value();
+    var day  = date.getDate();
+    day = numeral((day < 10 ? "0" : "") + day).value();
+    player.lastSeen = {
+      pmonth: numeral(month).value(),
+      pday: numeral(day).value(),
+      pyear: numeral(year).value()
+    }
+  }
+  canGetIncome(player){
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    month = numeral((month < 10 ? "0" : "") + month).value();
+    var day  = date.getDate();
+    day = numeral((day < 10 ? "0" : "") + day).value();
+    var yearsPassed = year - player.lastSeen.pyear;
+    var monthsPassed = month - player.lastSeen.pmonth;
+    var daysPassed = day - player.lastSeen.pday;
+    if((yearsPassed > 0) | (monthsPassed > 0) | (daysPassed > 0)){
+      return false;
+    }
+    return true;
+  }
+  removeFromDB(player){
+    var self = this;
+    for (var i = 0; i < self.casinoObj.players.length; i++) {
+      if(self.casinoObj.players[i].id == player.id){
+        self.casinoObj.players.splice(i,1);
+        return;
+      }
+    }
+  }
   getDateTime() {
     var date = new Date();
     var hour = date.getHours();
@@ -1540,6 +1515,24 @@ class CasinoPlugin extends Manager {
       return false;
     }
   }
+  handleRecentBetters(player){
+    var self = this;
+    var placed = false;
+    for (var i = 0; i < self.recentBetters.length; i++) {
+      if(self.recentBetters[i].name == player.name){
+        self.recentBetters.splice(i,1);
+        self.recentBetters.unshift({name: player.name, time: self.getDateTime()});
+        placed = true;
+        break;
+      }
+    }
+    if(!placed){
+      self.recentBetters.unshift({name: player.name, time: self.getDateTime()});
+    }
+    while(self.recentBetters.length > 10){
+      self.recentBetters.splice(10, 1)
+    }
+  }
   sendCompactEmbed(title, body, data){
     this.disnode.service.SendEmbed({
       color: 3447003,
@@ -1560,8 +1553,26 @@ class CasinoPlugin extends Manager {
   }
   updateCoroutine(){
     var self = this;
+    var toRemove = [];
+    var date = new Date();
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
     for (var i = 0; i < self.casinoObj.players.length; i++) {
-      self.casinoObj.players[i].money += self.casinoObj.players[i].perUpdate;
+      if(self.casinoObj.players[i].lastSeen == undefined){
+        self.updateLastSeen(self.casinoObj.players[i]);
+      }
+      if(self.casinoObj.players[i].stats.slotPlays <= 10){
+        var daysPassed = self.casinoObj.players[i].lastSeen.pday - day;
+        if(daysPassed >= 7)toRemove.push(self.casinoObj.players[i]);
+      }
+    }
+    for (var i = 0; i < toRemove.length; i++) {
+      self.removeFromDB(toRemove[i]);
+    }
+    for (var i = 0; i < self.casinoObj.players.length; i++) {
+      if(self.canGetIncome(self.casinoObj.players[i])){
+        self.casinoObj.players[i].money += self.casinoObj.players[i].perUpdate;
+      }
       self.casinoObj.players[i].lastMessage = null;
     }
     if(self.casinoObj.jackpotValue == null)self.casinoObj.jackpotValue = 1000;
