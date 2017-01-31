@@ -60,6 +60,29 @@ class CasinoPlugin extends Manager {
       {cost: 320000, type:1, item: "Instant 1600XP"},
       {cost: 640000, type:1, item: "Instant 3200XP"}
     ]
+    this.wheelItems = [
+      {display:":white_circle: :zero:", type: 0},
+      {display:":red_circle: :one:", type: 1},
+      {display:":red_circle: :two:", type: 1},
+      {display:":black_circle: :three:", type: 2},
+      {display:":black_circle: :four:", type: 2},
+      {display:":red_circle: :five:", type: 1},
+      {display:":red_circle: :six:", type: 1},
+      {display:":black_circle: :seven:", type: 2},
+      {display:":black_circle: :eight:", type: 2},
+      {display:":red_circle: :nine:", type: 1},
+      {display:":red_circle: :keycap_ten:", type: 1},
+      {display:":black_circle: :one: :one:", type: 2},
+      {display:":black_circle: :one: :two:", type: 2},
+      {display:":red_circle: :one: :three:", type: 1},
+      {display:":red_circle: :one: :four:", type: 1},
+      {display:":black_circle: :one: :five:", type: 2},
+      {display:":black_circle: :one: :six:", type: 2},
+      {display:":red_circle: :one: :seven:", type: 1},
+      {display:":red_circle: :one: :eight:", type: 1},
+      {display:":black_circle: :one: :nine:", type: 2},
+      {display:":black_circle: :two: :zero:", type: 2}
+    ]
     this.cobpath = "./casinoObj.json";
     this.casinoObj = {
       players:[],
@@ -244,7 +267,46 @@ class CasinoPlugin extends Manager {
           return;
         }
       }
-      this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to look up or make sure you spelt their name correct if not using @mentions! Also make sure they have a account on the game!", data);
+      var found = [];
+      var msg = "Did you mean?\n";
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+      if(data.params[0].length < 3)break;
+        if(self.casinoObj.players[i].name.toLowerCase().includes(data.params[0].toLowerCase())){
+          found.push(self.casinoObj.players[i])
+        }
+      }
+      if(found.length == 1){
+        var transferPlayer = found[0];
+        this.disnode.service.SendEmbed({
+          color: 3447003,
+          author: {},
+          title: transferPlayer.name + ' Quick Balance',
+          fields: [ {
+            name: 'Money',
+            inline: true,
+            value: "$" + numeral(transferPlayer.money).format('0,0.00'),
+          }, {
+            name: 'Income / 30min.',
+            inline: true,
+            value: "$" + numeral(transferPlayer.perUpdate).format('0,0.00'),
+          }, {
+            name: 'XP',
+            inline: true,
+            value: transferPlayer.xp,
+          }],
+            footer: {}
+          },
+        data.msg);
+        return;
+      }
+      for (var i = 0; i < found.length; i++) {
+        msg += "**" + found[i].name + "**\n"
+      }
+      if(found.length > 0){
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n\n" + msg, data);
+      }else {
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!", data);
+      }
       return;
     }
     self.updateLastSeen(player);
@@ -270,15 +332,18 @@ class CasinoPlugin extends Manager {
     data.msg);
   }
   wheelCommand(data){
-    return;
     var self = this;
     var player = self.getPlayer(data);
     if(self.checkBan(player, data))return;
     player.money = Number(parseFloat(player.money).toFixed(2));
+    if(!player.Premium && !player.Admin){
+      self.sendCompactEmbed("Error", ":x: Non Disnode Premium Members can't get acces to beta features... subscribe now using the link at the bottom of !casino", data);
+      return;
+    }
     switch (data.params[0]) {
       case "spin":
-        if(parseFloat(data.params[1]) > 1){
-          var bet = numeral(data.params[0]).value();
+        var bet = numeral(data.params[1]).value();
+        if(bet > 0){
           var timeoutInfo = self.checkTimeout(player, 5);
           if(player.Admin || player.Premium)timeoutInfo = self.checkTimeout(player, 2);
           if(!timeoutInfo.pass){
@@ -301,12 +366,145 @@ class CasinoPlugin extends Manager {
               return;
             }else{
               player.money -= bet;
-              player.money = Number(parseFloat(player.money).toFixed(2));
+              player.money = numeral(player.money).value();
             }
             var wheelInfo = {
               bet: bet,
               player: player,
               oddsMult: 0.0,
+              colorbet: false,
+              evenOddbet: false,
+              numberBet: false,
+              xpAward: 0,
+              wheelNumber: self.getRandomIntInclusive(0,20),
+              betType1: data.params[2],
+              betType2: data.params[3],
+            }
+            wheelInfo.ball = self.wheelItems[wheelInfo.wheelNumber];
+            if(wheelInfo.betType1 == undefined){
+              this.sendCompactEmbed("Error", ":warning: Please Enter a bet Type they can include [black,red,(0-20),even,odd] EXAMPLE: `!casino wheel 100 blakck 5`", data);
+            }
+            if(wheelInfo.betType2 != undefined){
+              if((wheelInfo.betType1.toLowerCase() == "black" && wheelInfo.ball.type == 2) || (wheelInfo.betType2.toLowerCase() == "black" && wheelInfo.ball.type == 2)){
+                wheelInfo.oddsMult += 1.75;
+                wheelInfo.colorbet = true;
+              }else if ((wheelInfo.betType1.toLowerCase() == "red" && wheelInfo.ball.type == 1) || (wheelInfo.betType2.toLowerCase() == "red" && wheelInfo.ball.type == 1)) {
+                wheelInfo.oddsMult += 1.75;
+                wheelInfo.colorbet = true;
+              }
+              if((wheelInfo.betType1.toLowerCase() == "even" && (wheelInfo.wheelNumber % 2) == 0) || (wheelInfo.betType2.toLowerCase() == "even" && (wheelInfo.wheelNumber % 2) == 0)){
+                wheelInfo.oddsMult += 1.75;
+                wheelInfo.evenOddbet = true;
+              }else if ((wheelInfo.betType1.toLowerCase() == "odd" && (wheelInfo.wheelNumber % 2) != 0) || (wheelInfo.betType2.toLowerCase() == "odd" && (wheelInfo.wheelNumber % 2) != 0)) {
+                wheelInfo.oddsMult += 1.75;
+                wheelInfo.evenOddbet = true;
+              }
+              if((wheelInfo.betType1.toLowerCase() == "0" && wheelInfo.wheelNumber == 0) || (wheelInfo.betType2.toLowerCase() == "0" && wheelInfo.wheelNumber == 0)){
+                wheelInfo.oddsMult += 100;
+                wheelInfo.numberBet = true;
+              }else if ((numeral(wheelInfo.betType1).value() == wheelInfo.wheelNumber) || (numeral(wheelInfo.betType2).value() == wheelInfo.wheelNumber)) {
+                wheelInfo.oddsMult += 50;
+                wheelInfo.numberBet = true;
+              }
+              if((wheelInfo.numberBet && wheelInfo.evenOddbet)){
+                wheelInfo.oddsMult -= 30;
+              }
+              if((wheelInfo.numberBet && wheelInfo.colorbet)){
+                wheelInfo.oddsMult -= 30;
+              }
+              if((wheelInfo.colorbet && wheelInfo.evenOddbet) && !wheelInfo.numberBet){
+                wheelInfo.oddsMult = 1.25;
+              }
+            }else {
+              if(wheelInfo.betType1.toLowerCase() == "black" && wheelInfo.ball.type == 2){
+                wheelInfo.oddsMult += 1.75;
+                wheelInfo.xpAward = 10;
+                wheelInfo.colorbet = true;
+              }else if (wheelInfo.betType1.toLowerCase() == "red" && wheelInfo.ball.type == 1){
+                wheelInfo.oddsMult += 1.75;
+                wheelInfo.xpAward = 10;
+                wheelInfo.colorbet = true;
+              }
+              if(wheelInfo.betType1.toLowerCase() == "even" && (wheelInfo.wheelNumber % 2) == 0){
+                wheelInfo.oddsMult += 1.75;
+                wheelInfo.xpAward = 10;
+                wheelInfo.evenOddbet = true;
+              }else if (wheelInfo.betType1.toLowerCase() == "odd" && (wheelInfo.wheelNumber % 2) != 0){
+                wheelInfo.oddsMult += 1.75;
+                wheelInfo.xpAward = 10;
+                wheelInfo.evenOddbet = true;
+              }
+              if(wheelInfo.betType1.toLowerCase() == "0" && wheelInfo.wheelNumber == 0){
+                wheelInfo.oddsMult += 100;
+                wheelInfo.xpAward = 100;
+                wheelInfo.numberBet = true;
+              }else if (numeral(wheelInfo.betType1).value() == wheelInfo.wheelNumber) {
+                wheelInfo.oddsMult += 50;
+                wheelInfo.xpAward = 50;
+                wheelInfo.numberBet = true;
+              }
+              if((wheelInfo.numberBet && wheelInfo.evenOddbet)){
+                wheelInfo.oddsMult -= 30;
+                wheelInfo.xpAward = 30;
+              }
+              if((wheelInfo.numberBet && wheelInfo.colorbet)){
+                wheelInfo.oddsMult -= 30;
+                wheelInfo.xpAward = 30;
+              }
+              if((wheelInfo.colorbet && wheelInfo.evenOddbet) && !wheelInfo.numberBet){
+                wheelInfo.oddsMult = 2;
+                wheelInfo.xpAward = 5;
+              }
+            }
+            wheelInfo.winAmount = numeral(bet * wheelInfo.oddsMult).value();
+            player.money += wheelInfo.winAmount;
+            player.xp += wheelInfo.xpAward;
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: ':money_with_wings: The Wheel :money_with_wings:',
+                inline: false,
+                value: wheelInfo.ball.display,
+              }, {
+                name: 'Winnings Multiplier',
+                inline: false,
+                value: numeral(wheelInfo.oddsMult).format('0,0.00'),
+              }, {
+                name: 'Bet',
+                inline: true,
+                value: "$" + numeral(bet).format('0,0.00'),
+              }, {
+                name: 'Winnings',
+                inline: true,
+                value: "$" + numeral(wheelInfo.winAmount).format('0,0.00'),
+              }, {
+                name: 'Net Gain',
+                inline: true,
+                value: "$" + numeral(wheelInfo.winAmount - bet).format('0,0.00'),
+              }, {
+                name: 'Balance',
+                inline: true,
+                value: "$" + numeral(player.money).format('0,0.00'),
+              }, {
+                name: 'XP',
+                inline: true,
+                value: player.xp,
+              }],
+                footer: {}
+              },
+            data.msg);
+            var currentDate = new Date();
+            var hour = currentDate.getHours();
+            hour = (hour < 10 ? "0" : "") + hour;
+            var min  = currentDate.getMinutes();
+            min = (min < 10 ? "0" : "") + min;
+            var sec  = currentDate.getSeconds();
+            sec = (sec < 10 ? "0" : "") + sec;
+            player.lastMessage = {
+              hour: parseInt(hour),
+              min: parseInt(min),
+              sec: parseInt(sec),
             }
           }else{
             this.sendCompactEmbed("Error", ":warning: Please Enter a Number for your bet!", data);
@@ -314,17 +512,42 @@ class CasinoPlugin extends Manager {
         }
         break;
       case "info":
-
+        var numberList = "";
+        for (var i = 0; i < self.wheelItems.length; i++) {
+          numberList += self.wheelItems[i].display + "\n";
+        }
+        this.disnode.service.SendEmbed({
+          color: 3447003,
+          author: {},
+          fields: [ {
+            name: ':money_with_wings: The Wheel :money_with_wings:',
+            inline: false,
+            value: "The Wheel acts much like Roulette however it has a differeing rule set to Roulette.",
+          }, {
+            name: 'Playing The Wheel',
+            inline: false,
+            value: "You can play the wheel by typing in `!casino wheel spin [bet] [betTyoe] [betType]` EXAMPLE: `!casino wheel spin 100 black 10`\n**YOU MUST BE VERY PERCISE WITH YOUR COMMAND THE WHEEL WILL TAKE YOUR MONEY IF YOU PUT A NUMBER THATS OUT OF BOUNDS OR A RANDOM TEXT**",
+          }, {
+            name: 'Bet Types',
+            inline: true,
+            value: "As shown bet types can be one of the following: `[black,red,(0-20),even,odd]`",
+          }, {
+            name: 'Numers',
+            inline: true,
+            value: numberList,
+          }, {
+            name: 'Winnings',
+            inline: true,
+            value: "0 - 100x\nany other number - 50x\nA number and (even/odd/black/red) - 20x\nEven/Odd - 1.75x\nBlack/Red - 1.75x",
+          }],
+            footer: {}
+          },
+        data.msg);
         break;
       default:
       this.disnode.service.SendEmbed({
         color: 3447003,
         author: {},
-        image: {
-          url:"http://firegamer3.net/wheelImgs/black1.png",
-          height: 128,
-          width: 128
-        },
         fields: [ {
           name: "The Wheel (Roulette)",
           inline: false,
@@ -437,7 +660,64 @@ class CasinoPlugin extends Manager {
           return;
         }
       }
-      this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!", data);
+      var found = [];
+      var msg = "Did you mean?\n";
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+      if(data.params[0].length < 3)break;
+        if(self.casinoObj.players[i].name.toLowerCase().includes(data.params[0].toLowerCase())){
+          found.push(self.casinoObj.players[i])
+        }
+      }
+      if(found.length == 1){
+        transferPlayer = found[0];
+        var toTransfer = numeral(data.params[1]).value();
+        if(toTransfer > 0){
+          if(toTransfer > player.money){
+            this.sendCompactEmbed("Error", ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'), data);
+            return;
+          }else {
+            var pbalbef = player.money
+            var sbalbef = transferPlayer.money
+            player.money -= toTransfer;
+            transferPlayer.money += toTransfer
+            player.money = Number(parseFloat(player.money).toFixed(2));
+            transferPlayer.money = Number(parseFloat(transferPlayer.money).toFixed(2));
+          }
+          self.save(self.cobpath, self.casinoObj);
+          this.disnode.service.SendEmbed({
+            color: 3447003,
+            author: {},
+            fields: [ {
+              name: 'From',
+              inline: false,
+              value: player.name + "\nBalance Proir: $" + numeral(pbalbef).format('0,0.00') + "\nBalance After: $" + numeral(player.money).format('0,0.00'),
+            }, {
+              name: 'To',
+              inline: false,
+              value: transferPlayer.name + "\nBalance Proir: $" + numeral(sbalbef).format('0,0.00') + "\nBalance After: $" + numeral(transferPlayer.money).format('0,0.00'),
+            }, {
+              name: 'Amount',
+              inline: true,
+              value: "$ " + numeral(toTransfer).format('0,0.00'),
+            }, {
+              name: "Status",
+              inline: false,
+              value: ":white_check_mark: Transfer complete!",
+            }],
+              footer: {}
+            },
+          data.msg);
+          return;
+        }
+      }
+      for (var i = 0; i < found.length; i++) {
+        msg += "**" + found[i].name + "**\n"
+      }
+      if(found.length > 0){
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n\n" + msg, data);
+      }else {
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!", data);
+      }
     }else{
       this.sendCompactEmbed("Error", ":warning: Please enter a username to send to! example: `!casino transfer FireGamer3 100`\nIf the username has a space in it use quotes, Example: `!casino transfer \"VictoryForPhil / Atec\" 100`", data);
     }
@@ -649,27 +929,109 @@ class CasinoPlugin extends Manager {
           this.sendCompactEmbed("Error", ":warning: Please enter a username!", data);
         }
           break;
-        case "eval":
-          if(data.msg.userId == 112786170655600640){
-            function clean(text) {
-              if (typeof(text) === "string")
-                return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-              else
-                  return text;
-            }
-            try {
-              data.params.splice(0,1);
-              var code = data.params.join(" ");
-              console.log(code);
-              var evaled = eval(code);
+        case "player":
+          switch (data.params[1]) {
+            case "get":
+              var otherID = self.parseMention(data.params[2]);
+              for (var i = 0; i < self.casinoObj.players.length; i++) {
+                if(self.casinoObj.players[i].id == otherID){
+                  data.msg.channel.sendMessage("```json\n" + JSON.stringify(self.casinoObj.players[i], false, 2) + "```");
+                  break;
+                }
+              }
+              for (var i = 0; i < self.casinoObj.players.length; i++) {
+                if(self.casinoObj.players[i].name == data.params[2]){
+                  data.msg.channel.sendMessage("```json\n" + JSON.stringify(self.casinoObj.players[i], false, 2) + "```");
+                  break;
+                }
+              }
+              break;
+            case "set":
+              switch (data.params[2]) {
+                case "money":
+                  var otherID = self.parseMention(data.params[3]);
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].id == otherID){
+                      var setTo = numeral(data.params[4]).value();
+                      if(setTo > 0)self.casinoObj.players[i].money = setTo;
+                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Money set to: $" + setTo, data);
+                      break;
+                    }
+                  }
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].name == data.params[3]){
+                      var setTo = numeral(data.params[4]).value();
+                      if(setTo > 0)self.casinoObj.players[i].money = setTo;
+                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Money set to: $" + setTo, data);
+                      break;
+                    }
+                  }
+                  break;
+                case "income":
+                  var otherID = self.parseMention(data.params[3]);
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].id == otherID){
+                      var setTo = numeral(data.params[4]).value();
+                      if(setTo > 0)self.casinoObj.players[i].perUpdate = setTo;
+                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Income set to: $" + setTo, data);
+                      break;
+                    }
+                  }
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].name == data.params[3]){
+                      var setTo = numeral(data.params[4]).value();
+                      if(setTo > 0)self.casinoObj.players[i].perUpdate = setTo;
+                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Income set to: $" + setTo, data);
+                      break;
+                    }
+                  }
+                  break;
+                case "xp":
+                  var otherID = self.parseMention(data.params[3]);
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].id == otherID){
+                      var setTo = numeral(data.params[4]).value();
+                      if(setTo >= 0)self.casinoObj.players[i].xp = setTo;
+                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " XP set to: " + setTo, data);
+                      break;
+                    }
+                  }
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].name == data.params[3]){
+                      var setTo = numeral(data.params[4]).value();
+                      if(setTo >= 0)self.casinoObj.players[i].xp = setTo;
+                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " XP set to: " + setTo, data);
+                      break;
+                    }
+                  }
+                  break;
+                case "name":
+                  var otherID = self.parseMention(data.params[3]);
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].id == otherID){
+                      var setTo = data.params[4];
+                      var oldname = self.casinoObj.players[i].name;
+                      self.casinoObj.players[i].name = setTo;
+                      this.sendCompactEmbed("Complete", oldname + " Name set to: " + setTo, data);
+                      break;
+                    }
+                  }
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].name == data.params[3]){
+                      var setTo = data.params[4];
+                      var oldname = self.casinoObj.players[i].name;
+                      self.casinoObj.players[i].name = setTo;
+                      this.sendCompactEmbed("Complete", oldname + " Name set to: " + setTo, data);
+                      break;
+                    }
+                  }
+                  break;
+                default:
 
-              if (typeof evaled !== "string")
-                evaled = require("util").inspect(evaled);
+              }
+              break;
+            default:
 
-              data.msg.channel.sendCode("xl", clean(evaled));
-            } catch (err) {
-              data.msg.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
-            }
           }
           break;
         case "jackpot":
@@ -777,7 +1139,29 @@ class CasinoPlugin extends Manager {
           return;
         }
       }
-      this.sendCompactEmbed("Error", ":warning: Could not find a player card! Make sure you typed the correct name or make sure the player has a Player Card if using @mentions", data);
+      var found = [];
+      var msg = "Did you mean?\n";
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+      if(data.params[0].length <= 3)break;
+        if(self.casinoObj.players[i].name.toLowerCase().includes(data.params[0].toLowerCase())){
+          found.push(self.casinoObj.players[i])
+        }
+      }
+      if(found.length == 1){
+        player = found[0];
+        data.msg.userId = player.id;
+        data.ranbynotbanned = true;
+        self.statsCommand(data);
+        return;
+      }
+      for (var i = 0; i < found.length; i++) {
+        msg += "**" + found[i].name + "**\n"
+      }
+      if(found.length > 0){
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n\n" + msg, data);
+      }else {
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!", data);
+      }
     }else{
       this.sendCompactEmbed("Error", ":warning: Please enter a username to lookup! example: `!casino look FireGamer3`\nIf the username has a space in it use quotes, Example: `!casino look \"VictoryForPhil / Atec\"` alternatively you can use @mentions to find players as well", data);
     }
@@ -1245,6 +1629,12 @@ class CasinoPlugin extends Manager {
         coinTails: 0
       }
     }
+    for (var i = 0; i < self.casinoObj.players.length; i++) {
+      if(self.casinoObj.players[i].name == newPlayer.name){
+        newPlayer.name += "1";
+        break;
+      }
+    }
     self.casinoObj.players.push(newPlayer);
     self.save(self.cobpath, self.casinoObj);
     return newPlayer;
@@ -1464,7 +1854,7 @@ class CasinoPlugin extends Manager {
     var yearsPassed = year - player.lastSeen.pyear;
     var monthsPassed = month - player.lastSeen.pmonth;
     var daysPassed = day - player.lastSeen.pday;
-    if((yearsPassed > 0) | (monthsPassed > 0) | (daysPassed > 0)){
+    if((yearsPassed > 0) | (monthsPassed > 0) | (daysPassed > 1)){
       return false;
     }
     return true;
