@@ -81,7 +81,23 @@ class CasinoPlugin extends Manager {
       {display:":red_circle: :one: :seven:", type: 1},
       {display:":red_circle: :one: :eight:", type: 1},
       {display:":black_circle: :one: :nine:", type: 2},
-      {display:":black_circle: :two: :zero:", type: 2}
+      {display:":black_circle: :two: :zero:", type: 2},
+      {display:":red_circle: :two: :one:", type: 1},
+      {display:":red_circle: :two: :two:", type: 1},
+      {display:":black_circle: :two: :three:", type: 2},
+      {display:":black_circle: :two: :four:", type: 2},
+      {display:":red_circle: :two: :five:", type: 1},
+      {display:":red_circle: :two: :six:", type: 1},
+      {display:":black_circle: :two: :seven:", type: 2},
+      {display:":black_circle: :two: :eight:", type: 2},
+      {display:":red_circle: :two: :nine:", type: 1},
+      {display:":red_circle: :three: :zero:", type: 1},
+      {display:":black_circle: :three: :one:", type: 2},
+      {display:":black_circle: :three: :two:", type: 2},
+      {display:":red_circle: :three: :three:", type: 1},
+      {display:":red_circle: :three: :four:", type: 1},
+      {display:":black_circle: :three: :five:", type: 2},
+      {display:":black_circle: :three: :six:", type: 2}
     ]
     this.cobpath = "./casinoObj.json";
     this.casinoObj = {
@@ -145,6 +161,7 @@ class CasinoPlugin extends Manager {
       msg+= " `casino top` - *Lists the top 10 players based on cash*\n";
       msg+= " `casino store` - *Spend the XP you earn from playing here!*\n";
       msg+= " `casino flip` - *Coin Flip (general help)*\n";
+      msg+= " `casino wheel` - *The Wheel (Roulette) (general help)*\n";
       msg+= " `casino transfer` - *Transfer money to other players!* **Use:** `!casino transfer FireGamer3 100`\n";
       msg+= " `casino slot` - *Slots (general help)*\n";
       msg+= " `casino slot info` - *Slots info (help / Payouts)*\n";
@@ -174,6 +191,7 @@ class CasinoPlugin extends Manager {
   recentBettersCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     var msg = "Name // Last Time Played\n";
     for (var i = 0; i < self.recentBetters.length; i++) {
       msg += (i+1) + ". **" + self.recentBetters[i].name + "** -=- `" + self.recentBetters[i].time + "`\n";
@@ -183,6 +201,7 @@ class CasinoPlugin extends Manager {
   quickJPCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     if(player.money > 66000){
       var minJackpotBet = (player.money * 0.015);
@@ -211,6 +230,7 @@ class CasinoPlugin extends Manager {
   quickbalCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     player.money = Number(parseFloat(player.money).toFixed(2));
     if(data.params[0]){
@@ -334,15 +354,16 @@ class CasinoPlugin extends Manager {
   wheelCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     player.money = Number(parseFloat(player.money).toFixed(2));
-    if(!player.Premium && !player.Admin){
-      self.sendCompactEmbed("Error", ":x: Non Disnode Premium Members can't get acces to beta features... subscribe now using the link at the bottom of !casino", data);
-      return;
-    }
     switch (data.params[0]) {
       case "spin":
-        var bet = numeral(data.params[1]).value();
+        if(data.params[1] == "allin"){
+          var bet = numeral(player.money).value();
+        }else {
+          var bet = numeral(data.params[1]).value();
+        }
         if(bet > 0){
           var timeoutInfo = self.checkTimeout(player, 5);
           if(player.Admin || player.Premium)timeoutInfo = self.checkTimeout(player, 2);
@@ -360,6 +381,43 @@ class CasinoPlugin extends Manager {
             data.msg);
             return;
           }
+          var winspots = [];
+          var whatcontains = {
+            has1st: false,
+            has2nd: false,
+            has3rd: false
+          }
+          var invalidbets = [];
+          for (var i = 2; i < data.params.length; i++) {
+            if(data.params[i] == undefined)break;
+            if(self.checkValidWheel(data.params[i])){
+              if(data.params[i].toLowerCase() == "1st"){
+                whatcontains.has1st = true;
+              }
+              if(data.params[i].toLowerCase() == "2nd"){
+                whatcontains.has2nd = true;
+              }
+              if(data.params[i].toLowerCase() == "3rd"){
+                whatcontains.has3rd = true;
+              }
+              winspots.push(data.params[i].toLowerCase());
+            }else {
+              invalidbets.push(data.params[i]);
+            }
+          }
+          if(winspots.length == 0){
+            if(invalidbets.length > 0){
+              var msg = "";
+              for (var i = 0; i < invalidbets.length; i++) {
+                msg += invalidbets[i] + " ";
+              }
+              this.sendCompactEmbed("Error", ":warning: Please Enter valid bet types! Invalid: " + msg, data);
+              return;
+            }else {
+              this.sendCompactEmbed("Error", ":warning: Please Enter valid bet types!", data);
+              return;
+            }
+          }
           if(bet > 0){
             if(bet > player.money){// Checks to see if player has enough money for their bet
               this.sendCompactEmbed("Error", ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'), data);
@@ -370,95 +428,19 @@ class CasinoPlugin extends Manager {
             }
             var wheelInfo = {
               bet: bet,
+              betperspot: (bet / winspots.length),
               player: player,
-              oddsMult: 0.0,
-              colorbet: false,
-              evenOddbet: false,
-              numberBet: false,
+              winAmount: 0,
               xpAward: 0,
-              wheelNumber: self.getRandomIntInclusive(0,20),
-              betType1: data.params[2],
-              betType2: data.params[3],
+              wheelNumber: self.getRandomIntInclusive(0,(this.wheelItems.length - 1)),
+              winspots: winspots,
+              whatcontains: whatcontains
             }
             wheelInfo.ball = self.wheelItems[wheelInfo.wheelNumber];
-            if(wheelInfo.betType1 == undefined){
-              this.sendCompactEmbed("Error", ":warning: Please Enter a bet Type they can include [black,red,(0-20),even,odd] EXAMPLE: `!casino wheel 100 blakck 5`", data);
-            }
-            if(wheelInfo.betType2 != undefined){
-              if((wheelInfo.betType1.toLowerCase() == "black" && wheelInfo.ball.type == 2) || (wheelInfo.betType2.toLowerCase() == "black" && wheelInfo.ball.type == 2)){
-                wheelInfo.oddsMult += 1.75;
-                wheelInfo.colorbet = true;
-              }else if ((wheelInfo.betType1.toLowerCase() == "red" && wheelInfo.ball.type == 1) || (wheelInfo.betType2.toLowerCase() == "red" && wheelInfo.ball.type == 1)) {
-                wheelInfo.oddsMult += 1.75;
-                wheelInfo.colorbet = true;
-              }
-              if((wheelInfo.betType1.toLowerCase() == "even" && (wheelInfo.wheelNumber % 2) == 0) || (wheelInfo.betType2.toLowerCase() == "even" && (wheelInfo.wheelNumber % 2) == 0)){
-                wheelInfo.oddsMult += 1.75;
-                wheelInfo.evenOddbet = true;
-              }else if ((wheelInfo.betType1.toLowerCase() == "odd" && (wheelInfo.wheelNumber % 2) != 0) || (wheelInfo.betType2.toLowerCase() == "odd" && (wheelInfo.wheelNumber % 2) != 0)) {
-                wheelInfo.oddsMult += 1.75;
-                wheelInfo.evenOddbet = true;
-              }
-              if((wheelInfo.betType1.toLowerCase() == "0" && wheelInfo.wheelNumber == 0) || (wheelInfo.betType2.toLowerCase() == "0" && wheelInfo.wheelNumber == 0)){
-                wheelInfo.oddsMult += 100;
-                wheelInfo.numberBet = true;
-              }else if ((numeral(wheelInfo.betType1).value() == wheelInfo.wheelNumber) || (numeral(wheelInfo.betType2).value() == wheelInfo.wheelNumber)) {
-                wheelInfo.oddsMult += 50;
-                wheelInfo.numberBet = true;
-              }
-              if((wheelInfo.numberBet && wheelInfo.evenOddbet)){
-                wheelInfo.oddsMult -= 30;
-              }
-              if((wheelInfo.numberBet && wheelInfo.colorbet)){
-                wheelInfo.oddsMult -= 30;
-              }
-              if((wheelInfo.colorbet && wheelInfo.evenOddbet) && !wheelInfo.numberBet){
-                wheelInfo.oddsMult = 1.25;
-              }
-            }else {
-              if(wheelInfo.betType1.toLowerCase() == "black" && wheelInfo.ball.type == 2){
-                wheelInfo.oddsMult += 1.75;
-                wheelInfo.xpAward = 10;
-                wheelInfo.colorbet = true;
-              }else if (wheelInfo.betType1.toLowerCase() == "red" && wheelInfo.ball.type == 1){
-                wheelInfo.oddsMult += 1.75;
-                wheelInfo.xpAward = 10;
-                wheelInfo.colorbet = true;
-              }
-              if(wheelInfo.betType1.toLowerCase() == "even" && (wheelInfo.wheelNumber % 2) == 0){
-                wheelInfo.oddsMult += 1.75;
-                wheelInfo.xpAward = 10;
-                wheelInfo.evenOddbet = true;
-              }else if (wheelInfo.betType1.toLowerCase() == "odd" && (wheelInfo.wheelNumber % 2) != 0){
-                wheelInfo.oddsMult += 1.75;
-                wheelInfo.xpAward = 10;
-                wheelInfo.evenOddbet = true;
-              }
-              if(wheelInfo.betType1.toLowerCase() == "0" && wheelInfo.wheelNumber == 0){
-                wheelInfo.oddsMult += 100;
-                wheelInfo.xpAward = 100;
-                wheelInfo.numberBet = true;
-              }else if (numeral(wheelInfo.betType1).value() == wheelInfo.wheelNumber) {
-                wheelInfo.oddsMult += 50;
-                wheelInfo.xpAward = 50;
-                wheelInfo.numberBet = true;
-              }
-              if((wheelInfo.numberBet && wheelInfo.evenOddbet)){
-                wheelInfo.oddsMult -= 30;
-                wheelInfo.xpAward = 30;
-              }
-              if((wheelInfo.numberBet && wheelInfo.colorbet)){
-                wheelInfo.oddsMult -= 30;
-                wheelInfo.xpAward = 30;
-              }
-              if((wheelInfo.colorbet && wheelInfo.evenOddbet) && !wheelInfo.numberBet){
-                wheelInfo.oddsMult = 2;
-                wheelInfo.xpAward = 5;
-              }
-            }
-            wheelInfo.winAmount = numeral(bet * wheelInfo.oddsMult).value();
+            self.calculateWheelWins(wheelInfo);
             player.money += wheelInfo.winAmount;
             player.xp += wheelInfo.xpAward;
+            console.log("[Casino - " + self.getDateTime() + "] Wheel Player: " + player.name + " bet: " + bet + " Win: " + wheelInfo.winAmount);
             this.disnode.service.SendEmbed({
               color: 3447003,
               author: {},
@@ -467,13 +449,13 @@ class CasinoPlugin extends Manager {
                 inline: false,
                 value: wheelInfo.ball.display,
               }, {
-                name: 'Winnings Multiplier',
-                inline: false,
-                value: numeral(wheelInfo.oddsMult).format('0,0.00'),
-              }, {
                 name: 'Bet',
                 inline: true,
                 value: "$" + numeral(bet).format('0,0.00'),
+              }, {
+                name: 'bet per Type',
+                inline: false,
+                value: "$" + numeral(wheelInfo.betperspot).format('0,0.00'),
               }, {
                 name: 'Winnings',
                 inline: true,
@@ -509,6 +491,8 @@ class CasinoPlugin extends Manager {
           }else{
             this.sendCompactEmbed("Error", ":warning: Please Enter a Number for your bet!", data);
           }
+        }else {
+          self.sendCompactEmbed("Error", ":warning: Please use a number for your bet!", data)
         }
         break;
       case "info":
@@ -526,19 +510,19 @@ class CasinoPlugin extends Manager {
           }, {
             name: 'Playing The Wheel',
             inline: false,
-            value: "You can play the wheel by typing in `!casino wheel spin [bet] [betTyoe] [betType]` EXAMPLE: `!casino wheel spin 100 black 10`\n**YOU MUST BE VERY PERCISE WITH YOUR COMMAND THE WHEEL WILL TAKE YOUR MONEY IF YOU PUT A NUMBER THATS OUT OF BOUNDS OR A RANDOM TEXT**",
+            value: "You can play the wheel by typing in `!casino wheel spin [bet] [betTyoe] [betTyoe] ...` EXAMPLE: `!casino wheel spin 100 black`",
           }, {
             name: 'Bet Types',
             inline: true,
-            value: "As shown bet types can be one of the following: `[black,red,(0-20),even,odd]`",
+            value: "As shown bet types can be one of the following: `[black,red,(0-36),even,odd,1st,2nd,3rd,low,high]`",
+          }, {
+            name: 'Winnings',
+            inline: true,
+            value: "0 - 37x\nany other number - 36x\nEven/odd/black/red/low/high 2x\n1st/2nd/3rd 4x",
           }, {
             name: 'Numers',
             inline: true,
             value: numberList,
-          }, {
-            name: 'Winnings',
-            inline: true,
-            value: "0 - 100x\nany other number - 50x\nA number and (even/odd/black/red) - 20x\nEven/Odd - 1.75x\nBlack/Red - 1.75x",
           }],
             footer: {}
           },
@@ -551,7 +535,7 @@ class CasinoPlugin extends Manager {
         fields: [ {
           name: "The Wheel (Roulette)",
           inline: false,
-          value: "Welcome to The Wheel! You can play by using this command `!casino wheel spin [bet] [winType] [winType]` Examples `!casino wheel spin 100 black` and `!casino wheel spin 100 black 5`\nFor more info on what win types are and how the game is payed out use `!casino wheel info`",
+          value: "Welcome to The Wheel! You can play by using this command `!casino wheel spin [bet] [betType]` Examples `!casino wheel spin 100 black`\nFor more info on what win types are and how the game is payed out use `!casino wheel info`",
         }],
           footer: {}
         },
@@ -562,6 +546,7 @@ class CasinoPlugin extends Manager {
   transferCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     var transferPlayer;
     if(data.params[0]){
@@ -725,6 +710,7 @@ class CasinoPlugin extends Manager {
   coinflipCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     player.money = Number(parseFloat(player.money).toFixed(2));
     var flipinfo = {
@@ -767,7 +753,7 @@ class CasinoPlugin extends Manager {
         player.money = Number(parseFloat(player.money).toFixed(2));
       }
       player.stats.coinPlays++;
-      player.stats.moneySpent += Number(parseFloat(bet).toFixed(2));
+      player.stats.moneySpent += numeral(bet).value();
       player.stats.moneySpent = Number(parseFloat(player.stats.moneySpent).toFixed(2));
       if(flipinfo.flip == flipinfo.playerPick){
         player.stats.coinWins++;
@@ -891,6 +877,7 @@ class CasinoPlugin extends Manager {
   adminCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     if(player.Admin == undefined)player.Admin = false;
     if(!player.Admin){
@@ -1075,6 +1062,7 @@ class CasinoPlugin extends Manager {
   topCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     var orderTop = []
     for (var i = 0; i < self.casinoObj.players.length; i++) {
@@ -1118,6 +1106,7 @@ class CasinoPlugin extends Manager {
   lookupCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     if(data.params[0]){
       var otherID = self.parseMention(data.params[0])
@@ -1169,6 +1158,7 @@ class CasinoPlugin extends Manager {
   storeCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     if(data.params[0] == "buy"){
       var costString = "";
@@ -1328,6 +1318,7 @@ class CasinoPlugin extends Manager {
   slotCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(self.checkBan(player, data)){
       console.log("[Casino " + self.getDateTime() + "] Player: " + player.name + " Tried running slots but is banned!");
       return;
@@ -1505,6 +1496,7 @@ class CasinoPlugin extends Manager {
   statsCommand(data){
     var self = this;
     var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
     if(data.ranbynotbanned == undefined){
       if(self.checkBan(player, data))return;
     }
@@ -1627,7 +1619,9 @@ class CasinoPlugin extends Manager {
         slotJackpots: 0,
         coinHeads: 0,
         coinTails: 0
-      }
+      },
+      createdChannel: data.msg.channel.name,
+      createdServer: data.msg.channel.guild.name
     }
     for (var i = 0; i < self.casinoObj.players.length; i++) {
       if(self.casinoObj.players[i].name == newPlayer.name){
@@ -1638,6 +1632,16 @@ class CasinoPlugin extends Manager {
     self.casinoObj.players.push(newPlayer);
     self.save(self.cobpath, self.casinoObj);
     return newPlayer;
+  }
+  CheckforCreated(player, data){
+    if(player.createdChannel == undefined){
+      player.createdChannel = data.msg.channel.name;
+    }
+    if(player.createdServer == undefined){
+      if(data.msg.channel.guild){
+        player.createdServer = data.msg.channel.guild.name;
+      }
+    }
   }
   load(path) {
     var self = this;
@@ -1941,6 +1945,125 @@ class CasinoPlugin extends Manager {
     returnV = returnV.replace(/\D/g,'');
     return returnV;
   }
+  calculateWheelWins(wheelInfo){
+    console.dir(wheelInfo.whatcontains);
+    for (var i = 0; i < wheelInfo.winspots.length; i++) {
+      if((wheelInfo.wheelNumber % 2) == 0){ //WIN Even
+        if(wheelInfo.winspots[i] == "even"){
+          if(wheelInfo.wheelNumber != 0){
+            wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+            wheelInfo.xpAward += 5;
+            continue;
+          }
+        }
+      }
+      if ((wheelInfo.wheelNumber % 2) != 0) { //WIN Odd
+        if(wheelInfo.winspots[i] == "odd"){
+          if(wheelInfo.wheelNumber != 0){
+            wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+            wheelInfo.xpAward += 5;
+            continue;
+          }
+        }
+      }
+      if (wheelInfo.ball.type == 1) {//WIN Red
+        if(wheelInfo.winspots[i] == "red"){
+          wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+          wheelInfo.xpAward += 5;
+          continue;
+        }
+      }
+      if (wheelInfo.ball.type == 2) {//WIN Black
+        if(wheelInfo.winspots[i] == "black"){
+          wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+          wheelInfo.xpAward += 5;
+          continue;
+        }
+      }
+      if(wheelInfo.wheelNumber >= 1 && wheelInfo.wheelNumber <= 18){//WIN Low
+        if(wheelInfo.winspots[i] == "low"){
+          wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+          wheelInfo.xpAward += 10;
+          continue;
+        }
+      }
+      if(wheelInfo.wheelNumber >= 19 && wheelInfo.wheelNumber <= 36){//WIN high
+        if(wheelInfo.winspots[i] == "high"){
+          wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+          wheelInfo.xpAward += 10;
+          continue;
+        }
+      }
+      if (wheelInfo.wheelNumber >= 1 & wheelInfo.wheelNumber <= 12) {//WIN 1st
+        if(wheelInfo.winspots[i] == "1st"){
+          if(wheelInfo.whatcontains.has1st && wheelInfo.whatcontains.has2nd && wheelInfo.whatcontains.has3rd){
+            wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+            wheelInfo.xpAward += 25;
+            continue;
+          }else {
+            wheelInfo.winAmount += (wheelInfo.betperspot * 4);
+            wheelInfo.xpAward += 25;
+            continue;
+          }
+        }
+      }
+      if (wheelInfo.wheelNumber >= 13 & wheelInfo.wheelNumber <= 24) {//WIN 2nd
+        if(wheelInfo.winspots[i] == "2nd"){
+          if(wheelInfo.whatcontains.has1st && wheelInfo.whatcontains.has2nd && wheelInfo.whatcontains.has3rd){
+            wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+            wheelInfo.xpAward += 25;
+            continue;
+          }else {
+            wheelInfo.winAmount += (wheelInfo.betperspot * 4);
+            wheelInfo.xpAward += 25;
+            continue;
+          }
+        }
+      }
+      if (wheelInfo.wheelNumber >= 25 && wheelInfo.wheelNumber <= 36) {//WIN 3rd
+        if(wheelInfo.winspots[i] == "3rd"){
+          if(wheelInfo.whatcontains.has1st && wheelInfo.whatcontains.has2nd && wheelInfo.whatcontains.has3rd){
+            wheelInfo.winAmount += (wheelInfo.betperspot * 2);
+            wheelInfo.xpAward += 25;
+            continue;
+          }else {
+            wheelInfo.winAmount += (wheelInfo.betperspot * 4);
+            wheelInfo.xpAward += 25;
+            continue;
+          }
+        }
+      }
+      if(wheelInfo.wheelNumber == 0){//WIN 0
+        if(numeral(wheelInfo.winspots[i]).value() == 0){
+          wheelInfo.winAmount += (wheelInfo.betperspot * 37);
+          wheelInfo.xpAward += 100;
+          continue;
+        }
+      }else {//WIN OTHERNUM
+        if(wheelInfo.winspots[i] != "1st" && wheelInfo.winspots[i] != "2nd" && wheelInfo.winspots[i] != "3rd"){
+          if(numeral(wheelInfo.winspots[i]).value() == wheelInfo.wheelNumber){
+            wheelInfo.winAmount += (wheelInfo.betperspot * 36);
+            wheelInfo.xpAward += 75;
+            continue;
+          }
+        }
+      }
+    }
+  }
+  checkValidWheel(bet){
+    if(bet.toLowerCase() == "black"){return true;}
+    if(bet.toLowerCase() == "red"){return true;}
+    if(bet.toLowerCase() == "even"){return true;}
+    if(bet.toLowerCase() == "odd"){return true;}
+    if(bet.toLowerCase() == "low"){return true;}
+    if(bet.toLowerCase() == "high"){return true;}
+    if(bet.toLowerCase() == "1st"){return true;}
+    if(bet.toLowerCase() == "2nd"){return true;}
+    if(bet.toLowerCase() == "3rd"){return true;}
+    if(bet.toLowerCase() == "0"){return true;}
+    if(numeral(bet).value() > 0 && numeral(bet).value() <= 36){return true;}
+    return false;
+  }
   updateCoroutine(){
     var self = this;
     var toRemove = [];
@@ -1951,13 +2074,6 @@ class CasinoPlugin extends Manager {
       if(self.casinoObj.players[i].lastSeen == undefined){
         self.updateLastSeen(self.casinoObj.players[i]);
       }
-      if(self.casinoObj.players[i].stats.slotPlays <= 10){
-        var daysPassed = self.casinoObj.players[i].lastSeen.pday - day;
-        if(daysPassed >= 7)toRemove.push(self.casinoObj.players[i]);
-      }
-    }
-    for (var i = 0; i < toRemove.length; i++) {
-      self.removeFromDB(toRemove[i]);
     }
     for (var i = 0; i < self.casinoObj.players.length; i++) {
       if(self.canGetIncome(self.casinoObj.players[i])){
