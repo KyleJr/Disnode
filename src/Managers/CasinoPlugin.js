@@ -2001,7 +2001,7 @@ class CasinoPlugin extends Manager {
             wheelInfo.xpAward += 25;
             continue;
           }else {
-            wheelInfo.winAmount += (wheelInfo.betperspot * 2.5);
+            wheelInfo.winAmount += (wheelInfo.betperspot * 3);
             wheelInfo.xpAward += 25;
             continue;
           }
@@ -2014,7 +2014,7 @@ class CasinoPlugin extends Manager {
             wheelInfo.xpAward += 25;
             continue;
           }else {
-            wheelInfo.winAmount += (wheelInfo.betperspot * 2.5);
+            wheelInfo.winAmount += (wheelInfo.betperspot * 3);
             wheelInfo.xpAward += 25;
             continue;
           }
@@ -2027,7 +2027,7 @@ class CasinoPlugin extends Manager {
             wheelInfo.xpAward += 25;
             continue;
           }else {
-            wheelInfo.winAmount += (wheelInfo.betperspot * 2.5);
+            wheelInfo.winAmount += (wheelInfo.betperspot * 3);
             wheelInfo.xpAward += 25;
             continue;
           }
