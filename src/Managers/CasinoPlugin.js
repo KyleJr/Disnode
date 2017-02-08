@@ -164,7 +164,7 @@ class CasinoPlugin extends Manager {
     var metric3 = probe.metric({
       name: 'Players',
       value: function () {
-        return self.casinoObj.players;
+        return self.casinoObj.players.length;
       }
     });
 
