@@ -153,6 +153,22 @@ class CasinoPlugin extends Manager {
     	}
     });
 
+    var metric2 = probe.metric({
+    	name: 'Jackpot Winner',
+    	value: function () {
+    		return self.casinoObj.jackpotstat.lastWon;
+    	}
+    });
+
+
+    var metric3 = probe.metric({
+      name: 'Players',
+      value: function () {
+        return self.casinoObj.players;
+      }
+    });
+
+
   }
   defaultCommand(data){
     var self = this;
