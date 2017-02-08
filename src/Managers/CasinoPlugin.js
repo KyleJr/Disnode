@@ -5,7 +5,7 @@ const jsonfile = require('jsonfile');
 const FS = require('fs');
 const colors = require('colors');
 const numeral = require('numeral')
-
+var probe = require('pmx').probe();
 class CasinoPlugin extends Manager {
   constructor(pramas) {
     super(pramas);
@@ -145,6 +145,14 @@ class CasinoPlugin extends Manager {
     this.disnode.command.on("Command_casino_jackpot", this.quickJPCommand);
     this.disnode.command.on("Command_casino_wheel", this.wheelCommand);
     this.disnode.command.on("Command_casino", this.defaultCommand);
+    var self = this;
+    var metric = probe.metric({
+    	name: 'Jackpot',
+    	value: function () {
+    		return self.casinoObj.jackpotValue;
+    	}
+    });
+
   }
   defaultCommand(data){
     var self = this;
