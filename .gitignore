@@ -34,6 +34,8 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
 Bots/TestBotConfig.json
 Bots/TestBot-Config.json
 bots/CADConfig.json
+casinoObj.json

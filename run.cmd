@@ -1,3 +1,3 @@
 @echo off
-node RunBots.js
+node CasinoBot.js
 pause

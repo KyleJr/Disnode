@@ -26,11 +26,7 @@
         "coinHeads": 2,
         "coinTails": 9
       },
-      "lastMessage": {
-        "hour": 0,
-        "min": 48,
-        "sec": 27
-      },
+      "lastMessage": null,
       "lastSeen": {
         "pmonth": 2,
         "pday": 6,
@@ -100,11 +96,7 @@
         "coinHeads": 23,
         "coinTails": 17
       },
-      "lastMessage": {
-        "hour": 0,
-        "min": 38,
-        "sec": 11
-      },
+      "lastMessage": null,
       "lastSeen": {
         "pmonth": 2,
         "pday": 6,
@@ -11891,11 +11883,7 @@
         "pday": 6,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 0,
-        "min": 31,
-        "sec": 22
-      }
+      "lastMessage": null
     }
   ],
   "jackpotValue": 13074348,
