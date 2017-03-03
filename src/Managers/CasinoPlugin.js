@@ -4,7 +4,8 @@ const async = require('async');
 const jsonfile = require('jsonfile');
 const FS = require('fs');
 const colors = require('colors');
-const numeral = require('numeral')
+const numeral = require('numeral');
+const Countdown = require('countdownjs');
 var probe = require('pmx').probe();
 class CasinoPlugin extends Manager {
   constructor(pramas) {
@@ -13,17 +14,87 @@ class CasinoPlugin extends Manager {
     this.defaultConfig = {
       prefix: "casino",
       commands: [
-        {command: "self",event: "stats"},
+        {command: "stats",event: "stats"},
         {command: "slot",event: "slot"},
         {command: "store",event: "store"},
         {command: "top",event: "top"},
-        {command: "look",event: "look"},
         {command: "admin",event: "admin"},
         {command: "flip",event: "flip"},
         {command: "transfer",event: "transfer"},
         {command: "bal",event: "bal"},
         {command: "betters",event: "betters"},
         {command: "wheel",event: "wheel"},
+        {command: "time",event: "time"},
+      ]
+    }
+    this.cratesys = {
+      crates: [
+        {
+          name: "Basic",
+          cost: 1,
+          items: [
+            {item:"$10,000", type: 0, amount: 10000},
+            {item:"$25,000", type: 0, amount: 25000},
+            {item:"$50,000", type: 0, amount: 50000},
+            {item:"100XP", type: 1, amount: 100},
+            {item:"250XP", type: 1, amount: 250},
+            {item:"500XP", type: 1, amount: 500}
+          ]
+        },
+        {
+          name: "Good",
+          cost: 5,
+          items: [
+            {item:"$50,000", type: 0, amount: 50000},
+            {item:"$75,000", type: 0, amount: 75000},
+            {item:"$100,000", type: 0, amount: 100000},
+            {item:"500XP", type: 1, amount: 500},
+            {item:"750XP", type: 1, amount: 750},
+            {item:"1000XP", type: 1, amount: 1000}
+          ]
+        },
+        {
+          name: "Great",
+          cost: 25,
+          items: [
+            {item:"$100,000", type: 0, amount: 100000},
+            {item:"$150,000", type: 0, amount: 150000},
+            {item:"$200,000", type: 0, amount: 200000},
+            {item:"1000XP", type: 1, amount: 1000},
+            {item:"1500XP", type: 1, amount: 1500},
+            {item:"2000XP", type: 1, amount: 2000}
+          ]
+        },
+        {
+          name: "Epic",
+          cost: 75,
+          items: [
+            {item:"$150,000", type: 0, amount: 150000},
+            {item:"$200,000", type: 0, amount: 200000},
+            {item:"$225,000", type: 0, amount: 225000},
+            {item:"1500XP", type: 1, amount: 1500},
+            {item:"2000XP", type: 1, amount: 2000},
+            {item:"2250XP", type: 1, amount: 2250}
+          ]
+        },
+        {
+          name: "Ultimate",
+          cost: 100,
+          items: [
+            {item:"$1,000,000", type: 0, amount: 1000000},
+            {item:"10000XP", type: 1, amount: 10000},
+            {item:"1 Income", type: 2},
+          ]
+        },
+        {
+          name: "Omega",
+          cost: 200,
+          items: [
+            {item:"$1,500,000", type: 0, amount: 1500000},
+            {item:"15000XP", type: 1, amount: 15000},
+            {item:"2 Income", type: 3}
+          ]
+        }
       ]
     }
     this.slotItems = [
@@ -37,7 +108,7 @@ class CasinoPlugin extends Manager {
       {item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},
       {item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},
       {item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},
-      {item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"}
+      {item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":key:"}
     ]
     this.store = [
       {cost: 200, type:0, item: "Instant $1,000"},
@@ -113,6 +184,7 @@ class CasinoPlugin extends Manager {
     this.load(this.cobpath);
     this.Starting = true;
     this.transferCommand = this.transferCommand.bind(this);
+    this.crateCommand = this.crateCommand.bind(this);
     this.recentBettersCommand = this.recentBettersCommand.bind(this);
     this.quickbalCommand = this.quickbalCommand.bind(this);
     this.quickJPCommand = this.quickJPCommand.bind(this);
@@ -130,6 +202,7 @@ class CasinoPlugin extends Manager {
     this.updateCoroutine = this.updateCoroutine.bind(this);
     this.defaultCommand = this.defaultCommand.bind(this);
     this.coinflipCommand = this.coinflipCommand.bind(this);
+    this.timerCommand = this.timerCommand.bind(this);
 
     this.disnode.command.on("Command_casino_stats", this.statsCommand);
     this.disnode.command.on("Command_casino_store", this.storeCommand);
@@ -142,7 +215,9 @@ class CasinoPlugin extends Manager {
     this.disnode.command.on("Command_casino_bal", this.quickbalCommand);
     this.disnode.command.on("Command_casino_jackpot", this.quickJPCommand);
     this.disnode.command.on("Command_casino_wheel", this.wheelCommand);
+    this.disnode.command.on("Command_casino_time", this.timerCommand);
     this.disnode.command.on("Command_casino", this.defaultCommand);
+    this.disnode.command.on("Command_casino_crate", this.crateCommand);
     var self = this;
     var metric = probe.metric({
     	name: 'Jackpot',
@@ -175,17 +250,19 @@ class CasinoPlugin extends Manager {
     if (data.msg.type == "DiscordService") {
       var client = this.disnode.service.GetService("DiscordService").client;
       var msg = "";
+      msg+= " `casino slot` - *Slots (general help)*\n";
+      msg+= " `casino crate` - *The Crate System (general help)*\n";
+      msg+= " `casino slot info` - *Slots info (help / Payouts)*\n";
+      msg+= " `casino flip` - *Coin Flip (general help)*\n";
+      msg+= " `casino wheel` - *The Wheel (Roulette) (general help)*\n";
       msg+= " `casino stats` - *Check your personal stats And stats of other users*\n";
       msg+= " `casino bal` - *Check your Money and XP Quickly*\n";
       msg+= " `casino betters` - *View a list of who is currently Betting*\n";
       msg+= " `casino jackpot` - *Check the JACKPOT value Quickly*\n";
       msg+= " `casino top` - *Lists the top 10 players based on cash*\n";
       msg+= " `casino store` - *Spend the XP you earn from playing here!*\n";
-      msg+= " `casino flip` - *Coin Flip (general help)*\n";
-      msg+= " `casino wheel` - *The Wheel (Roulette) (general help)*\n";
+      msg+= " `casino time` - *See how much time is left until payday!*\n";
       msg+= " `casino transfer` - *Transfer money to other players!* **Use:** `!casino transfer FireGamer3 100`\n";
-      msg+= " `casino slot` - *Slots (general help)*\n";
-      msg+= " `casino slot info` - *Slots info (help / Payouts)*\n";
       this.disnode.service.SendEmbed({
         color: 3447003,
         author: {},
@@ -209,6 +286,72 @@ class CasinoPlugin extends Manager {
       data.msg);
     }
   }
+  crateCommand(data){
+    var self = this;
+    var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
+    switch (data.params[0]) {
+      case "open":
+        var CrateID = numeral(data.params[1]).value();
+        if(CrateID >= 0 && CrateID < self.cratesys.crates.length){
+          var Crate = self.cratesys.crates[CrateID];
+          if(Crate == undefined){
+            self.sendCompactEmbed("Error", "The ID that you entered is not valid!", data);
+            return;
+          }
+          if(player.keys >= Crate.cost){
+            player.keys -= Crate.cost;
+            var Item = Crate.items[self.getRandomIntInclusive(0, (Crate.items.length - 1))];
+            switch (Item.type) {
+              case 0:
+                player.money += Item.amount;
+                self.sendCompactEmbed("Complete", "You Opened the **" + Crate.name + "** Crate and got: **" + Item.item + "**", data);
+                break;
+              case 1:
+                  player.xp += Item.amount;
+                  self.sendCompactEmbed("Complete", "You Opened the **" + Crate.name + "** Crate and got: **" + Item.item + "**", data);
+                break;
+              case 2:
+                  player.money += player.perUpdate;
+                  self.sendCompactEmbed("Complete", "You Opened the **" + Crate.name + "** Crate and got: **" + Item.item + "**", data);
+                break;
+              case 3:
+                  player.money += (player.perUpdate * 2);
+                  self.sendCompactEmbed("Complete", "You Opened the **" + Crate.name + "** Crate and got: **" + Item.item + "**", data);
+                break;
+            }
+          }else {
+            self.sendCompactEmbed("Error", "You Dont have enough Keys!\nNEED: " + Crate.cost + "\nHAVE: " + player.keys, data);
+          }
+        }else {
+          self.sendCompactEmbed("Error", "The ID that you entered is not valid!", data);
+        }
+        break;
+      default:
+        var crates = "";
+        for (var i = 0; i < self.cratesys.crates.length; i++) {
+          crates += " --= ID: **" + i + "** Name: **" + self.cratesys.crates[i].name + "** / **" + self.cratesys.crates[i].cost + "** Keys \n";
+          for (var l = 0; l < self.cratesys.crates[i].items.length; l++) {
+            crates += " # **" + self.cratesys.crates[i].items[l].item + "**\n";
+          }
+        }
+        self.disnode.service.SendEmbed({
+          color: 3447003,
+          author: {},
+          fields: [ {
+            name: 'Crate System',
+            inline: true,
+            value: "Crates are boosts to help you keep going! Use keys that you find in the Slots to open Crates.\nUse `!casino crate open ID` to open a crate!",
+          },{
+            name: 'Crates',
+            inline: false,
+            value: crates
+          }],
+            footer: {}
+          },
+        data.msg);
+    }
+  }
   recentBettersCommand(data){
     var self = this;
     var player = self.getPlayer(data);
@@ -218,6 +361,15 @@ class CasinoPlugin extends Manager {
       msg += (i+1) + ". **" + self.recentBetters[i].name + "** -=- `" + self.recentBetters[i].time + "`\n";
     }
     self.sendCompactEmbed("Recent Betters -=- Current Time: " + self.getDateTime(), msg, data);
+  }
+  timerCommand(data){
+    var self = this;
+    var player = self.getPlayer(data);
+    self.CheckforCreated(player, data);
+    var msleft = self.timer.getRemainingTime();
+    var minRemain = Math.floor(msleft / 60000);
+    var secondsRemain = ((msleft / 1000) - (minRemain * 60));
+    self.sendCompactEmbed("Timer / Time until next Income", minRemain + " Minutes and " + secondsRemain + " Seconds.", data);
   }
   quickJPCommand(data){
     var self = this;
@@ -262,7 +414,7 @@ class CasinoPlugin extends Manager {
           this.disnode.service.SendEmbed({
             color: 3447003,
             author: {},
-            title: transferPlayer.name + ' Quick Balance',
+            title: transferPlayer.name + ' Balance',
             fields: [ {
               name: 'Money',
               inline: true,
@@ -278,7 +430,11 @@ class CasinoPlugin extends Manager {
             }, {
               name: 'Premium',
               inline: true,
-              value: player.Premium,
+              value: transferPlayer.Premium,
+            }, {
+              name: 'Keys',
+              inline: true,
+              value: transferPlayer.keys,
             }],
               footer: {}
             },
@@ -292,7 +448,7 @@ class CasinoPlugin extends Manager {
           this.disnode.service.SendEmbed({
             color: 3447003,
             author: {},
-            title: transferPlayer.name + ' Quick Balance',
+            title: transferPlayer.name + ' Balance',
             fields: [ {
               name: 'Money',
               inline: true,
@@ -308,7 +464,11 @@ class CasinoPlugin extends Manager {
             }, {
               name: 'Premium',
               inline: true,
-              value: player.Premium,
+              value: transferPlayer.Premium,
+            }, {
+              name: 'Keys',
+              inline: true,
+              value: transferPlayer.keys,
             }],
               footer: {}
             },
@@ -329,7 +489,7 @@ class CasinoPlugin extends Manager {
         this.disnode.service.SendEmbed({
           color: 3447003,
           author: {},
-          title: transferPlayer.name + ' Quick Balance',
+          title: transferPlayer.name + ' Balance',
           fields: [ {
             name: 'Money',
             inline: true,
@@ -345,7 +505,11 @@ class CasinoPlugin extends Manager {
           }, {
             name: 'Premium',
             inline: true,
-            value: player.Premium,
+            value: transferPlayer.Premium,
+          }, {
+            name: 'Keys',
+            inline: true,
+            value: transferPlayer.keys,
           }],
             footer: {}
           },
@@ -366,7 +530,7 @@ class CasinoPlugin extends Manager {
     this.disnode.service.SendEmbed({
       color: 3447003,
       author: {},
-      title: player.name + ' Quick Balance',
+      title: player.name + ' Balance',
       fields: [ {
         name: 'Money',
         inline: true,
@@ -383,6 +547,10 @@ class CasinoPlugin extends Manager {
         name: 'Premium',
         inline: true,
         value: player.Premium,
+      }, {
+        name: 'Keys',
+        inline: true,
+        value: player.keys,
       }],
         footer: {}
       },
@@ -912,7 +1080,7 @@ class CasinoPlugin extends Manager {
     if(self.checkBan(player, data))return;
     if(player.Admin == undefined)player.Admin = false;
     if(!player.Admin){
-      this.sendCompactEmbed("Error", ":warning: YOU SHALL NOT PASS! (**You are not an admin**)", data);
+      this.sendCompactEmbed("Error", ":warning: YOU SHALL NOT PASS! (**You are not a Bot admin**)", data);
     }else{
       switch (data.params[0]) {
         case "ban":
@@ -937,7 +1105,7 @@ class CasinoPlugin extends Manager {
                 players.xp = 0;
                 players.banned = false;
                 players.banreason = "";
-                this.sendCompactEmbed("Action Complete", ":white_check_mark: Player: " + players.name + "Is now unbanned", data);
+                this.sendCompactEmbed("Action Complete", ":white_check_mark: Player: " + players.name + " Is now unbanned", data);
               }
               return;
             }
@@ -946,6 +1114,10 @@ class CasinoPlugin extends Manager {
         }else{
           this.sendCompactEmbed("Error", ":warning: Please enter a username!", data);
         }
+          break;
+        case "save":
+          self.save(self.cobpath, self.casinoObj);
+          this.sendCompactEmbed("Complete", ":white_check_mark: Database Saved!", data);
           break;
         case "player":
           switch (data.params[1]) {
@@ -1044,6 +1216,25 @@ class CasinoPlugin extends Manager {
                     }
                   }
                   break;
+                case "key":
+                  var otherID = self.parseMention(data.params[3]);
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].id == otherID){
+                      var setTo = data.params[4];
+                      self.casinoObj.players[i].keys = setTo;
+                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Keys set to: " + setTo, data);
+                      break;
+                    }
+                  }
+                  for (var i = 0; i < self.casinoObj.players.length; i++) {
+                    if(self.casinoObj.players[i].name == data.params[3]){
+                      var setTo = data.params[4];
+                      self.casinoObj.players[i].keys = setTo;
+                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Keys set to: " + setTo, data);
+                      break;
+                    }
+                  }
+                  break;
                 default:
 
               }
@@ -1086,6 +1277,7 @@ class CasinoPlugin extends Manager {
           }
           break;
         default:
+          self.disnode.service.GetService("DiscordService").client.user.setGame("!casino");
           break;
       }
     }
@@ -1095,7 +1287,7 @@ class CasinoPlugin extends Manager {
     var player = self.getPlayer(data);
     self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
-    var orderTop = []
+    var orderTop = [];
     for (var i = 0; i < self.casinoObj.players.length; i++) {
       var placed = false;
       for (var x = 0; x < orderTop.length; x++) {
@@ -1112,11 +1304,8 @@ class CasinoPlugin extends Manager {
     var page = 1;
     var maxindex;
     var startindex;
-    console.log(data.params[0]);
     if (parseInt(data.params[0]) >= 1) {
-      console.log("greater than 1!");
       page = Number(parseInt(data.params[0]));
-      console.log(page);
     }
     if (page == 1) {
       page = 1;
@@ -1130,7 +1319,7 @@ class CasinoPlugin extends Manager {
     var msg = "**Page:** " + page + "\n";
     for (var i = startindex; i < orderTop.length; i++) {
       if(i == maxindex)break;
-      msg += "" + (i + 1) + ". **" + orderTop[i].name + "** - $" + numeral(orderTop[i].money).format('0,0.00') + "\n";
+      msg += "" + (i + 1) + ". **" + orderTop[i].name + "** -=- $" + numeral(orderTop[i].money).format('0,0.00') + "\n";
     }
     this.sendCompactEmbed("Wealthiest Players", msg, data);
   }
@@ -1335,12 +1524,14 @@ class CasinoPlugin extends Manager {
         }, {
           name: 'Slot Wins and Payouts',
           inline: false,
-          value: "If you have none of the winning sets and you have at least one :cherries: you get 1/2 your bet back\n\n"+
-          ":cherries::cherries::cherries: - 2x bet 10XP\n"+
+          value: "\n:cherries::cherries::cherries: - 2x bet 10XP\n"+
           ":third_place::third_place::third_place: - 4x bet 20XP\n"+
           ":second_place::second_place::second_place: - 8x bet 40XP\n"+
           ":first_place::first_place::first_place: - 16x bet 80XP\n"+
-          ":100::100::100: - JACKPOT value - 1000XP",
+          ":100::100::100: - JACKPOT value - 1000XP\n" +
+          ":key::key::key: -  3 Keys\n" +
+          "At least one :key: - 1 Key\n" +
+          "At least one :cherries: - 1/2 your Original Bet",
         },{
           name: 'Minimum bet to Win JACKPOT',
           inline: false,
@@ -1550,7 +1741,6 @@ class CasinoPlugin extends Manager {
       }
     }
     var statsMessage = "" +
-      "**Money Won**: $" + numeral(player.stats.moneyWon).format('0,0.00') + "\n\n" +
       placement + "\n\n" +
       "**Slot -=- Wins / Plays**:\t  " + player.stats.slotWins + " / " + player.stats.slotPlays + "\n" +
       "**Coin Flip -=- Wins / Plays**:\t  " + player.stats.coinWins + " / " + player.stats.coinPlays + "\n\n" +
@@ -1607,6 +1797,14 @@ class CasinoPlugin extends Manager {
         return self.casinoObj.players[i];
       }
     }
+    var createdServer = "";
+    var createdChannel = "";
+    if(data.msg.channel.guild.name != undefined){
+      createdServer = data.msg.channel.guild.name;
+    }
+    if(data.msg.channel.name != undefined){
+      createdChannel = data.msg.channel.name;
+    }
     var newPlayer = {
       name:  data.msg.username,
       id: data.msg.userId,
@@ -1632,8 +1830,9 @@ class CasinoPlugin extends Manager {
         coinHeads: 0,
         coinTails: 0
       },
-      createdChannel: data.msg.channel.name,
-      createdServer: data.msg.channel.guild.name
+      keys: 0,
+      createdChannel: createdChannel,
+      createdServer: createdServer
     }
     for (var i = 0; i < self.casinoObj.players.length; i++) {
       if(self.casinoObj.players[i].name == newPlayer.name){
@@ -1825,9 +2024,27 @@ class CasinoPlugin extends Manager {
       }
       return;
     }
+    if((slot.reel1 == ":key:") && (slot.reel2 == ":key:") && (slot.reel3 == ":key:")){
+      if(slot.bet < minJackpotBet){
+        slot.winText = "Hey There are some keys here but they are rusted! You didnt put enough money as your bet to restore the keys. oh well... ";
+        return;
+      }
+      slot.winText = "WOW! Thats a lot of keys!";
+      slot.player.keys += 3;
+      return;
+    }
+    if((slot.reel1 == ":key:") || (slot.reel2 == ":key:") || (slot.reel3 == ":key:")){
+      if(slot.bet < minJackpotBet){
+        slot.winText = "Hey There are some keys here but they are rusted! You didnt put enough money as your bet to restore the keys. oh well... ";
+        return;
+      }else {
+        slot.winText = "Hey! a Key! These could be useful later on... ";
+        slot.player.keys++;
+      }
+    }
     if((slot.reel1 == ":cherries:") || (slot.reel2 == ":cherries:") || (slot.reel3 == ":cherries:")){
       slot.winAmount = parseFloat((slot.bet / 2).toFixed(2));
-      slot.winText = "Well at least you didn't lose it all...";
+      slot.winText += "Well at least you didn't lose it all...";
       slot.player.stats.slotSingleC++;
       slot.player.stats.slotWins++;
       slot.player.money += parseFloat(slot.winAmount);
@@ -1839,7 +2056,7 @@ class CasinoPlugin extends Manager {
       return;
     }
     slot.winAmount = 0;
-    slot.winText = "DANG! Better luck next time!";
+    slot.winText += "DANG! Better luck next time!";
     if(slot.bet >= 1000){
       slot.player.xp += 1;
     }else {
@@ -2085,6 +2302,9 @@ class CasinoPlugin extends Manager {
       if(self.casinoObj.players[i].lastSeen == undefined){
         self.updateLastSeen(self.casinoObj.players[i]);
       }
+      if(self.casinoObj.players[i].keys == undefined){
+        self.casinoObj.players[i].keys = 0;
+      }
     }
     for (var i = 0; i < self.casinoObj.players.length; i++) {
       if(self.canGetIncome(self.casinoObj.players[i])){
@@ -2094,7 +2314,19 @@ class CasinoPlugin extends Manager {
     }
     if(self.casinoObj.jackpotValue == null)self.casinoObj.jackpotValue = 1000;
     self.save(self.cobpath, self.casinoObj);
+    self.timer = new Countdown(1800000,function(){});
+    self.timer.start();
     setTimeout(function() {
+      var n = self.getRandomIntInclusive(0,3);
+      if(n == 0){
+        self.disnode.service.GetService("DiscordService").client.user.setGame("!casino slot");
+      }else if (n == 1) {
+        self.disnode.service.GetService("DiscordService").client.user.setGame("!casino wheel");
+      }else if (n == 2) {
+        self.disnode.service.GetService("DiscordService").client.user.setGame("!casino flip");
+      }else {
+        self.disnode.service.GetService("DiscordService").client.user.setGame("!casino");
+      }
       self.updateCoroutine();
     }, 1800000);
     //1800000

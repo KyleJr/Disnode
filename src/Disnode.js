@@ -16,7 +16,7 @@ var pmx = require('pmx').init({
   ignore_routes : [/socket\.io/, /notFound/], // Ignore http routes with this pattern (Default: [])
   errors        : true, // Exceptions loggin (default: true)
 });
-//const Test = require("./Managers/CasinoPlugin.js");
+const Test = require("./Managers/CasinoPlugin.js");
 class Disnode extends EventEmitter {
     constructor(configPath) {
         super();
