@@ -98,11 +98,7 @@
         "coinHeads": 25,
         "coinTails": 20
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 20,
-        "sec": 10
-      },
+      "lastMessage": null,
       "lastSeen": {
         "pmonth": 3,
         "pday": 12,
@@ -1880,11 +1876,7 @@
         "coinHeads": 598,
         "coinTails": 533
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 24,
-        "sec": 29
-      },
+      "lastMessage": null,
       "lastSeen": {
         "pmonth": 3,
         "pday": 12,
@@ -21444,11 +21436,7 @@
         "pday": 12,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 12,
-        "sec": 52
-      }
+      "lastMessage": null
     },
     {
       "name": "Nayleck (Curboya)",
@@ -45348,11 +45336,7 @@
       "keys": 0,
       "createdChannel": "vigil_casino",
       "createdServer": "VIGIL",
-      "lastMessage": {
-        "hour": 3,
-        "min": 25,
-        "sec": 12
-      },
+      "lastMessage": null,
       "lastSeen": {
         "pmonth": 3,
         "pday": 12,
@@ -52007,11 +51991,7 @@
         "pday": 12,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 30,
-        "sec": 10
-      }
+      "lastMessage": null
     },
     {
       "name": "trusspike15",
@@ -53761,11 +53741,7 @@
         "pday": 12,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 15,
-        "sec": 37
-      }
+      "lastMessage": null
     },
     {
       "name": "Johnylongfeet",
@@ -56950,11 +56926,7 @@
         "pday": 12,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 24,
-        "sec": 48
-      }
+      "lastMessage": null
     },
     {
       "name": "Phix",
@@ -73299,11 +73271,7 @@
         "pday": 12,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 20,
-        "sec": 12
-      }
+      "lastMessage": null
     },
     {
       "name": "TheMatsku",
@@ -74178,11 +74146,7 @@
         "pday": 12,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 15,
-        "sec": 9
-      }
+      "lastMessage": null
     },
     {
       "name": "Doctcr",
@@ -76002,11 +75966,7 @@
         "pday": 11,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 13,
-        "sec": 15
-      }
+      "lastMessage": null
     },
     {
       "name": "TravisPlays",
@@ -76496,11 +76456,7 @@
         "pday": 12,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 26,
-        "sec": 34
-      }
+      "lastMessage": null
     },
     {
       "name": "TheBestPal",
@@ -77090,11 +77046,7 @@
       "keys": 0,
       "createdChannel": "casino",
       "createdServer": "Map Testing",
-      "lastMessage": {
-        "hour": 3,
-        "min": 15,
-        "sec": 14
-      },
+      "lastMessage": null,
       "lastSeen": {
         "pmonth": 3,
         "pday": 12,
@@ -77134,16 +77086,12 @@
         "pday": 12,
         "pyear": 2017
       },
-      "lastMessage": {
-        "hour": 3,
-        "min": 24,
-        "sec": 15
-      }
+      "lastMessage": null
     },
     {
       "name": "R.M.X.2",
       "id": "253839089424400384",
-      "money": 50000,
+      "money": 60000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -77168,12 +77116,17 @@
       "keys": 0,
       "createdChannel": "gaming_chat",
       "createdServer": "Chillax",
-      "lastMessage": null
+      "lastMessage": null,
+      "lastSeen": {
+        "pmonth": 3,
+        "pday": 16,
+        "pyear": 2017
+      }
     },
     {
       "name": "Laxus",
       "id": "271520023758110721",
-      "money": 50000,
+      "money": 60000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -77197,7 +77150,13 @@
       },
       "keys": 0,
       "createdChannel": "general",
-      "createdServer": "DominioRoyale™"
+      "createdServer": "DominioRoyale™",
+      "lastSeen": {
+        "pmonth": 3,
+        "pday": 16,
+        "pyear": 2017
+      },
+      "lastMessage": null
     },
     {
       "name": "FofonDR™⚠",
@@ -77227,11 +77186,7 @@
       "keys": 0,
       "createdChannel": "general",
       "createdServer": "DominioRoyale™",
-      "lastMessage": {
-        "hour": 3,
-        "min": 23,
-        "sec": 56
-      },
+      "lastMessage": null,
       "lastSeen": {
         "pmonth": 3,
         "pday": 12,
@@ -77270,7 +77225,8 @@
         "pmonth": 3,
         "pday": 12,
         "pyear": 2017
-      }
+      },
+      "lastMessage": null
     }
   ],
   "jackpotValue": 1448238.5,
