@@ -1248,6 +1248,15 @@ class CasinoPlugin extends Manager {
           self.casinoObj.jackpotValue = setTo;
           this.sendCompactEmbed("Complete", "JACKPOT Value set to: $" + setTo, data);
           break;
+        case "listprem":
+          var msg = "";
+          for (var i = 0; i < self.casinoObj.players.length; i++) {
+            if(self.casinoObj.players[i].Premium){
+              msg += self.casinoObj.players[i].name + "\n";
+            }
+          }
+          this.sendCompactEmbed("Premium Users", msg + setTo, data);
+          break;
         case "cleartimers":
           for (var i = 0; i < self.casinoObj.players.length; i++) {
             self.casinoObj.players[i].lastMessage = null;
