@@ -108,7 +108,7 @@ class CasinoPlugin extends Manager {
       {item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},
       {item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},{item:":second_place:"},
       {item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},{item:":first_place:"},
-      {item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":key:"}
+      {item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":100:"},{item:":key:"}
     ]
     this.store = [
       {cost: 200, type:0, item: "Instant $1,000"},
@@ -1643,8 +1643,12 @@ class CasinoPlugin extends Manager {
                 value: "$" + numeral(slotInfo.winAmount - bet).format('0,0.00'),
               }, {
                 name: 'Balance',
-                inline: false,
+                inline: true,
                 value: "$" + numeral(player.money).format('0,0.00'),
+              }, {
+                name: 'Keys',
+                inline: false,
+                value: player.keys
               }, {
                 name: 'Minimum JACKPOT bet',
                 inline: true,
@@ -2285,6 +2289,41 @@ class CasinoPlugin extends Manager {
           }
         }
       }
+    }
+  }
+  searchForPlayer(data, paramID){
+    if(data.params[paramID]){
+      var otherID = self.parseMention(data.params[paramID]);
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+        if(self.casinoObj.players[i].id == otherID){
+          var transferPlayer = self.casinoObj.players[i];
+          return {found: true, p: transferPlayer};
+        }
+      }
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+        if(self.casinoObj.players[i].name.toLowerCase() == data.params[paramID].toLowerCase()){
+          var transferPlayer = self.casinoObj.players[i];
+          return {found: true, p: transferPlayer};
+        }
+      }
+      var found = [];
+      var msg = "Did you mean?\n";
+      for (var i = 0; i < self.casinoObj.players.length; i++) {
+      if(data.params[paramID].length < 3)break;
+        if(self.casinoObj.players[i].name.toLowerCase().includes(data.params[paramID].toLowerCase())){
+          found.push(self.casinoObj.players[i])
+        }
+      }
+      if(found.length == 1){
+        var transferPlayer = found[0];
+        return {found: true, p: transferPlayer};
+      }
+      for (var i = 0; i < found.length; i++) {
+        msg += "**" + found[i].name + "**\n"
+      }
+      return {found: false, msg: msg};
+    }else {
+      return {found: false, msg: "No player details entered"};
     }
   }
   checkValidWheel(bet){

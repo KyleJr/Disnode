@@ -3,7 +3,7 @@
     {
       "name": "FireGamer3",
       "id": "112786170655600640",
-      "money": 11460,
+      "money": 144206058091487,
       "perUpdate": 20600865440005,
       "xp": 86,
       "Premium": true,
@@ -13,7 +13,7 @@
       "stats": {
         "moneySpent": "224439047.00",
         "moneyWon": "29514035.20",
-        "slotPlays": 606,
+        "slotPlays": 614,
         "coinPlays": 11,
         "slotWins": 459,
         "coinWins": 4,
@@ -26,10 +26,14 @@
         "coinHeads": 2,
         "coinTails": 9
       },
-      "lastMessage": null,
+      "lastMessage": {
+        "hour": 18,
+        "min": 44,
+        "sec": 22
+      },
       "lastSeen": {
         "pmonth": 3,
-        "pday": 3,
+        "pday": 19,
         "pyear": 2017
       },
       "createdChannel": "testing",
@@ -77229,7 +77233,7 @@
       "lastMessage": null
     }
   ],
-  "jackpotValue": 1448238.5,
+  "jackpotValue": 1448246.5,
   "jackpotstat": {
     "lastWon": "Ediakin",
     "HighestWin": 10300868985208750,
