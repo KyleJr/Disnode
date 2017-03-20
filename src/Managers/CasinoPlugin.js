@@ -407,122 +407,38 @@ class CasinoPlugin extends Manager {
     if(self.checkBan(player, data))return;
     player.money = Number(parseFloat(player.money).toFixed(2));
     if(data.params[0]){
-      var otherID = self.parseMention(data.params[0]);
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(self.casinoObj.players[i].id == otherID){
-          var transferPlayer = self.casinoObj.players[i];
-          this.disnode.service.SendEmbed({
-            color: 3447003,
-            author: {},
-            title: transferPlayer.name + ' Balance',
-            fields: [ {
-              name: 'Money',
-              inline: true,
-              value: "$" + numeral(transferPlayer.money).format('0,0.00'),
-            }, {
-              name: 'Income / 30min.',
-              inline: true,
-              value: "$" + numeral(transferPlayer.perUpdate).format('0,0.00'),
-            }, {
-              name: 'XP',
-              inline: true,
-              value: transferPlayer.xp,
-            }, {
-              name: 'Premium',
-              inline: true,
-              value: transferPlayer.Premium,
-            }, {
-              name: 'Keys',
-              inline: true,
-              value: transferPlayer.keys,
-            }],
-              footer: {}
-            },
-          data.msg);
-          return;
-        }
-      }
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(self.casinoObj.players[i].name.toLowerCase() == data.params[0].toLowerCase()){
-          var transferPlayer = self.casinoObj.players[i];
-          this.disnode.service.SendEmbed({
-            color: 3447003,
-            author: {},
-            title: transferPlayer.name + ' Balance',
-            fields: [ {
-              name: 'Money',
-              inline: true,
-              value: "$" + numeral(transferPlayer.money).format('0,0.00'),
-            }, {
-              name: 'Income / 30min.',
-              inline: true,
-              value: "$" + numeral(transferPlayer.perUpdate).format('0,0.00'),
-            }, {
-              name: 'XP',
-              inline: true,
-              value: transferPlayer.xp,
-            }, {
-              name: 'Premium',
-              inline: true,
-              value: transferPlayer.Premium,
-            }, {
-              name: 'Keys',
-              inline: true,
-              value: transferPlayer.keys,
-            }],
-              footer: {}
-            },
-          data.msg);
-          return;
-        }
-      }
-      var found = [];
-      var msg = "Did you mean?\n";
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-      if(data.params[0].length < 3)break;
-        if(self.casinoObj.players[i].name.toLowerCase().includes(data.params[0].toLowerCase())){
-          found.push(self.casinoObj.players[i])
-        }
-      }
-      if(found.length == 1){
-        var transferPlayer = found[0];
+      var res = self.searchForPlayer(data, 0);
+      if(res.found){
         this.disnode.service.SendEmbed({
           color: 3447003,
           author: {},
-          title: transferPlayer.name + ' Balance',
+          title: res.p.name + ' Balance',
           fields: [ {
             name: 'Money',
             inline: true,
-            value: "$" + numeral(transferPlayer.money).format('0,0.00'),
+            value: "$" + numeral(res.p.money).format('0,0.00'),
           }, {
             name: 'Income / 30min.',
             inline: true,
-            value: "$" + numeral(transferPlayer.perUpdate).format('0,0.00'),
+            value: "$" + numeral(res.p.perUpdate).format('0,0.00'),
           }, {
             name: 'XP',
             inline: true,
-            value: transferPlayer.xp,
+            value: res.p.xp,
           }, {
             name: 'Premium',
             inline: true,
-            value: transferPlayer.Premium,
+            value: res.p.Premium,
           }, {
             name: 'Keys',
             inline: true,
-            value: transferPlayer.keys,
+            value: res.p.keys,
           }],
             footer: {}
           },
         data.msg);
-        return;
-      }
-      for (var i = 0; i < found.length; i++) {
-        msg += "**" + found[i].name + "**\n"
-      }
-      if(found.length > 0){
-        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n\n" + msg, data);
       }else {
-        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!", data);
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n" + res.msg, data);
       }
       return;
     }
@@ -751,111 +667,9 @@ class CasinoPlugin extends Manager {
     if(self.checkBan(player, data))return;
     var transferPlayer;
     if(data.params[0]){
-      var otherID = self.parseMention(data.params[0]);
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(self.casinoObj.players[i].id == otherID){
-          transferPlayer = self.casinoObj.players[i];
-          var toTransfer = numeral(data.params[1]).value();
-          if(toTransfer > 0){
-            if(toTransfer > player.money){
-              this.sendCompactEmbed("Error", ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'), data);
-              return;
-            }else {
-              var pbalbef = player.money
-              var sbalbef = transferPlayer.money
-              player.money -= toTransfer;
-              transferPlayer.money += toTransfer
-              player.money = Number(parseFloat(player.money).toFixed(2));
-              transferPlayer.money = Number(parseFloat(transferPlayer.money).toFixed(2));
-            }
-            self.save(self.cobpath, self.casinoObj);
-            this.disnode.service.SendEmbed({
-              color: 3447003,
-              author: {},
-              fields: [ {
-                name: 'From',
-                inline: false,
-                value: player.name + "\nBalance Proir: $" + numeral(pbalbef).format('0,0.00') + "\nBalance After: $" + numeral(player.money).format('0,0.00'),
-              }, {
-                name: 'To',
-                inline: false,
-                value: transferPlayer.name + "\nBalance Proir: $" + numeral(sbalbef).format('0,0.00') + "\nBalance After: $" + numeral(transferPlayer.money).format('0,0.00'),
-              }, {
-                name: 'Amount',
-                inline: true,
-                value: "$ " + numeral(toTransfer).format('0,0.00'),
-              }, {
-                name: "Status",
-                inline: false,
-                value: ":white_check_mark: Transfer complete!",
-              }],
-                footer: {}
-              },
-            data.msg);
-            return;
-          }else {
-            this.sendCompactEmbed("Error", ":warning: Please enter a number for the transfer amount! example `!casino transfer FireGamer3 100`", data);
-          }
-          return;
-        }
-      }
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(self.casinoObj.players[i].name.toLowerCase() == data.params[0].toLowerCase()){
-          transferPlayer = self.casinoObj.players[i];
-          var toTransfer = numeral(data.params[1]).value();
-          if(toTransfer > 0){
-            if(toTransfer > player.money){
-              this.sendCompactEmbed("Error", ":warning: You dont have that much Money! You have $" + numeral(player.money).format('0,0.00'), data);
-              return;
-            }else {
-              var pbalbef = player.money
-              var sbalbef = transferPlayer.money
-              player.money -= toTransfer;
-              transferPlayer.money += toTransfer
-              player.money = Number(parseFloat(player.money).toFixed(2));
-              transferPlayer.money = Number(parseFloat(transferPlayer.money).toFixed(2));
-            }
-            self.save(self.cobpath, self.casinoObj);
-            this.disnode.service.SendEmbed({
-              color: 3447003,
-              author: {},
-              fields: [ {
-                name: 'From',
-                inline: false,
-                value: player.name + "\nBalance Proir: $" + numeral(pbalbef).format('0,0.00') + "\nBalance After: $" + numeral(player.money).format('0,0.00'),
-              }, {
-                name: 'To',
-                inline: false,
-                value: transferPlayer.name + "\nBalance Proir: $" + numeral(sbalbef).format('0,0.00') + "\nBalance After: $" + numeral(transferPlayer.money).format('0,0.00'),
-              }, {
-                name: 'Amount',
-                inline: true,
-                value: "$ " + numeral(toTransfer).format('0,0.00'),
-              }, {
-                name: "Status",
-                inline: false,
-                value: ":white_check_mark: Transfer complete!",
-              }],
-                footer: {}
-              },
-            data.msg);
-            return;
-          }else {
-            this.sendCompactEmbed("Error", ":warning: Please enter a number for the transfer amount! example `!casino transfer FireGamer3 100`", data);
-          }
-          return;
-        }
-      }
-      var found = [];
-      var msg = "Did you mean?\n";
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-      if(data.params[0].length < 3)break;
-        if(self.casinoObj.players[i].name.toLowerCase().includes(data.params[0].toLowerCase())){
-          found.push(self.casinoObj.players[i])
-        }
-      }
-      if(found.length == 1){
-        transferPlayer = found[0];
+      var res = self.searchForPlayer(data, 0);
+      if(res.found){
+        var transferPlayer = res.p;
         var toTransfer = numeral(data.params[1]).value();
         if(toTransfer > 0){
           if(toTransfer > player.money){
@@ -894,18 +708,13 @@ class CasinoPlugin extends Manager {
             },
           data.msg);
           return;
+        }else {
+          this.sendCompactEmbed("Error", ":warning: Please enter a number for the transfer amount! example `!casino transfer FireGamer3 100`", data);
         }
-      }
-      for (var i = 0; i < found.length; i++) {
-        msg += "**" + found[i].name + "**\n"
-      }
-      if(found.length > 0){
-        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n\n" + msg, data);
       }else {
-        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!", data);
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n" + res.msg, data);
       }
-    }else{
-      this.sendCompactEmbed("Error", ":warning: Please enter a username to send to! example: `!casino transfer FireGamer3 100`\nIf the username has a space in it use quotes, Example: `!casino transfer \"VictoryForPhil / Atec\" 100`", data);
+      return;
     }
   }
   coinflipCommand(data){
@@ -1084,10 +893,11 @@ class CasinoPlugin extends Manager {
     }else{
       switch (data.params[0]) {
         case "ban":
-        var players;
-        if(data.params[1]){
-          for (var i = 0; i < self.casinoObj.players.length; i++) {
-            if(self.casinoObj.players[i].name == data.params[1]){
+          var players;
+          if(data.params[1]){
+            var res = self.searchForPlayer(data, 1);
+            if(res.found){
+              players = res.p;
               players = self.casinoObj.players[i];
               if(!players.banned){
                 players.money = 0;
@@ -1108,12 +918,12 @@ class CasinoPlugin extends Manager {
                 this.sendCompactEmbed("Action Complete", ":white_check_mark: Player: " + players.name + " Is now unbanned", data);
               }
               return;
+            }else {
+              this.sendCompactEmbed("Error", ":warning: Could not find a player card for: `" + data.params[1] + "`", data);
             }
+          }else{
+            this.sendCompactEmbed("Error", ":warning: Please enter a username!", data);
           }
-          this.sendCompactEmbed("Error", ":warning: Could not find a player card for: `" + data.params[0] + "`", data);
-        }else{
-          this.sendCompactEmbed("Error", ":warning: Please enter a username!", data);
-        }
           break;
         case "save":
           self.save(self.cobpath, self.casinoObj);
@@ -1122,117 +932,70 @@ class CasinoPlugin extends Manager {
         case "player":
           switch (data.params[1]) {
             case "get":
-              var otherID = self.parseMention(data.params[2]);
-              for (var i = 0; i < self.casinoObj.players.length; i++) {
-                if(self.casinoObj.players[i].id == otherID){
-                  data.msg.channel.sendMessage("```json\n" + JSON.stringify(self.casinoObj.players[i], false, 2) + "```");
+              var res = self.searchForPlayer(data, 2);
+              if(res.found){
+                  data.msg.channel.sendMessage("```json\n" + JSON.stringify(res.p, false, 2) + "```");
                   break;
-                }
-              }
-              for (var i = 0; i < self.casinoObj.players.length; i++) {
-                if(self.casinoObj.players[i].name == data.params[2]){
-                  data.msg.channel.sendMessage("```json\n" + JSON.stringify(self.casinoObj.players[i], false, 2) + "```");
-                  break;
-                }
+              }else {
+                this.sendCompactEmbed("Error", ":warning: Please enter a username!\n" + res.msg, data);
               }
               break;
             case "set":
               switch (data.params[2]) {
                 case "money":
-                  var otherID = self.parseMention(data.params[3]);
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].id == otherID){
-                      var setTo = numeral(data.params[4]).value();
-                      if(setTo > 0)self.casinoObj.players[i].money = setTo;
-                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Money set to: $" + setTo, data);
-                      break;
-                    }
-                  }
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].name == data.params[3]){
-                      var setTo = numeral(data.params[4]).value();
-                      if(setTo > 0)self.casinoObj.players[i].money = setTo;
-                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Money set to: $" + setTo, data);
-                      break;
-                    }
+                  var res = self.searchForPlayer(data, 3);
+                  if(res.found){
+                    var setTo = numeral(data.params[4]).value();
+                    if(setTo >= 0)res.p.money = setTo;
+                    this.sendCompactEmbed("Complete", res.p.name + " Money set to: $" + setTo, data);
+                    break;
+                  }else {
+                    this.sendCompactEmbed("Error", ":warning: Please enter a username!\n" + res.msg, data);
                   }
                   break;
                 case "income":
-                  var otherID = self.parseMention(data.params[3]);
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].id == otherID){
-                      var setTo = numeral(data.params[4]).value();
-                      if(setTo > 0)self.casinoObj.players[i].perUpdate = setTo;
-                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Income set to: $" + setTo, data);
-                      break;
-                    }
-                  }
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].name == data.params[3]){
-                      var setTo = numeral(data.params[4]).value();
-                      if(setTo > 0)self.casinoObj.players[i].perUpdate = setTo;
-                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Income set to: $" + setTo, data);
-                      break;
-                    }
+                  var res = self.searchForPlayer(data, 3);
+                  if(res.found){
+                    var setTo = numeral(data.params[4]).value();
+                    if(setTo >= 0)res.p.perUpdate = setTo;
+                    this.sendCompactEmbed("Complete", res.p.name + " Income set to: $" + setTo, data);
+                    break;
+                  }else {
+                    this.sendCompactEmbed("Error", ":warning: Please enter a username!\n" + res.msg, data);
                   }
                   break;
                 case "xp":
-                  var otherID = self.parseMention(data.params[3]);
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].id == otherID){
-                      var setTo = numeral(data.params[4]).value();
-                      if(setTo >= 0)self.casinoObj.players[i].xp = setTo;
-                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " XP set to: " + setTo, data);
-                      break;
-                    }
-                  }
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].name == data.params[3]){
-                      var setTo = numeral(data.params[4]).value();
-                      if(setTo >= 0)self.casinoObj.players[i].xp = setTo;
-                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " XP set to: " + setTo, data);
-                      break;
-                    }
+                  var res = self.searchForPlayer(data, 3);
+                  if(res.found){
+                    var setTo = numeral(data.params[4]).value();
+                    if(setTo >= 0)res.p.xp = setTo;
+                    this.sendCompactEmbed("Complete", res.p.name + " XP set to: " + setTo, data);
+                    break;
+                  }else {
+                    this.sendCompactEmbed("Error", ":warning: Please enter a username!\n" + res.msg, data);
                   }
                   break;
                 case "name":
-                  var otherID = self.parseMention(data.params[3]);
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].id == otherID){
-                      var setTo = data.params[4];
-                      var oldname = self.casinoObj.players[i].name;
-                      self.casinoObj.players[i].name = setTo;
-                      this.sendCompactEmbed("Complete", oldname + " Name set to: " + setTo, data);
-                      break;
-                    }
-                  }
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].name == data.params[3]){
-                      var setTo = data.params[4];
-                      var oldname = self.casinoObj.players[i].name;
-                      self.casinoObj.players[i].name = setTo;
-                      this.sendCompactEmbed("Complete", oldname + " Name set to: " + setTo, data);
-                      break;
-                    }
+                  var res = self.searchForPlayer(data, 3);
+                  if(res.found){
+                    var setTo = data.params[4];
+                    var oldname = res.p.name;
+                    res.p.name = setTo;
+                    this.sendCompactEmbed("Complete", oldname + " Name set to: " + setTo, data);
+                    break;
+                  }else {
+                    this.sendCompactEmbed("Error", ":warning: Please enter a username!\n" + res.msg, data);
                   }
                   break;
                 case "key":
-                  var otherID = self.parseMention(data.params[3]);
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].id == otherID){
-                      var setTo = data.params[4];
-                      self.casinoObj.players[i].keys = setTo;
-                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Keys set to: " + setTo, data);
-                      break;
-                    }
-                  }
-                  for (var i = 0; i < self.casinoObj.players.length; i++) {
-                    if(self.casinoObj.players[i].name == data.params[3]){
-                      var setTo = data.params[4];
-                      self.casinoObj.players[i].keys = setTo;
-                      this.sendCompactEmbed("Complete", self.casinoObj.players[i].name + " Keys set to: " + setTo, data);
-                      break;
-                    }
+                  var res = self.searchForPlayer(data, 3);
+                  if(res.found){
+                    var setTo = numeral(data.params[4]).value();
+                    if(setTo >= 0)res.p.keys = setTo;
+                    this.sendCompactEmbed("Complete", res.p.name + " Keys set to: " + setTo, data);
+                    break;
+                  }else {
+                    this.sendCompactEmbed("Error", ":warning: Please enter a username!\n" + res.msg, data);
                   }
                   break;
                 default:
@@ -1265,25 +1028,22 @@ class CasinoPlugin extends Manager {
           break;
         case "prem":
           var player;
-          if(data.params[1]){
-            for (var i = 0; i < self.casinoObj.players.length; i++) {
-              if(self.casinoObj.players[i].name == data.params[1]){
-                player = self.casinoObj.players[i];
-                if(data.params[2] == "true"){
-                  player.Premium = true;
-                  player.money += 25000;
-                  player.xp += 2000;
-                }else if (data.params[2] == "false") {
-                  player.Premium = false;
-                }else return;
-                this.sendCompactEmbed("Action Complete", ":white_check_mark: Premium set to:`" + data.params[2] + "` for Player: `" + data.params[1] + "`", data);
-                return;
-              }
-            }
-            this.sendCompactEmbed("Error", ":warning: Could not find a player card for: `" + data.params[0] + "`", data);
-          }else{
-            this.sendCompactEmbed("Error", ":warning: Please enter a username!", data);
+          var res = self.searchForPlayer(data, 1);
+          if(res.found){
+            player = res.p;
+            if(data.params[2] == "true"){
+              player.Premium = true;
+              player.money += 25000;
+              player.xp += 2000;
+            }else if (data.params[2] == "false") {
+              player.Premium = false;
+            }else return;
+            this.sendCompactEmbed("Action Complete", ":white_check_mark: Premium set to:`" + data.params[2] + "` for Player: `" + data.params[1] + "`", data);
+            return;
+          }else {
+            this.sendCompactEmbed("Error", ":warning: Please enter a username!\n" + res.msg, data);
           }
+          this.sendCompactEmbed("Error", ":warning: Could not find a player card for: `" + data.params[1] + "`", data);
           break;
         default:
           self.disnode.service.GetService("DiscordService").client.user.setGame("!casino");
@@ -1695,43 +1455,12 @@ class CasinoPlugin extends Manager {
     self.CheckforCreated(player, data);
     if(self.checkBan(player, data))return;
     if(data.params[0]){
-      var foundPlayer = false;
-      var otherID = self.parseMention(data.params[0]);
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(self.casinoObj.players[i].id == otherID){
-          player = self.casinoObj.players[i];
-          foundPlayer = true;
-        }
-      }
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(foundPlayer)break;
-        if(self.casinoObj.players[i].name.toLowerCase() == data.params[0].toLowerCase()){
-          player = self.casinoObj.players[i];
-          foundPlayer = true;
-        }
-      }
-      var found = [];
-      var msg = "Did you mean?\n";
-      for (var i = 0; i < self.casinoObj.players.length; i++) {
-        if(foundPlayer)break;
-        if(data.params[0].length <= 3)break;
-        if(self.casinoObj.players[i].name.toLowerCase().includes(data.params[0].toLowerCase())){
-          found.push(self.casinoObj.players[i])
-        }
-      }
-      if(found.length == 1){
-        player = found[0];
-        foundPlayer = true;
-      }
-      for (var i = 0; i < found.length; i++) {
-        msg += "**" + found[i].name + "**\n"
-      }
-      if(!foundPlayer){
-        if(found.length > 0){
-          this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n\n" + msg, data);
-        }else {
-          this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!", data);
-        }
+      var res = self.searchForPlayer(data, 0);
+      if(res.found){
+        player = res.p;
+      }else {
+        this.sendCompactEmbed("Error", ":warning: Player card Not Found Please @mention the user you are trying to send to or make sure you have the correct name if not using a @mention! Also make sure they have a account on the game!\n\n" + res.msg, data);
+        return;
       }
     }
     var orderTop = []
@@ -1751,6 +1480,7 @@ class CasinoPlugin extends Manager {
     for (var i = 0; i < orderTop.length; i++) {
       if(player.id == orderTop[i].id){
         var placement = "**Rank**: " + (i+1) + " **out of** " + (orderTop.length);
+        break;
       }
     }
     var statsMessage = "" +
@@ -2292,6 +2022,7 @@ class CasinoPlugin extends Manager {
     }
   }
   searchForPlayer(data, paramID){
+    var self = this;
     if(data.params[paramID]){
       var otherID = self.parseMention(data.params[paramID]);
       for (var i = 0; i < self.casinoObj.players.length; i++) {
@@ -2321,6 +2052,7 @@ class CasinoPlugin extends Manager {
       for (var i = 0; i < found.length; i++) {
         msg += "**" + found[i].name + "**\n"
       }
+      if(found.length ==0) msg = "No players found that meets search criteria!"
       return {found: false, msg: msg};
     }else {
       return {found: false, msg: "No player details entered"};
