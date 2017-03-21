@@ -3,7 +3,7 @@
     {
       "name": "FireGamer3",
       "id": "112786170655600640",
-      "money": 2966524623372281.5,
+      "money": 3048928085132303,
       "perUpdate": 20600865440005,
       "xp": 86,
       "Premium": true,
@@ -12,13 +12,13 @@
       "banreason": "",
       "stats": {
         "moneySpent": "224439047.00",
-        "moneyWon": "29514040.70",
-        "slotPlays": 610,
+        "moneyWon": "29514046.20",
+        "slotPlays": 614,
         "coinPlays": 11,
-        "slotWins": 463,
+        "slotWins": 467,
         "coinWins": 4,
-        "slotSingleC": 419,
-        "slotTripleC": 21,
+        "slotSingleC": 422,
+        "slotTripleC": 22,
         "slot3s": 17,
         "slot2s": 4,
         "slot1s": 0,
@@ -26,10 +26,14 @@
         "coinHeads": 2,
         "coinTails": 9
       },
-      "lastMessage": null,
+      "lastMessage": {
+        "hour": 18,
+        "min": 56,
+        "sec": 33
+      },
       "lastSeen": {
         "pmonth": 3,
-        "pday": 19,
+        "pday": 20,
         "pyear": 2017
       },
       "createdChannel": "testing",
@@ -39,7 +43,7 @@
     {
       "name": "TLF",
       "id": "170219752692776960",
-      "money": 290000,
+      "money": 330000,
       "perUpdate": 10000,
       "xp": 203,
       "Premium": false,
@@ -75,7 +79,7 @@
     {
       "name": "Concept™",
       "id": "267007263359631380",
-      "money": 1571971835095062500,
+      "money": 2143597956947812400,
       "perUpdate": 142906530463187420,
       "xp": 8,
       "Premium": true,
@@ -219,7 +223,7 @@
     {
       "name": "HikimoriNEET",
       "id": "177197198012841984",
-      "money": 29164848.02,
+      "money": 37497448.019999996,
       "perUpdate": 2083150,
       "xp": 71,
       "Premium": false,
@@ -255,7 +259,7 @@
     {
       "name": "ᵀᵒᵗᵃᶫBudderᴱᵖᶦᶜᶰᵉˢˢ",
       "id": "216681082932822017",
-      "money": 1577678219201.6,
+      "money": 1627763232001.6,
       "perUpdate": 12521253200,
       "xp": 1995,
       "Premium": false,
@@ -291,7 +295,7 @@
     {
       "name": "Hazed SPaCE✘",
       "id": "160168328520794112",
-      "money": 20495467896927000,
+      "money": 23228196949850600,
       "perUpdate": 683182263230900,
       "xp": 1886,
       "Premium": true,
@@ -895,7 +899,7 @@
     {
       "name": "mo",
       "id": "244905723232911360",
-      "money": 620240900,
+      "money": 715642500,
       "perUpdate": 23850400,
       "xp": 336,
       "Premium": false,
@@ -1039,7 +1043,7 @@
     {
       "name": "ThaCrypte",
       "id": "143042048033947648",
-      "money": 99243128417300,
+      "money": 125469151765900,
       "perUpdate": 6556505837150,
       "xp": 850,
       "Premium": true,
@@ -1255,7 +1259,7 @@
     {
       "name": "mike",
       "id": "130412208755703809",
-      "money": 18114541501512.93,
+      "money": 21012868122312.93,
       "perUpdate": 724581655200,
       "xp": 36,
       "Premium": true,
@@ -1395,7 +1399,7 @@
     {
       "name": "yellow_321",
       "id": "203913494490251264",
-      "money": 53840637.43,
+      "money": 54266237.43,
       "perUpdate": 106400,
       "xp": 540,
       "Premium": false,
@@ -1431,7 +1435,7 @@
     {
       "name": "LordofMagic",
       "id": "259975076760256523",
-      "money": 8887200,
+      "money": 10579000,
       "perUpdate": 422950,
       "xp": 71,
       "Premium": false,
@@ -1889,7 +1893,7 @@
     {
       "name": "ʎzznɟ",
       "id": "149995744214908928",
-      "money": 512634050,
+      "money": 605838450,
       "perUpdate": 23301100,
       "xp": 92,
       "Premium": false,
@@ -3285,7 +3289,7 @@
     {
       "name": "Zach",
       "id": "97183423772233728",
-      "money": 12579900.469999999,
+      "money": 19240300.47,
       "perUpdate": 1665100,
       "xp": 963,
       "Premium": false,
@@ -3321,7 +3325,7 @@
     {
       "name": "Doodlebob",
       "id": "97053748806840320",
-      "money": 497200,
+      "money": 678000,
       "perUpdate": 45200,
       "xp": 1081,
       "Premium": false,
@@ -3779,7 +3783,7 @@
     {
       "name": "Peter",
       "id": "108640103772979200",
-      "money": 14940100,
+      "money": 16159700,
       "perUpdate": 304900,
       "xp": 259,
       "Premium": false,
@@ -4099,7 +4103,7 @@
     {
       "name": "Kid_Rush",
       "id": "239525027949576203",
-      "money": 26349600,
+      "money": 26537600,
       "perUpdate": 47000,
       "xp": 30,
       "Premium": false,
@@ -4619,7 +4623,7 @@
     {
       "name": "??????",
       "id": "77270933429026816",
-      "money": 8949500,
+      "money": 10651900,
       "perUpdate": 425600,
       "xp": 90,
       "Premium": false,
@@ -4691,7 +4695,7 @@
     {
       "name": "Carrigan",
       "id": "167045491576537088",
-      "money": 6285300.75,
+      "money": 6898500.75,
       "perUpdate": 153300,
       "xp": 355,
       "Premium": false,
@@ -5009,7 +5013,7 @@
     {
       "name": "MasterPooka (MFS)",
       "id": "254126153202139136",
-      "money": 25405800,
+      "money": 27202600,
       "perUpdate": 449200,
       "xp": 92,
       "Premium": false,
@@ -5219,7 +5223,7 @@
     {
       "name": "DrunkSenpai",
       "id": "241977673197289472",
-      "money": 230000,
+      "money": 270000,
       "perUpdate": 10000,
       "xp": 4171,
       "Premium": false,
@@ -5361,7 +5365,7 @@
     {
       "name": "SourceTVFilms",
       "id": "140198905974489088",
-      "money": 18436664,
+      "money": 18476664,
       "perUpdate": 10000,
       "xp": 75,
       "Premium": false,
@@ -5749,7 +5753,7 @@
     {
       "name": "Twist",
       "id": "170235311614459904",
-      "money": 7557500,
+      "money": 7597500,
       "perUpdate": 10000,
       "xp": 115,
       "Premium": false,
@@ -6313,7 +6317,7 @@
     {
       "name": "JuanAnOnly",
       "id": "175764394335141888",
-      "money": 66358732668100,
+      "money": 74653574245300,
       "perUpdate": 2073710394300,
       "xp": 58,
       "Premium": true,
@@ -6739,7 +6743,7 @@
     {
       "name": "Luminosus",
       "id": "253173777091919873",
-      "money": 13120000,
+      "money": 13208000,
       "perUpdate": 22000,
       "xp": 2368,
       "Premium": false,
@@ -7063,7 +7067,7 @@
     {
       "name": "Leo Villalba",
       "id": "259835683861037056",
-      "money": 323100,
+      "money": 433500,
       "perUpdate": 27600,
       "xp": 66,
       "Premium": false,
@@ -8021,7 +8025,7 @@
     {
       "name": "Yhig123",
       "id": "242147482966949888",
-      "money": 738401,
+      "money": 980001,
       "perUpdate": 60400,
       "xp": 100,
       "Premium": false,
@@ -8235,7 +8239,7 @@
     {
       "name": "sike",
       "id": "168895054830764033",
-      "money": 2325404,
+      "money": 2736604,
       "perUpdate": 102800,
       "xp": 25,
       "Premium": false,
@@ -8801,7 +8805,7 @@
     {
       "name": "sion",
       "id": "259453337492127754",
-      "money": 1841965.63,
+      "money": 2112365.63,
       "perUpdate": 67600,
       "xp": 480,
       "Premium": false,
@@ -10061,7 +10065,7 @@
     {
       "name": "kwugfighter",
       "id": "273381165229146112",
-      "money": 1218289800,
+      "money": 1914453200,
       "perUpdate": 174040850,
       "xp": 24,
       "Premium": false,
@@ -10169,7 +10173,7 @@
     {
       "name": "Mr. Virus YT",
       "id": "223038573195165709",
-      "money": 2320762.35,
+      "money": 2619962.35,
       "perUpdate": 74800,
       "xp": 14246,
       "Premium": false,
@@ -10205,7 +10209,7 @@
     {
       "name": "Evilrayquaza",
       "id": "160975260005433344",
-      "money": 360108000,
+      "money": 411476000,
       "perUpdate": 12842000,
       "xp": 577,
       "Premium": false,
@@ -10277,7 +10281,7 @@
     {
       "name": "Ian T",
       "id": "148778958609973249",
-      "money": 95246087502,
+      "money": 109899282502,
       "perUpdate": 3663298750,
       "xp": 301,
       "Premium": false,
@@ -11789,7 +11793,7 @@
     {
       "name": "Putin",
       "id": "129883735444160523",
-      "money": 1914883966950,
+      "money": 2247907265550,
       "perUpdate": 83255824650,
       "xp": 133,
       "Premium": false,
@@ -12941,7 +12945,7 @@
     {
       "name": "Kwugkakes",
       "id": "246647108306731008",
-      "money": 30101769838.04,
+      "money": 30121059838.04,
       "perUpdate": 4822500,
       "xp": 737,
       "Premium": false,
@@ -13085,7 +13089,7 @@
     {
       "name": "TyGrr",
       "id": "160732436483801088",
-      "money": 29000000000,
+      "money": 33000000000,
       "perUpdate": 1000000000,
       "xp": 11,
       "Premium": false,
@@ -13193,7 +13197,7 @@
     {
       "name": "Icce",
       "id": "201448402293096448",
-      "money": 1252926000,
+      "money": 1670568000,
       "perUpdate": 104410500,
       "xp": 67,
       "Premium": false,
@@ -13265,7 +13269,7 @@
     {
       "name": "entony",
       "id": "234262765706018816",
-      "money": 60669600,
+      "money": 74944800,
       "perUpdate": 3568800,
       "xp": 120,
       "Premium": false,
@@ -13301,7 +13305,7 @@
     {
       "name": "SacredSirenity",
       "id": "262558324527071233",
-      "money": 780309600,
+      "money": 891782400,
       "perUpdate": 27868200,
       "xp": 188,
       "Premium": false,
@@ -13445,7 +13449,7 @@
     {
       "name": "kieron_ashley",
       "id": "266606606853079040",
-      "money": 33801300,
+      "money": 39678900,
       "perUpdate": 1469400,
       "xp": 90,
       "Premium": false,
@@ -14381,7 +14385,7 @@
     {
       "name": "hazedude",
       "id": "194132991784517634",
-      "money": 6027000,
+      "money": 7881400,
       "perUpdate": 463600,
       "xp": 1341,
       "Premium": false,
@@ -15209,7 +15213,7 @@
     {
       "name": "xrylexx",
       "id": "175160990399332352",
-      "money": 1082536195.01,
+      "money": 1123139395.01,
       "perUpdate": 10150800,
       "xp": 5537,
       "Premium": false,
@@ -15497,7 +15501,7 @@
     {
       "name": "GianBellux_",
       "id": "239383028001013762",
-      "money": 110000,
+      "money": 150000,
       "perUpdate": 10000,
       "xp": 160,
       "Premium": false,
@@ -15533,7 +15537,7 @@
     {
       "name": "President Kitten",
       "id": "268891373678100501",
-      "money": 141564397.5,
+      "money": 142573197.5,
       "perUpdate": 252200,
       "xp": 2456,
       "Premium": false,
@@ -16397,7 +16401,7 @@
     {
       "name": "PettySoulGem",
       "id": "199977394218598401",
-      "money": 563125,
+      "money": 603125,
       "perUpdate": 10000,
       "xp": 792,
       "Premium": false,
@@ -17009,7 +17013,7 @@
     {
       "name": "Syrano",
       "id": "264108463058059275",
-      "money": 2039700,
+      "money": 2942900,
       "perUpdate": 225800,
       "xp": 3316,
       "Premium": false,
@@ -17837,7 +17841,7 @@
     {
       "name": "Vinamaru29",
       "id": "209403442953715713",
-      "money": 7691200,
+      "money": 8046400,
       "perUpdate": 88800,
       "xp": 380,
       "Premium": false,
@@ -18328,7 +18332,7 @@
     {
       "name": "Connorious",
       "id": "145460392620064768",
-      "money": 2477575450,
+      "money": 2797242050,
       "perUpdate": 79916650,
       "xp": 36,
       "Premium": false,
@@ -18363,7 +18367,7 @@
     {
       "name": "Feldspar",
       "id": "164290393528205312",
-      "money": 2768800,
+      "money": 3650600,
       "perUpdate": 220450,
       "xp": 65,
       "Premium": false,
@@ -18398,7 +18402,7 @@
     {
       "name": "HuhWhatGamer",
       "id": "192358081282179073",
-      "money": 1237684,
+      "money": 1425084,
       "perUpdate": 46850,
       "xp": 221,
       "Premium": false,
@@ -18678,7 +18682,7 @@
     {
       "name": "Rashid",
       "id": "203615151876866048",
-      "money": 1049300,
+      "money": 1430300,
       "perUpdate": 95250,
       "xp": 97,
       "Premium": false,
@@ -18748,7 +18752,7 @@
     {
       "name": "Shino Inuzaka",
       "id": "214562930191106049",
-      "money": 735224.5,
+      "money": 775224.5,
       "perUpdate": 10000,
       "xp": 65,
       "Premium": false,
@@ -19553,7 +19557,7 @@
     {
       "name": "Caustic",
       "id": "120294478614495232",
-      "money": 1286003892472500,
+      "money": 1628938263798500,
       "perUpdate": 85733592831500,
       "xp": 301,
       "Premium": true,
@@ -19938,7 +19942,7 @@
     {
       "name": "lagale",
       "id": "271650714030178305",
-      "money": 441650,
+      "money": 625850,
       "perUpdate": 46050,
       "xp": 43725,
       "Premium": false,
@@ -20323,7 +20327,7 @@
     {
       "name": "0mydw",
       "id": "252120194829254656",
-      "money": 1074400,
+      "money": 1327200,
       "perUpdate": 63200,
       "xp": 5,
       "Premium": false,
@@ -21303,7 +21307,7 @@
     {
       "name": "Nader",
       "id": "201465912820367360",
-      "money": 1983080000,
+      "money": 2141726400,
       "perUpdate": 39661600,
       "xp": 20,
       "Premium": true,
@@ -21408,7 +21412,7 @@
     {
       "name": "Chat",
       "id": "149928344811601920",
-      "money": 5157337600237500,
+      "money": 7220272640332500,
       "perUpdate": 515733760023750,
       "xp": 6,
       "Premium": true,
@@ -21478,7 +21482,7 @@
     {
       "name": "Moussard",
       "id": "144501870553989120",
-      "money": 38180450,
+      "money": 52064250,
       "perUpdate": 3470950,
       "xp": 85,
       "Premium": false,
@@ -22073,7 +22077,7 @@
     {
       "name": "Mewth",
       "id": "196970746751352832",
-      "money": 7117200.03,
+      "money": 7157600.03,
       "perUpdate": 10100,
       "xp": 0,
       "Premium": false,
@@ -22143,7 +22147,7 @@
     {
       "name": "Myman",
       "id": "272429089015726080",
-      "money": 4342500,
+      "money": 4689900,
       "perUpdate": 86850,
       "xp": 90,
       "Premium": false,
@@ -22493,7 +22497,7 @@
     {
       "name": "Fanatic",
       "id": "259772298951655434",
-      "money": 9078000,
+      "money": 11214000,
       "perUpdate": 534000,
       "xp": 60,
       "Premium": false,
@@ -22563,7 +22567,7 @@
     {
       "name": "wonder80",
       "id": "252143368627290132",
-      "money": 453650,
+      "money": 513050,
       "perUpdate": 14850,
       "xp": 70,
       "Premium": false,
@@ -22633,7 +22637,7 @@
     {
       "name": "nxto",
       "id": "156010760646950913",
-      "money": 781400.5,
+      "money": 1050200.5,
       "perUpdate": 67200,
       "xp": 632,
       "Premium": false,
@@ -22738,7 +22742,7 @@
     {
       "name": "jamez",
       "id": "253237926329057281",
-      "money": 603200.75,
+      "money": 678600.75,
       "perUpdate": 18850,
       "xp": 525,
       "Premium": false,
@@ -23158,7 +23162,7 @@
     {
       "name": "how",
       "id": "221398736998367233",
-      "money": 358400,
+      "money": 537600,
       "perUpdate": 44800,
       "xp": 85,
       "Premium": false,
@@ -23613,7 +23617,7 @@
     {
       "name": "phodan",
       "id": "258655878402670603",
-      "money": 6250182.41,
+      "money": 6290182.41,
       "perUpdate": 10000,
       "xp": 129,
       "Premium": false,
@@ -23683,7 +23687,7 @@
     {
       "name": "*Pixou(╯°□°）╯︵ ┻━┻ TEKIWOTOMARE",
       "id": "196634178849210368",
-      "money": 3667589900,
+      "money": 4796079100,
       "perUpdate": 282122300,
       "xp": 316158761,
       "Premium": false,
@@ -24208,7 +24212,7 @@
     {
       "name": "Pedrolito",
       "id": "248765193595650048",
-      "money": 943600,
+      "money": 1283400,
       "perUpdate": 84950,
       "xp": 50,
       "Premium": false,
@@ -24523,7 +24527,7 @@
     {
       "name": "What?!",
       "id": "224811700463861761",
-      "money": 5506800,
+      "money": 6118600,
       "perUpdate": 152950,
       "xp": 60,
       "Premium": false,
@@ -24978,7 +24982,7 @@
     {
       "name": "Bedunix",
       "id": "181014535925268480",
-      "money": 1477500,
+      "money": 1517500,
       "perUpdate": 10000,
       "xp": 101,
       "Premium": false,
@@ -25643,7 +25647,7 @@
     {
       "name": "alexszq",
       "id": "255324512080363520",
-      "money": 5239250,
+      "money": 7565650,
       "perUpdate": 581600,
       "xp": 70,
       "Premium": false,
@@ -26063,7 +26067,7 @@
     {
       "name": "Strictly4MyNiggaz",
       "id": "143462553413091328",
-      "money": 190000,
+      "money": 230000,
       "perUpdate": 10000,
       "xp": 1300,
       "Premium": false,
@@ -26168,7 +26172,7 @@
     {
       "name": "SSheps",
       "id": "168105771308023808",
-      "money": 80000,
+      "money": 120000,
       "perUpdate": 10000,
       "xp": 880,
       "Premium": false,
@@ -26203,7 +26207,7 @@
     {
       "name": "Can o' beans",
       "id": "231075045294735361",
-      "money": 5362000,
+      "money": 5402000,
       "perUpdate": 10000,
       "xp": 203,
       "Premium": false,
@@ -26378,7 +26382,7 @@
     {
       "name": "frozen",
       "id": "278558479977938944",
-      "money": 38046550,
+      "money": 43294350,
       "perUpdate": 1311950,
       "xp": 75,
       "Premium": false,
@@ -27323,7 +27327,7 @@
     {
       "name": "CHAPPiE",
       "id": "252121161050226690",
-      "money": 310000,
+      "money": 350000,
       "perUpdate": 10000,
       "xp": 65,
       "Premium": false,
@@ -27463,7 +27467,7 @@
     {
       "name": "Buzz",
       "id": "231064214230401024",
-      "money": 190000,
+      "money": 230000,
       "perUpdate": 10000,
       "xp": 110,
       "Premium": false,
@@ -27568,7 +27572,7 @@
     {
       "name": "SoLaR",
       "id": "142725884359475200",
-      "money": 190000,
+      "money": 230000,
       "perUpdate": 10000,
       "xp": 486,
       "Premium": false,
@@ -28373,7 +28377,7 @@
     {
       "name": "GONE",
       "id": "274737314586951681",
-      "money": 9852812.3,
+      "money": 9923212.3,
       "perUpdate": 17600,
       "xp": 52,
       "Premium": false,
@@ -28723,7 +28727,7 @@
     {
       "name": "leader jr.",
       "id": "281558074324418571",
-      "money": 9796416.5,
+      "money": 9837416.5,
       "perUpdate": 10250,
       "xp": 50,
       "Premium": false,
@@ -28793,7 +28797,7 @@
     {
       "name": "AlmostNigga",
       "id": "245483606343024640",
-      "money": 340000,
+      "money": 380000,
       "perUpdate": 10000,
       "xp": 590,
       "Premium": false,
@@ -28828,7 +28832,7 @@
     {
       "name": "Arion",
       "id": "245483118981545985",
-      "money": 411250,
+      "money": 458250,
       "perUpdate": 11750,
       "xp": 234,
       "Premium": false,
@@ -28863,7 +28867,7 @@
     {
       "name": "Minou",
       "id": "119082639029174272",
-      "money": 4813600,
+      "money": 5251200,
       "perUpdate": 109400,
       "xp": 1576,
       "Premium": false,
@@ -28968,7 +28972,7 @@
     {
       "name": "Tofu",
       "id": "280633779935117312",
-      "money": 1959124400,
+      "money": 2272583000,
       "perUpdate": 78364650,
       "xp": 12,
       "Premium": false,
@@ -29983,7 +29987,7 @@
     {
       "name": "Syntaxfehler",
       "id": "213420388741283840",
-      "money": 540000,
+      "money": 733600,
       "perUpdate": 48400,
       "xp": 271,
       "Premium": false,
@@ -30053,7 +30057,7 @@
     {
       "name": "Fek",
       "id": "279987998735466496",
-      "money": 260000,
+      "money": 300000,
       "perUpdate": 10000,
       "xp": 10,
       "Premium": false,
@@ -30683,7 +30687,7 @@
     {
       "name": "TheProfessor",
       "id": "161746215237713920",
-      "money": 410000,
+      "money": 450000,
       "perUpdate": 10000,
       "xp": 30,
       "Premium": false,
@@ -30718,7 +30722,7 @@
     {
       "name": "ceceanator",
       "id": "273183948522258436",
-      "money": 6558587.5,
+      "money": 6598587.5,
       "perUpdate": 10000,
       "xp": 170,
       "Premium": false,
@@ -31138,7 +31142,7 @@
     {
       "name": "SSBBsniper",
       "id": "163232670086594560",
-      "money": 857500,
+      "money": 955500,
       "perUpdate": 24500,
       "xp": 115,
       "Premium": false,
@@ -31628,7 +31632,7 @@
     {
       "name": "XGN Icon",
       "id": "142544516644077568",
-      "money": 1728450,
+      "money": 2029050,
       "perUpdate": 75150,
       "xp": 23,
       "Premium": false,
@@ -32083,7 +32087,7 @@
     {
       "name": "XGN Panda520",
       "id": "150288523214192640",
-      "money": 358308900,
+      "money": 489252700,
       "perUpdate": 32735950,
       "xp": 18,
       "Premium": false,
@@ -32258,7 +32262,7 @@
     {
       "name": "Mushroom",
       "id": "247466738919145474",
-      "money": 321200,
+      "money": 438000,
       "perUpdate": 29200,
       "xp": 105,
       "Premium": false,
@@ -32433,7 +32437,7 @@
     {
       "name": "Deroxel",
       "id": "265895877078548490",
-      "money": 1872000,
+      "money": 2184000,
       "perUpdate": 78000,
       "xp": 13175,
       "Premium": false,
@@ -32748,7 +32752,7 @@
     {
       "name": "big juanie",
       "id": "282290259549487115",
-      "money": 190000,
+      "money": 230000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -34078,7 +34082,7 @@
     {
       "name": "NOB",
       "id": "195030624073940992",
-      "money": 81437490672112,
+      "money": 90744632462312,
       "perUpdate": 2326785447550,
       "xp": 60,
       "Premium": false,
@@ -34428,7 +34432,7 @@
     {
       "name": "Skewr",
       "id": "156459512927223809",
-      "money": 7981450,
+      "money": 10436050,
       "perUpdate": 613650,
       "xp": 41,
       "Premium": true,
@@ -34463,7 +34467,7 @@
     {
       "name": "meme lord",
       "id": "236906920378630146",
-      "money": 913900,
+      "money": 1195100,
       "perUpdate": 70300,
       "xp": 58,
       "Premium": false,
@@ -34988,7 +34992,7 @@
     {
       "name": "fonixgm",
       "id": "272728301414383618",
-      "money": 160000,
+      "money": 200000,
       "perUpdate": 10000,
       "xp": 1055,
       "Premium": false,
@@ -35198,7 +35202,7 @@
     {
       "name": "CrystalPoke",
       "id": "261556739223191552",
-      "money": 2834587.5,
+      "money": 2874587.5,
       "perUpdate": 10000,
       "xp": 75,
       "Premium": false,
@@ -35793,7 +35797,7 @@
     {
       "name": "Rehynebrowz",
       "id": "224357998158544896",
-      "money": 736800,
+      "money": 921000,
       "perUpdate": 46050,
       "xp": 26,
       "Premium": false,
@@ -36003,7 +36007,7 @@
     {
       "name": "ricefields",
       "id": "281017853086531584",
-      "money": 380000,
+      "money": 420000,
       "perUpdate": 10000,
       "xp": 986,
       "Premium": false,
@@ -36038,7 +36042,7 @@
     {
       "name": "TipToeByTheWindow",
       "id": "281647731754270725",
-      "money": 386650,
+      "money": 428450,
       "perUpdate": 10450,
       "xp": 220,
       "Premium": false,
@@ -36073,7 +36077,7 @@
     {
       "name": "assenpie",
       "id": "281651580371992578",
-      "money": 490000,
+      "money": 530000,
       "perUpdate": 10000,
       "xp": 736,
       "Premium": false,
@@ -36143,7 +36147,7 @@
     {
       "name": "sojuju",
       "id": "282218732384813059",
-      "money": 380000,
+      "money": 420000,
       "perUpdate": 10000,
       "xp": 95,
       "Premium": false,
@@ -37718,7 +37722,7 @@
     {
       "name": "Penguin",
       "id": "202526766152024064",
-      "money": 2429900,
+      "money": 2636700,
       "perUpdate": 51700,
       "xp": 240,
       "Premium": false,
@@ -38418,7 +38422,7 @@
     {
       "name": "kenramasama",
       "id": "225273536002916352",
-      "money": 16447681,
+      "money": 16487681,
       "perUpdate": 10000,
       "xp": 290,
       "Premium": false,
@@ -39153,7 +39157,7 @@
     {
       "name": "AKMan8",
       "id": "282355023382315008",
-      "money": 4212500.25,
+      "money": 4252500.25,
       "perUpdate": 10000,
       "xp": 285,
       "Premium": false,
@@ -39433,7 +39437,7 @@
     {
       "name": "poca",
       "id": "209833174639837184",
-      "money": 2216655,
+      "money": 2311655,
       "perUpdate": 23750,
       "xp": 25,
       "Premium": false,
@@ -40028,7 +40032,7 @@
     {
       "name": "J3rb3ar",
       "id": "219323547129085952",
-      "money": 480000,
+      "money": 520000,
       "perUpdate": 10000,
       "xp": 141,
       "Premium": false,
@@ -41218,7 +41222,7 @@
     {
       "name": "Jay",
       "id": "251169971554615296",
-      "money": 909351600,
+      "money": 995944400,
       "perUpdate": 21648200,
       "xp": 2514,
       "Premium": false,
@@ -41253,7 +41257,7 @@
     {
       "name": "Shaughn",
       "id": "176076504583634945",
-      "money": 25424000,
+      "money": 27966400,
       "perUpdate": 635600,
       "xp": 579,
       "Premium": false,
@@ -41288,7 +41292,7 @@
     {
       "name": "Beetopher",
       "id": "251170951004160001",
-      "money": 8592400,
+      "money": 10325200,
       "perUpdate": 433200,
       "xp": 2258,
       "Premium": false,
@@ -41638,7 +41642,7 @@
     {
       "name": "Vex",
       "id": "235110039071883274",
-      "money": 131300,
+      "money": 171700,
       "perUpdate": 10100,
       "xp": 123,
       "Premium": false,
@@ -42723,7 +42727,7 @@
     {
       "name": "redtyler3000d",
       "id": "271431923895631875",
-      "money": 1467300,
+      "money": 1507500,
       "perUpdate": 10050,
       "xp": 100,
       "Premium": false,
@@ -42898,7 +42902,7 @@
     {
       "name": "Shakes_Eraz",
       "id": "217325703878803456",
-      "money": 2287571207100,
+      "money": 3202599519300,
       "perUpdate": 228757078050,
       "xp": 152,
       "Premium": false,
@@ -42933,7 +42937,7 @@
     {
       "name": "Micael Alighieri",
       "id": "169523570186125313",
-      "money": 4290000,
+      "money": 4330000,
       "perUpdate": 10000,
       "xp": 1450,
       "Premium": false,
@@ -43493,7 +43497,7 @@
     {
       "name": "AsianWizard",
       "id": "256522625411448843",
-      "money": 805800,
+      "money": 981000,
       "perUpdate": 43800,
       "xp": 145,
       "Premium": false,
@@ -43878,7 +43882,7 @@
     {
       "name": "Jenkinsva",
       "id": "284156154106347520",
-      "money": 329850,
+      "money": 493650,
       "perUpdate": 40950,
       "xp": 50,
       "Premium": false,
@@ -45313,7 +45317,7 @@
     {
       "name": "Mata",
       "id": "208001224782381056",
-      "money": 224714.06,
+      "money": 283914.06,
       "perUpdate": 14800,
       "xp": 541,
       "Premium": false,
@@ -45453,7 +45457,7 @@
     {
       "name": "Decix",
       "id": "144941266575163393",
-      "money": 1619200,
+      "money": 2024000,
       "perUpdate": 101200,
       "xp": 168,
       "Premium": false,
@@ -45523,7 +45527,7 @@
     {
       "name": "The Great Ratsby",
       "id": "157183377089363969",
-      "money": 846350.19,
+      "money": 1065950.19,
       "perUpdate": 54900,
       "xp": 179,
       "Premium": false,
@@ -45733,7 +45737,7 @@
     {
       "name": "UltraWolf",
       "id": "236997716905820161",
-      "money": 3375300,
+      "money": 3704100,
       "perUpdate": 82200,
       "xp": 181,
       "Premium": false,
@@ -46958,7 +46962,7 @@
     {
       "name": "scowan11",
       "id": "239348156783919104",
-      "money": 462709375,
+      "money": 531190175,
       "perUpdate": 17120200,
       "xp": 1451,
       "Premium": false,
@@ -48358,7 +48362,7 @@
     {
       "name": "i am no.1",
       "id": "238952323907452928",
-      "money": 152613969,
+      "money": 161826969,
       "perUpdate": 2303250,
       "xp": 443,
       "Premium": false,
@@ -48568,7 +48572,7 @@
     {
       "name": "Frost.Metsu",
       "id": "204552606427774976",
-      "money": 397350,
+      "money": 486750,
       "perUpdate": 22350,
       "xp": 2,
       "Premium": false,
@@ -48603,7 +48607,7 @@
     {
       "name": "SeekerStriker",
       "id": "188759136513556480",
-      "money": 2690000,
+      "money": 2730000,
       "perUpdate": 10000,
       "xp": 105,
       "Premium": false,
@@ -48673,7 +48677,7 @@
     {
       "name": "Zombieslaya103",
       "id": "195444581339234304",
-      "money": 5578654088,
+      "money": 8058055488,
       "perUpdate": 619850350,
       "xp": 94,
       "Premium": false,
@@ -49898,7 +49902,7 @@
     {
       "name": "Just Abir...",
       "id": "257298791965655040",
-      "money": 70995592500,
+      "money": 84518562500,
       "perUpdate": 3380742500,
       "xp": 440,
       "Premium": false,
@@ -50143,7 +50147,7 @@
     {
       "name": "Storm1",
       "id": "113797420932005890",
-      "money": 522600,
+      "money": 562800,
       "perUpdate": 10050,
       "xp": 147,
       "Premium": false,
@@ -50423,7 +50427,7 @@
     {
       "name": "birb",
       "id": "195092855084023809",
-      "money": 2737466020.34,
+      "money": 2839131620.34,
       "perUpdate": 25416400,
       "xp": 1229,
       "Premium": false,
@@ -50738,7 +50742,7 @@
     {
       "name": "GrimeTingSavior",
       "id": "257237385832562690",
-      "money": 2732469861800,
+      "money": 3122822699200,
       "perUpdate": 97588209350,
       "xp": 90,
       "Premium": false,
@@ -51963,7 +51967,7 @@
     {
       "name": "♡ Kira ♡",
       "id": "285452439275175936",
-      "money": 1005336362044500,
+      "money": 1273426058589700,
       "perUpdate": 67022424136300,
       "xp": 133,
       "Premium": false,
@@ -52383,7 +52387,7 @@
     {
       "name": "Devin",
       "id": "240556074648731648",
-      "money": 4795325,
+      "money": 4835325,
       "perUpdate": 10000,
       "xp": 1752,
       "Premium": false,
@@ -52453,7 +52457,7 @@
     {
       "name": "Johnson",
       "id": "243464611268001792",
-      "money": 162400,
+      "money": 208800,
       "perUpdate": 11600,
       "xp": 755,
       "Premium": false,
@@ -52523,7 +52527,7 @@
     {
       "name": "Darrien",
       "id": "122308716463652874",
-      "money": 2498950,
+      "money": 2539150,
       "perUpdate": 10050,
       "xp": 187,
       "Premium": false,
@@ -52908,7 +52912,7 @@
     {
       "name": "sungRa",
       "id": "221142825356623872",
-      "money": 1342600,
+      "money": 1452200,
       "perUpdate": 27400,
       "xp": 137,
       "Premium": false,
@@ -53223,7 +53227,7 @@
     {
       "name": "vinny",
       "id": "181187371864162304",
-      "money": 822090,
+      "money": 900490,
       "perUpdate": 19600,
       "xp": 460,
       "Premium": false,
@@ -53538,7 +53542,7 @@
     {
       "name": "Jay Triton",
       "id": "252113050704805890",
-      "money": 350000,
+      "money": 390000,
       "perUpdate": 10000,
       "xp": 160,
       "Premium": false,
@@ -53573,7 +53577,7 @@
     {
       "name": "Morro",
       "id": "160867308288475136",
-      "money": 222200,
+      "money": 262600,
       "perUpdate": 10100,
       "xp": 384,
       "Premium": false,
@@ -53608,7 +53612,7 @@
     {
       "name": "Flapjack30",
       "id": "229417000483553282",
-      "money": 526000,
+      "money": 585200,
       "perUpdate": 14800,
       "xp": 218,
       "Premium": false,
@@ -53713,7 +53717,7 @@
     {
       "name": "XGN GrimRock",
       "id": "285613199678636033",
-      "money": 18178000,
+      "money": 19370000,
       "perUpdate": 298000,
       "xp": 82,
       "Premium": false,
@@ -54028,7 +54032,7 @@
     {
       "name": "Josh1",
       "id": "176097758434951168",
-      "money": 90000,
+      "money": 130000,
       "perUpdate": 10000,
       "xp": 80,
       "Premium": false,
@@ -54168,7 +54172,7 @@
     {
       "name": "JustKiing",
       "id": "195323814484246528",
-      "money": 4110000,
+      "money": 4150000,
       "perUpdate": 10000,
       "xp": 55,
       "Premium": false,
@@ -54203,7 +54207,7 @@
     {
       "name": "Ironide Inferno",
       "id": "169560943087321088",
-      "money": 690000,
+      "money": 730000,
       "perUpdate": 10000,
       "xp": 55,
       "Premium": false,
@@ -54728,7 +54732,7 @@
     {
       "name": "Ohn™",
       "id": "209130764745441282",
-      "money": 1292800,
+      "money": 1333200,
       "perUpdate": 10100,
       "xp": 30,
       "Premium": false,
@@ -54763,7 +54767,7 @@
     {
       "name": "Frestho",
       "id": "200403504051781634",
-      "money": 327482499.5,
+      "money": 354770099.5,
       "perUpdate": 6821900,
       "xp": 19,
       "Premium": false,
@@ -54868,7 +54872,7 @@
     {
       "name": "Declan",
       "id": "193094571293540352",
-      "money": 240000,
+      "money": 280000,
       "perUpdate": 10000,
       "xp": 1026,
       "Premium": false,
@@ -55218,7 +55222,7 @@
     {
       "name": "tvan",
       "id": "221195127497031680",
-      "money": 494000,
+      "money": 540400,
       "perUpdate": 11600,
       "xp": 305,
       "Premium": false,
@@ -55428,7 +55432,7 @@
     {
       "name": "Crowley",
       "id": "93372276396785664",
-      "money": 1098500,
+      "money": 1138500,
       "perUpdate": 10000,
       "xp": 374,
       "Premium": false,
@@ -55463,7 +55467,7 @@
     {
       "name": "Dircas",
       "id": "97406171681415168",
-      "money": 496000000000,
+      "money": 744000000000,
       "perUpdate": 62000000000,
       "xp": 45,
       "Premium": false,
@@ -55498,7 +55502,7 @@
     {
       "name": "-🐻 Noah🐻 -",
       "id": "237647711204016128",
-      "money": 10364703000,
+      "money": 10561854600,
       "perUpdate": 49287900,
       "xp": 77,
       "Premium": false,
@@ -55533,7 +55537,7 @@
     {
       "name": "Keredo",
       "id": "181829357386465280",
-      "money": 244880184700,
+      "money": 367320273300,
       "perUpdate": 30610022150,
       "xp": 21,
       "Premium": false,
@@ -55568,7 +55572,7 @@
     {
       "name": "Yuki",
       "id": "250317208885002250",
-      "money": 126000000001300,
+      "money": 130000000001500,
       "perUpdate": 1000000000050,
       "xp": 115,
       "Premium": false,
@@ -55813,7 +55817,7 @@
     {
       "name": "Kaname",
       "id": "242033677675134978",
-      "money": 52960000,
+      "money": 53000000,
       "perUpdate": 10000,
       "xp": 491,
       "Premium": false,
@@ -55883,7 +55887,7 @@
     {
       "name": "Master Drunk",
       "id": "272101545057845249",
-      "money": 1252384803201.2998,
+      "money": 1419369442601.2998,
       "perUpdate": 41746159850,
       "xp": 50,
       "Premium": false,
@@ -56093,7 +56097,7 @@
     {
       "name": "Maât the Monster.",
       "id": "214059407586230282",
-      "money": 12310698950,
+      "money": 18466046750,
       "perUpdate": 1538836950,
       "xp": 17,
       "Premium": false,
@@ -56233,7 +56237,7 @@
     {
       "name": "Liaen",
       "id": "233839718490439681",
-      "money": 4590175.25,
+      "money": 4630175.25,
       "perUpdate": 10000,
       "xp": 76,
       "Premium": false,
@@ -56268,7 +56272,7 @@
     {
       "name": "Nymphariel",
       "id": "118049477205557254",
-      "money": 207000000000,
+      "money": 259000000000,
       "perUpdate": 13000000000,
       "xp": 190,
       "Premium": false,
@@ -56338,7 +56342,7 @@
     {
       "name": "-Crenshaw-",
       "id": "204944313237504001",
-      "money": 10476000000,
+      "money": 12676000000,
       "perUpdate": 550000000,
       "xp": 78,
       "Premium": false,
@@ -56583,7 +56587,7 @@
     {
       "name": "Asugi",
       "id": "254329560609456129",
-      "money": 36944120000,
+      "money": 42592160000,
       "perUpdate": 1412010000,
       "xp": 175,
       "Premium": false,
@@ -56723,7 +56727,7 @@
     {
       "name": "Yukina♤",
       "id": "269568445492887563",
-      "money": 18274687785.1,
+      "money": 18554759385.1,
       "perUpdate": 70017900,
       "xp": 75,
       "Premium": false,
@@ -56758,7 +56762,7 @@
     {
       "name": "Walker-sama | ウォーカー様",
       "id": "175942361816367104",
-      "money": 2560000,
+      "money": 2600000,
       "perUpdate": 10000,
       "xp": 195,
       "Premium": false,
@@ -57388,7 +57392,7 @@
     {
       "name": "XanTo",
       "id": "197747426273001472",
-      "money": 194846400,
+      "money": 259795200,
       "perUpdate": 16237200,
       "xp": 1786,
       "Premium": false,
@@ -57423,7 +57427,7 @@
     {
       "name": "Fūu (말린 씨앗) 👀",
       "id": "203472657646092290",
-      "money": 3270000,
+      "money": 3310000,
       "perUpdate": 10000,
       "xp": 175,
       "Premium": false,
@@ -57633,7 +57637,7 @@
     {
       "name": "Mastorz",
       "id": "220418725520605184",
-      "money": 583200,
+      "money": 626400,
       "perUpdate": 10800,
       "xp": 77,
       "Premium": false,
@@ -57808,7 +57812,7 @@
     {
       "name": "🐬Dofin🐬",
       "id": "162358793244639232",
-      "money": 6064020300,
+      "money": 7929872700,
       "perUpdate": 466463100,
       "xp": 1193,
       "Premium": false,
@@ -57913,7 +57917,7 @@
     {
       "name": "Ness",
       "id": "269314884347363330",
-      "money": 10192600,
+      "money": 10233000,
       "perUpdate": 10100,
       "xp": 83,
       "Premium": false,
@@ -58648,7 +58652,7 @@
     {
       "name": "Patrickc63",
       "id": "144931080393195520",
-      "money": 358800,
+      "money": 414000,
       "perUpdate": 13800,
       "xp": 135,
       "Premium": false,
@@ -59488,7 +59492,7 @@
     {
       "name": "Yukino 🌙",
       "id": "134789144491720704",
-      "money": 3950000,
+      "money": 3990000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -60083,7 +60087,7 @@
     {
       "name": "Ediakin",
       "id": "228193486015299585",
-      "money": 97671600,
+      "money": 114657200,
       "perUpdate": 4246400,
       "xp": 85203,
       "Premium": false,
@@ -60398,7 +60402,7 @@
     {
       "name": "Nom",
       "id": "212310658522284033",
-      "money": 1495600.94,
+      "money": 1695600.94,
       "perUpdate": 50000,
       "xp": 50,
       "Premium": false,
@@ -60713,7 +60717,7 @@
     {
       "name": "SίrZøkxyrøη",
       "id": "135027717656543232",
-      "money": 320000.75,
+      "money": 360000.75,
       "perUpdate": 10000,
       "xp": 60,
       "Premium": false,
@@ -60958,7 +60962,7 @@
     {
       "name": "Jacob Moore",
       "id": "149361020027011074",
-      "money": 215600,
+      "money": 338800,
       "perUpdate": 30800,
       "xp": 265,
       "Premium": false,
@@ -64143,7 +64147,7 @@
     {
       "name": "최세영",
       "id": "103325874308251648",
-      "money": 21251300,
+      "money": 33394900,
       "perUpdate": 3035900,
       "xp": 79,
       "Premium": false,
@@ -64178,7 +64182,7 @@
     {
       "name": "Lazy Boxy",
       "id": "137261481183019009",
-      "money": 350000.75,
+      "money": 390000.75,
       "perUpdate": 10000,
       "xp": 76,
       "Premium": false,
@@ -64423,7 +64427,7 @@
     {
       "name": "Ender",
       "id": "176461723740536832",
-      "money": 308000,
+      "money": 364000,
       "perUpdate": 14000,
       "xp": 140,
       "Premium": false,
@@ -64528,7 +64532,7 @@
     {
       "name": "Đeku",
       "id": "190904554999513088",
-      "money": 3174431652,
+      "money": 4020944452,
       "perUpdate": 211628200,
       "xp": 78,
       "Premium": false,
@@ -65018,7 +65022,7 @@
     {
       "name": "frogbreath1",
       "id": "205898607432302592",
-      "money": 1223100,
+      "money": 1313700,
       "perUpdate": 22650,
       "xp": 67,
       "Premium": false,
@@ -65193,7 +65197,7 @@
     {
       "name": "The Traveler",
       "id": "190376235128455168",
-      "money": 1360304680000,
+      "money": 1486844598400,
       "perUpdate": 31634979600,
       "xp": 48,
       "Premium": false,
@@ -66873,7 +66877,7 @@
     {
       "name": "ManofWar61 [RDDT]",
       "id": "189802007614324737",
-      "money": 1142203600,
+      "money": 1349846800,
       "perUpdate": 51910800,
       "xp": 35,
       "Premium": false,
@@ -67293,7 +67297,7 @@
     {
       "name": "Esispadion",
       "id": "219166168089493504",
-      "money": 59295800,
+      "money": 77539800,
       "perUpdate": 4561000,
       "xp": 63,
       "Premium": false,
@@ -67328,7 +67332,7 @@
     {
       "name": "Xenon",
       "id": "201696995142926337",
-      "money": 56749200,
+      "money": 74024400,
       "perUpdate": 4318800,
       "xp": 2670,
       "Premium": false,
@@ -67468,7 +67472,7 @@
     {
       "name": "`Je suis malchance",
       "id": "124029407202377728",
-      "money": 1143700,
+      "money": 1198500,
       "perUpdate": 13700,
       "xp": 3265,
       "Premium": false,
@@ -67503,7 +67507,7 @@
     {
       "name": "kennyS",
       "id": "257449947509555200",
-      "money": 163364201300,
+      "money": 201802836900,
       "perUpdate": 9609658900,
       "xp": 35,
       "Premium": false,
@@ -68063,7 +68067,7 @@
     {
       "name": "Yami no masuku",
       "id": "222159555751051264",
-      "money": 66862350,
+      "money": 89149150,
       "perUpdate": 5571700,
       "xp": 501540,
       "Premium": false,
@@ -68203,7 +68207,7 @@
     {
       "name": "ortatasak",
       "id": "202198864202039296",
-      "money": 280000,
+      "money": 320000,
       "perUpdate": 10000,
       "xp": 265,
       "Premium": false,
@@ -68378,7 +68382,7 @@
     {
       "name": "Tikops",
       "id": "130805416048328704",
-      "money": 2221545600,
+      "money": 3332318400,
       "perUpdate": 277693200,
       "xp": 1795,
       "Premium": false,
@@ -68448,7 +68452,7 @@
     {
       "name": "Trit",
       "id": "216268808447328257",
-      "money": 160000,
+      "money": 200000,
       "perUpdate": 10000,
       "xp": 206,
       "Premium": false,
@@ -69008,7 +69012,7 @@
     {
       "name": "Goodfellaa",
       "id": "155909180769828864",
-      "money": 52288350,
+      "money": 61793550,
       "perUpdate": 2376300,
       "xp": 10,
       "Premium": false,
@@ -69078,7 +69082,7 @@
     {
       "name": "Spa_Bruisend",
       "id": "256098948714987521",
-      "money": 282000,
+      "money": 334800,
       "perUpdate": 13200,
       "xp": 299,
       "Premium": false,
@@ -69183,7 +69187,7 @@
     {
       "name": "Shiny, The Creator",
       "id": "207939234961686528",
-      "money": 319823600,
+      "money": 319863600,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -69288,7 +69292,7 @@
     {
       "name": "HentaiHaven",
       "id": "246501477315641344",
-      "money": 1771750,
+      "money": 1846350,
       "perUpdate": 18650,
       "xp": 167,
       "Premium": false,
@@ -69743,7 +69747,7 @@
     {
       "name": "Dimitrou",
       "id": "209812964310515713",
-      "money": 279139519050,
+      "money": 332308951250,
       "perUpdate": 13292358050,
       "xp": 997,
       "Premium": false,
@@ -69848,7 +69852,7 @@
     {
       "name": "meme-nation",
       "id": "287069690520666113",
-      "money": 10612000,
+      "money": 10684000,
       "perUpdate": 18000,
       "xp": 270,
       "Premium": false,
@@ -69883,7 +69887,7 @@
     {
       "name": "noyansyl",
       "id": "226755332565762049",
-      "money": 160000,
+      "money": 200000,
       "perUpdate": 10000,
       "xp": 80,
       "Premium": false,
@@ -70023,7 +70027,7 @@
     {
       "name": "Claeryan",
       "id": "131171123655213056",
-      "money": 170400,
+      "money": 213000,
       "perUpdate": 10650,
       "xp": 25,
       "Premium": false,
@@ -71773,7 +71777,7 @@
     {
       "name": "thekingisrollin",
       "id": "234736941235568650",
-      "money": 352300,
+      "money": 460700,
       "perUpdate": 27100,
       "xp": 52,
       "Premium": false,
@@ -73173,7 +73177,7 @@
     {
       "name": "MassiveMyatt",
       "id": "227860964870062081",
-      "money": 1509000,
+      "money": 1911400,
       "perUpdate": 100600,
       "xp": 95,
       "Premium": false,
@@ -73243,7 +73247,7 @@
     {
       "name": "Coop",
       "id": "155552029421469696",
-      "money": 4550000,
+      "money": 4590000,
       "perUpdate": 10000,
       "xp": 615,
       "Premium": false,
@@ -73278,7 +73282,7 @@
     {
       "name": "TheMatsku",
       "id": "191931299433283584",
-      "money": 593600,
+      "money": 678400,
       "perUpdate": 21200,
       "xp": 146,
       "Premium": false,
@@ -73313,7 +73317,7 @@
     {
       "name": "Ken Kaneki",
       "id": "235820714467393537",
-      "money": 984500500,
+      "money": 1230624900,
       "perUpdate": 61531100,
       "xp": 4,
       "Premium": false,
@@ -73348,7 +73352,7 @@
     {
       "name": "Deadtoads",
       "id": "140152407010181120",
-      "money": 3458550,
+      "money": 3935150,
       "perUpdate": 119150,
       "xp": 18,
       "Premium": true,
@@ -73418,7 +73422,7 @@
     {
       "name": "Mr2Exil5D",
       "id": "230565456531030016",
-      "money": 508607100,
+      "money": 734654700,
       "perUpdate": 56511900,
       "xp": 165,
       "Premium": false,
@@ -73523,7 +73527,7 @@
     {
       "name": "Patrick360NL",
       "id": "265135311497986048",
-      "money": 61775003863.37,
+      "money": 61775181463.37,
       "perUpdate": 44400,
       "xp": 209472,
       "Premium": false,
@@ -73593,7 +73597,7 @@
     {
       "name": "TheGuyWhoGames777",
       "id": "99596460005269504",
-      "money": 338800,
+      "money": 387200,
       "perUpdate": 12100,
       "xp": 238,
       "Premium": false,
@@ -73663,7 +73667,7 @@
     {
       "name": "Layle74",
       "id": "230362851771023370",
-      "money": 2392336000,
+      "money": 2512052800,
       "perUpdate": 29929200,
       "xp": 120,
       "Premium": false,
@@ -73698,7 +73702,7 @@
     {
       "name": "hehe xd",
       "id": "280042109552033792",
-      "money": 213200,
+      "money": 278800,
       "perUpdate": 16400,
       "xp": 129,
       "Premium": false,
@@ -73733,7 +73737,7 @@
     {
       "name": "ELIAS",
       "id": "181363264884703232",
-      "money": 452400.5,
+      "money": 498800.5,
       "perUpdate": 11600,
       "xp": 75,
       "Premium": false,
@@ -73803,7 +73807,7 @@
     {
       "name": "ZeusesNeckMeat",
       "id": "226747451380465665",
-      "money": 221100,
+      "money": 261300,
       "perUpdate": 10050,
       "xp": 87,
       "Premium": false,
@@ -73838,7 +73842,7 @@
     {
       "name": "enzu",
       "id": "197410026007035904",
-      "money": 170000,
+      "money": 210000,
       "perUpdate": 10000,
       "xp": 1409,
       "Premium": false,
@@ -73873,7 +73877,7 @@
     {
       "name": "Drag",
       "id": "182204906751393795",
-      "money": 141400,
+      "money": 181800,
       "perUpdate": 10100,
       "xp": 105,
       "Premium": false,
@@ -74118,7 +74122,7 @@
     {
       "name": "XGN Blaziken323",
       "id": "279447626410360832",
-      "money": 3917000,
+      "money": 4100400,
       "perUpdate": 45850,
       "xp": 27,
       "Premium": false,
@@ -74258,7 +74262,7 @@
     {
       "name": "XGN Mdeezy94",
       "id": "288735891600703489",
-      "money": 102164750,
+      "money": 103401750,
       "perUpdate": 309250,
       "xp": 65,
       "Premium": false,
@@ -74503,7 +74507,7 @@
     {
       "name": "Luuk",
       "id": "227045102940323841",
-      "money": 19309751600,
+      "money": 19326611600,
       "perUpdate": 4215000,
       "xp": 329785,
       "Premium": false,
@@ -74538,7 +74542,7 @@
     {
       "name": "Geoffrey",
       "id": "232234720828588032",
-      "money": 1011350684,
+      "money": 1011829084,
       "perUpdate": 119600,
       "xp": 1269,
       "Premium": false,
@@ -74608,7 +74612,7 @@
     {
       "name": "Siblik33",
       "id": "173383100091334657",
-      "money": 100000.99,
+      "money": 140000.99,
       "perUpdate": 10000,
       "xp": 1102,
       "Premium": false,
@@ -74678,7 +74682,7 @@
     {
       "name": "BUBA",
       "id": "197380242875219969",
-      "money": 180000,
+      "money": 220000,
       "perUpdate": 10000,
       "xp": 255,
       "Premium": false,
@@ -74818,7 +74822,7 @@
     {
       "name": "Emilia Sama",
       "id": "211321817309118464",
-      "money": 1994500,
+      "money": 2436100,
       "perUpdate": 110400,
       "xp": 15,
       "Premium": false,
@@ -74853,7 +74857,7 @@
     {
       "name": "Sol3",
       "id": "162489683954237441",
-      "money": 987000,
+      "money": 1067400,
       "perUpdate": 20100,
       "xp": 86,
       "Premium": false,
@@ -74888,7 +74892,7 @@
     {
       "name": "Rayen10",
       "id": "281895385658687490",
-      "money": 1677094,
+      "money": 1726694,
       "perUpdate": 12400,
       "xp": 50,
       "Premium": false,
@@ -75203,7 +75207,7 @@
     {
       "name": "tcgmanaloa",
       "id": "283411840288161793",
-      "money": 4954800,
+      "money": 6606400,
       "perUpdate": 412900,
       "xp": 26,
       "Premium": false,
@@ -75238,7 +75242,7 @@
     {
       "name": "Tyler1",
       "id": "251534418118836226",
-      "money": 250000,
+      "money": 290000,
       "perUpdate": 10000,
       "xp": 345,
       "Premium": false,
@@ -75343,7 +75347,7 @@
     {
       "name": "SMEGNINJA",
       "id": "266610204936765440",
-      "money": 2349600,
+      "money": 2776800,
       "perUpdate": 106800,
       "xp": 58,
       "Premium": false,
@@ -75658,7 +75662,7 @@
     {
       "name": "R9AP",
       "id": "263930046534647808",
-      "money": 1915000,
+      "money": 1955000,
       "perUpdate": 10000,
       "xp": 385,
       "Premium": false,
@@ -75728,7 +75732,7 @@
     {
       "name": "fegon",
       "id": "150749113657458688",
-      "money": 226500,
+      "money": 286900,
       "perUpdate": 15100,
       "xp": 5,
       "Premium": false,
@@ -75938,7 +75942,7 @@
     {
       "name": "Hi look at me its Brad Pitt",
       "id": "255748764533391360",
-      "money": 210000,
+      "money": 250000,
       "perUpdate": 10000,
       "xp": 15,
       "Premium": false,
@@ -76043,7 +76047,7 @@
     {
       "name": "Rachie",
       "id": "220242057120186369",
-      "money": 84354978750,
+      "money": 106849639750,
       "perUpdate": 5623665250,
       "xp": 958,
       "Premium": true,
@@ -76253,7 +76257,7 @@
     {
       "name": "Seb",
       "id": "175001269298135041",
-      "money": 2937552415.91,
+      "money": 2937602415.91,
       "perUpdate": 12500,
       "xp": 32,
       "Premium": false,
@@ -76358,7 +76362,7 @@
     {
       "name": "Singularity",
       "id": "194605136587390977",
-      "money": 602400,
+      "money": 687200,
       "perUpdate": 21200,
       "xp": 45,
       "Premium": false,
@@ -76603,7 +76607,7 @@
     {
       "name": "swadtheking",
       "id": "250740096133890048",
-      "money": 347175,
+      "money": 390175,
       "perUpdate": 10750,
       "xp": 0,
       "Premium": false,
@@ -76638,7 +76642,7 @@
     {
       "name": "Adem",
       "id": "177002097110286336",
-      "money": 903366200.88,
+      "money": 904723200.88,
       "perUpdate": 339250,
       "xp": 3066,
       "Premium": false,
@@ -76988,7 +76992,7 @@
     {
       "name": "HellOnWheels",
       "id": "246001183003508736",
-      "money": 83756474000,
+      "money": 94225986000,
       "perUpdate": 2617378000,
       "xp": 30,
       "Premium": false,
@@ -77198,7 +77202,7 @@
     {
       "name": "Rapturex87",
       "id": "270423181506904064",
-      "money": 5180982.5,
+      "money": 5220982.5,
       "perUpdate": 10000,
       "xp": 118,
       "Premium": false,
@@ -77233,7 +77237,7 @@
     {
       "name": "► Shinigami / 死神 ◄",
       "id": "224643985690329088",
-      "money": 1101261200,
+      "money": 1230820600,
       "perUpdate": 32389850,
       "xp": 60,
       "Premium": false,
@@ -77303,7 +77307,7 @@
     {
       "name": "Keesh",
       "id": "132394714484834304",
-      "money": 1788125,
+      "money": 1828125,
       "perUpdate": 10000,
       "xp": 56,
       "Premium": false,
@@ -77653,7 +77657,7 @@
     {
       "name": "Abridged Vegeta",
       "id": "256912688020455436",
-      "money": 740100,
+      "money": 780100,
       "perUpdate": 10000,
       "xp": 10,
       "Premium": false,
@@ -77793,7 +77797,7 @@
     {
       "name": "teku_steven [DRS1A][CLAN LEAD]",
       "id": "218217693709336577",
-      "money": 647600,
+      "money": 700400,
       "perUpdate": 13200,
       "xp": 0,
       "Premium": false,
@@ -77933,7 +77937,7 @@
     {
       "name": "DemonWolf",
       "id": "104781632166223872",
-      "money": 557100,
+      "money": 617100,
       "perUpdate": 15000,
       "xp": 0,
       "Premium": false,
@@ -78003,7 +78007,7 @@
     {
       "name": "TheBossPenguin02",
       "id": "242660717730332674",
-      "money": 1597995705135.1602,
+      "money": 1934412878935.1602,
       "perUpdate": 84104293450,
       "xp": 81,
       "Premium": false,
@@ -78038,7 +78042,7 @@
     {
       "name": "DragonRider101",
       "id": "284982459395866624",
-      "money": 1464000,
+      "money": 1504000,
       "perUpdate": 10000,
       "xp": 137,
       "Premium": false,
@@ -78318,7 +78322,7 @@
     {
       "name": "Calverino",
       "id": "191537586542608384",
-      "money": 1862500.31,
+      "money": 1902500.31,
       "perUpdate": 10000,
       "xp": 56,
       "Premium": false,
@@ -78703,7 +78707,7 @@
     {
       "name": "Platzak",
       "id": "232958954131423243",
-      "money": 5564646628.809998,
+      "money": 5565987428.809998,
       "perUpdate": 335200,
       "xp": 2385,
       "Premium": false,
@@ -78773,7 +78777,7 @@
     {
       "name": "GoodVisuals",
       "id": "168083134112333824",
-      "money": 3081705,
+      "money": 3144305,
       "perUpdate": 15650,
       "xp": 50,
       "Premium": false,
@@ -79053,7 +79057,7 @@
     {
       "name": "_Warlord",
       "id": "250593115860107264",
-      "money": 5093634351,
+      "money": 5103691951,
       "perUpdate": 2514400,
       "xp": 156,
       "Premium": false,
@@ -79193,7 +79197,7 @@
     {
       "name": "Because Boobs",
       "id": "163383498139369472",
-      "money": 181500,
+      "money": 221500,
       "perUpdate": 10000,
       "xp": 4218,
       "Premium": false,
@@ -79333,7 +79337,7 @@
     {
       "name": "MysticalarYT",
       "id": "273210102465429504",
-      "money": 3075075.75,
+      "money": 3115075.75,
       "perUpdate": 10000,
       "xp": 70,
       "Premium": false,
@@ -79508,7 +79512,7 @@
     {
       "name": "Aramas",
       "id": "281799081062563851",
-      "money": 2827239,
+      "money": 2905439,
       "perUpdate": 19550,
       "xp": 85,
       "Premium": false,
@@ -79648,7 +79652,7 @@
     {
       "name": "Desiruim",
       "id": "262260300785385475",
-      "money": 90000.25,
+      "money": 130000.25,
       "perUpdate": 10000,
       "xp": 174,
       "Premium": false,
@@ -79718,7 +79722,7 @@
     {
       "name": "wozak",
       "id": "197064555875139587",
-      "money": 385675.38,
+      "money": 425675.38,
       "perUpdate": 10000,
       "xp": 569,
       "Premium": false,
@@ -79998,7 +80002,7 @@
     {
       "name": "Kryssh",
       "id": "289171293666934785",
-      "money": 156800,
+      "money": 202800,
       "perUpdate": 11500,
       "xp": 14,
       "Premium": false,
@@ -80138,7 +80142,7 @@
     {
       "name": "Haren",
       "id": "123878777506889731",
-      "money": 140000,
+      "money": 180000,
       "perUpdate": 10000,
       "xp": 196,
       "Premium": false,
@@ -80243,7 +80247,7 @@
     {
       "name": "Adam",
       "id": "202533660178644993",
-      "money": 160000,
+      "money": 200000,
       "perUpdate": 10000,
       "xp": 81,
       "Premium": false,
@@ -80278,7 +80282,7 @@
     {
       "name": "Peculiar Penguin",
       "id": "266816497878302721",
-      "money": 1630077.5,
+      "money": 1670077.5,
       "perUpdate": 10000,
       "xp": 2951,
       "Premium": false,
@@ -80313,7 +80317,7 @@
     {
       "name": "wibuxx",
       "id": "287595107971104770",
-      "money": 211200,
+      "money": 264000,
       "perUpdate": 13200,
       "xp": 16,
       "Premium": false,
@@ -80418,7 +80422,7 @@
     {
       "name": "Noobpunter",
       "id": "181188577076576256",
-      "money": 589450,
+      "money": 691850,
       "perUpdate": 25600,
       "xp": 55,
       "Premium": false,
@@ -80558,7 +80562,7 @@
     {
       "name": "☣Basterrx☣",
       "id": "195874747207254017",
-      "money": 152630750,
+      "money": 172324350,
       "perUpdate": 4923400,
       "xp": 5,
       "Premium": false,
@@ -80698,7 +80702,7 @@
     {
       "name": "Bi'l",
       "id": "193180783261777920",
-      "money": 5478349.33,
+      "money": 5518349.33,
       "perUpdate": 10000,
       "xp": 2591,
       "Premium": false,
@@ -80838,7 +80842,7 @@
     {
       "name": "Empireback",
       "id": "185085107810467840",
-      "money": 193148381056.88,
+      "money": 194109051856.88,
       "perUpdate": 240167700,
       "xp": 1497,
       "Premium": false,
@@ -80873,7 +80877,7 @@
     {
       "name": "Otakyu~",
       "id": "181851031032954880",
-      "money": 551600,
+      "money": 630400,
       "perUpdate": 19700,
       "xp": 110,
       "Premium": false,
@@ -80908,7 +80912,7 @@
     {
       "name": "dylanwang25",
       "id": "255155531688181761",
-      "money": 23187354.02999997,
+      "money": 36268554.02999997,
       "perUpdate": 3270300,
       "xp": 81,
       "Premium": false,
@@ -80978,7 +80982,7 @@
     {
       "name": "anton-johansson",
       "id": "251443216555966464",
-      "money": 331500,
+      "money": 379500,
       "perUpdate": 12000,
       "xp": 0,
       "Premium": false,
@@ -81013,7 +81017,7 @@
     {
       "name": "Chijje",
       "id": "264731100956327936",
-      "money": 260000,
+      "money": 300000,
       "perUpdate": 10000,
       "xp": 40,
       "Premium": false,
@@ -81048,7 +81052,7 @@
     {
       "name": "tbslol",
       "id": "236879613358243840",
-      "money": 261300.75,
+      "money": 301500.75,
       "perUpdate": 10050,
       "xp": 85,
       "Premium": false,
@@ -81153,7 +81157,7 @@
     {
       "name": "Douswan",
       "id": "205471728275554304",
-      "money": 802000,
+      "money": 858000,
       "perUpdate": 14000,
       "xp": 130,
       "Premium": false,
@@ -81223,7 +81227,7 @@
     {
       "name": "Denzii",
       "id": "290484427518115842",
-      "money": 24115000,
+      "money": 28938000,
       "perUpdate": 1205750,
       "xp": 851,
       "Premium": false,
@@ -81258,7 +81262,7 @@
     {
       "name": "𝓛𝓲𝓪𝓶",
       "id": "223733178773405698",
-      "money": 110150,
+      "money": 150150,
       "perUpdate": 10000,
       "xp": 821,
       "Premium": false,
@@ -81293,7 +81297,7 @@
     {
       "name": "dananaplane",
       "id": "288120205173981185",
-      "money": 551812.5,
+      "money": 591812.5,
       "perUpdate": 10000,
       "xp": 36,
       "Premium": false,
@@ -81328,7 +81332,7 @@
     {
       "name": "DWID Reflectz",
       "id": "284806952389836810",
-      "money": 144563.25,
+      "money": 184563.25,
       "perUpdate": 10000,
       "xp": 182,
       "Premium": false,
@@ -81398,7 +81402,7 @@
     {
       "name": "Maj",
       "id": "136528293703843840",
-      "money": 137500,
+      "money": 192500,
       "perUpdate": 13750,
       "xp": 40,
       "Premium": false,
@@ -81748,7 +81752,7 @@
     {
       "name": "Timothys",
       "id": "155374677743632384",
-      "money": 945000,
+      "money": 985000,
       "perUpdate": 10000,
       "xp": 25,
       "Premium": false,
@@ -81923,7 +81927,7 @@
     {
       "name": "TheManofPow",
       "id": "166321391405236224",
-      "money": 774900.5,
+      "money": 840900.5,
       "perUpdate": 16500,
       "xp": 80,
       "Premium": false,
@@ -81993,7 +81997,7 @@
     {
       "name": "Donut",
       "id": "277944616806776832",
-      "money": 100000,
+      "money": 140000,
       "perUpdate": 10000,
       "xp": 260,
       "Premium": false,
@@ -82028,7 +82032,7 @@
     {
       "name": "Tommmmmmmmmmmmm",
       "id": "272280628089847808",
-      "money": 140000,
+      "money": 180000,
       "perUpdate": 10000,
       "xp": 146,
       "Premium": false,
@@ -82133,7 +82137,7 @@
     {
       "name": "deluxe1029",
       "id": "165639193580666882",
-      "money": 480000,
+      "money": 520000,
       "perUpdate": 10000,
       "xp": 40,
       "Premium": false,
@@ -82168,7 +82172,7 @@
     {
       "name": "xfdbigps",
       "id": "246127311122857985",
-      "money": 10153750,
+      "money": 10194750,
       "perUpdate": 10250,
       "xp": 146,
       "Premium": false,
@@ -82238,7 +82242,7 @@
     {
       "name": "shyguy729",
       "id": "252933706602381312",
-      "money": 160000,
+      "money": 200000,
       "perUpdate": 10000,
       "xp": 65,
       "Premium": false,
@@ -82623,7 +82627,7 @@
     {
       "name": "Link (Hero of Hyrule)",
       "id": "239968357384847363",
-      "money": 1360000,
+      "money": 1400000,
       "perUpdate": 10000,
       "xp": 15,
       "Premium": false,
@@ -82693,7 +82697,7 @@
     {
       "name": "YuuRu",
       "id": "235595260619653122",
-      "money": 812250,
+      "money": 890050,
       "perUpdate": 19450,
       "xp": 40,
       "Premium": false,
@@ -83043,7 +83047,7 @@
     {
       "name": "XGNv4Chaos",
       "id": "273138473672638464",
-      "money": 3703989,
+      "money": 3743989,
       "perUpdate": 10000,
       "xp": 120,
       "Premium": false,
@@ -83638,7 +83642,7 @@
     {
       "name": "Harlelelele",
       "id": "201892041339174913",
-      "money": 51639187206.53,
+      "money": 51640588806.53,
       "perUpdate": 350400,
       "xp": 1378,
       "Premium": false,
@@ -83848,7 +83852,7 @@
     {
       "name": "UniverzalRobot",
       "id": "125063467358093312",
-      "money": 2967320000,
+      "money": 2973563200,
       "perUpdate": 1560800,
       "xp": 52592,
       "Premium": false,
@@ -83953,7 +83957,7 @@
     {
       "name": "Malachy",
       "id": "179312499529613313",
-      "money": 142525,
+      "money": 182525,
       "perUpdate": 10000,
       "xp": 60,
       "Premium": false,
@@ -84373,7 +84377,7 @@
     {
       "name": "TearingPilot",
       "id": "235119403375656970",
-      "money": 10000208800,
+      "money": 10000252800,
       "perUpdate": 11000,
       "xp": 1012,
       "Premium": false,
@@ -84478,7 +84482,7 @@
     {
       "name": "ZWACX",
       "id": "288347286398959618",
-      "money": 160000,
+      "money": 200000,
       "perUpdate": 10000,
       "xp": 245,
       "Premium": false,
@@ -84513,7 +84517,7 @@
     {
       "name": "Erkku The Wiz Khalifa",
       "id": "287592033709719552",
-      "money": 280000,
+      "money": 320000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -84548,7 +84552,7 @@
     {
       "name": "yroGT",
       "id": "261927411610943488",
-      "money": 140000,
+      "money": 180000,
       "perUpdate": 10000,
       "xp": 75,
       "Premium": false,
@@ -85143,7 +85147,7 @@
     {
       "name": "TheStonedBear",
       "id": "245397897569501184",
-      "money": 3401128.58,
+      "money": 3441128.58,
       "perUpdate": 10000,
       "xp": 80,
       "Premium": false,
@@ -85178,7 +85182,7 @@
     {
       "name": "inamo bobo",
       "id": "218413983282102273",
-      "money": 1604000,
+      "money": 1644000,
       "perUpdate": 10000,
       "xp": 86,
       "Premium": false,
@@ -85528,7 +85532,7 @@
     {
       "name": "Niggaboss2000",
       "id": "282247927110565888",
-      "money": 871515,
+      "money": 911515,
       "perUpdate": 10000,
       "xp": 100,
       "Premium": false,
@@ -85878,7 +85882,7 @@
     {
       "name": "Yan~Chan",
       "id": "223926938446725120",
-      "money": 1133328,
+      "money": 1173328,
       "perUpdate": 10000,
       "xp": 197,
       "Premium": false,
@@ -85913,7 +85917,7 @@
     {
       "name": "iSpy",
       "id": "160380819528089600",
-      "money": 710000,
+      "money": 750000,
       "perUpdate": 10000,
       "xp": 111,
       "Premium": false,
@@ -86053,7 +86057,7 @@
     {
       "name": "freetyler1hehexd",
       "id": "184284973367427073",
-      "money": 1425000,
+      "money": 1485000,
       "perUpdate": 15000,
       "xp": 55,
       "Premium": false,
@@ -86123,7 +86127,7 @@
     {
       "name": "bigfoot",
       "id": "205018943583289344",
-      "money": 4554375,
+      "money": 4594375,
       "perUpdate": 10000,
       "xp": 1500,
       "Premium": false,
@@ -86193,7 +86197,7 @@
     {
       "name": "Shadoo",
       "id": "112563663725932544",
-      "money": 490171.25,
+      "money": 530171.25,
       "perUpdate": 10000,
       "xp": 151,
       "Premium": false,
@@ -86403,7 +86407,7 @@
     {
       "name": "Tempus",
       "id": "210974328320294912",
-      "money": 2582501.94,
+      "money": 2622501.94,
       "perUpdate": 10000,
       "xp": 15,
       "Premium": false,
@@ -86613,7 +86617,7 @@
     {
       "name": "Seth𓅓✔",
       "id": "242090042699415553",
-      "money": 2057612.5,
+      "money": 2097612.5,
       "perUpdate": 10000,
       "xp": 3388,
       "Premium": false,
@@ -86648,7 +86652,7 @@
     {
       "name": "stick figured potato",
       "id": "276935747246751744",
-      "money": 510000.59,
+      "money": 550000.5900000001,
       "perUpdate": 10000,
       "xp": 2672,
       "Premium": false,
@@ -86858,7 +86862,7 @@
     {
       "name": "𝓛𝓮𝓶𝔁𝓸𝓷",
       "id": "226863310220296194",
-      "money": 4565791600,
+      "money": 4990516400,
       "perUpdate": 106181200,
       "xp": 1492,
       "Premium": false,
@@ -86998,7 +87002,7 @@
     {
       "name": "SpiciestPenny",
       "id": "105154809157447680",
-      "money": 390000,
+      "money": 430000,
       "perUpdate": 10000,
       "xp": 10,
       "Premium": false,
@@ -87068,7 +87072,7 @@
     {
       "name": "𝅳𝅳𝅳",
       "id": "149671793496555521",
-      "money": 2471000,
+      "money": 2511000,
       "perUpdate": 10000,
       "xp": 550,
       "Premium": false,
@@ -87138,7 +87142,7 @@
     {
       "name": "Mister_Mayor",
       "id": "118198489627754498",
-      "money": 450997.5,
+      "money": 490997.5,
       "perUpdate": 10000,
       "xp": 1435,
       "Premium": false,
@@ -87208,7 +87212,7 @@
     {
       "name": "Emperor ⚡ Ectoshock",
       "id": "170014481794072578",
-      "money": 450000,
+      "money": 490000,
       "perUpdate": 10000,
       "xp": 346,
       "Premium": false,
@@ -87243,7 +87247,7 @@
     {
       "name": "saintottawa",
       "id": "237621783677763584",
-      "money": 97212.88,
+      "money": 140412.88,
       "perUpdate": 10800,
       "xp": 166,
       "Premium": false,
@@ -87383,7 +87387,7 @@
     {
       "name": "M1thras",
       "id": "213674516180762624",
-      "money": 410000,
+      "money": 450000,
       "perUpdate": 10000,
       "xp": 276,
       "Premium": false,
@@ -87768,7 +87772,7 @@
     {
       "name": "BakenBaconGaming",
       "id": "239198378360045569",
-      "money": 1060400.75,
+      "money": 1101200.75,
       "perUpdate": 10200,
       "xp": 180,
       "Premium": false,
@@ -88048,7 +88052,7 @@
     {
       "name": "Jay1",
       "id": "161943462000721921",
-      "money": 1021142,
+      "money": 1061142,
       "perUpdate": 10000,
       "xp": 42,
       "Premium": false,
@@ -88118,7 +88122,7 @@
     {
       "name": "f0ltex",
       "id": "197046603780063232",
-      "money": 197500,
+      "money": 237500,
       "perUpdate": 10000,
       "xp": 57,
       "Premium": false,
@@ -88223,7 +88227,7 @@
     {
       "name": "Clarence",
       "id": "280972737005092865",
-      "money": 859070,
+      "money": 899070,
       "perUpdate": 10000,
       "xp": 57,
       "Premium": false,
@@ -89168,7 +89172,7 @@
     {
       "name": "Philibooty",
       "id": "143153921047789569",
-      "money": 530000,
+      "money": 570000,
       "perUpdate": 10000,
       "xp": 204,
       "Premium": false,
@@ -89238,7 +89242,7 @@
     {
       "name": "XGN Rosie Stone",
       "id": "142142128825303041",
-      "money": 232300,
+      "money": 272700,
       "perUpdate": 10100,
       "xp": 18,
       "Premium": false,
@@ -89273,7 +89277,7 @@
     {
       "name": "XGN DINOSAUR 7 DIR",
       "id": "142260024029216768",
-      "money": 100000,
+      "money": 140000,
       "perUpdate": 10000,
       "xp": 914,
       "Premium": false,
@@ -89308,7 +89312,7 @@
     {
       "name": "GandhiNiqqa",
       "id": "202385723117142018",
-      "money": 530000,
+      "money": 570000,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -89483,7 +89487,7 @@
     {
       "name": "XGN Lil Stiffy (PS FNDR)",
       "id": "145963276650545153",
-      "money": 2095000,
+      "money": 2135000,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -89728,7 +89732,7 @@
     {
       "name": "XGN WildSnipe64(4thLT)",
       "id": "285264753847435264",
-      "money": 109900,
+      "money": 162700,
       "perUpdate": 13200,
       "xp": 335,
       "Premium": false,
@@ -89763,7 +89767,7 @@
     {
       "name": "XGN ArchaicJakl",
       "id": "261726426330431489",
-      "money": 228950,
+      "money": 277150,
       "perUpdate": 12050,
       "xp": 93,
       "Premium": false,
@@ -90393,7 +90397,7 @@
     {
       "name": "im not ded yet",
       "id": "196144294451609600",
-      "money": 1606400,
+      "money": 1807200,
       "perUpdate": 50200,
       "xp": 401,
       "Premium": false,
@@ -90463,7 +90467,7 @@
     {
       "name": "Arch Vsauce",
       "id": "183448250622148609",
-      "money": 400001,
+      "money": 440001,
       "perUpdate": 10000,
       "xp": 95,
       "Premium": false,
@@ -90988,7 +90992,7 @@
     {
       "name": "Brella",
       "id": "224630623698944000",
-      "money": 700132.5,
+      "money": 740132.5,
       "perUpdate": 10000,
       "xp": 85,
       "Premium": false,
@@ -91268,7 +91272,7 @@
     {
       "name": "Fluen_",
       "id": "254695004792946690",
-      "money": 270150,
+      "money": 310150,
       "perUpdate": 10000,
       "xp": 117,
       "Premium": false,
@@ -91583,7 +91587,7 @@
     {
       "name": "Northernzx",
       "id": "212024366249148417",
-      "money": 1553150,
+      "money": 1593550,
       "perUpdate": 10100,
       "xp": 2,
       "Premium": false,
@@ -91688,7 +91692,7 @@
     {
       "name": "Morgan",
       "id": "111125954406907904",
-      "money": 100156000,
+      "money": 100197600,
       "perUpdate": 10400,
       "xp": 20,
       "Premium": false,
@@ -91723,7 +91727,7 @@
     {
       "name": "Daanmaate",
       "id": "109467115035037696",
-      "money": 1719375,
+      "money": 1761375,
       "perUpdate": 10500,
       "xp": 205,
       "Premium": false,
@@ -91758,7 +91762,7 @@
     {
       "name": "PigMan",
       "id": "110860184162664448",
-      "money": 810000,
+      "money": 850000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -91898,7 +91902,7 @@
     {
       "name": "I'm not that fast",
       "id": "289128034252881920",
-      "money": 80000,
+      "money": 120000,
       "perUpdate": 10000,
       "xp": 174,
       "Premium": false,
@@ -92353,7 +92357,7 @@
     {
       "name": "XGN hansolo44",
       "id": "143225524980809728",
-      "money": 150000,
+      "money": 190000,
       "perUpdate": 10000,
       "xp": 299,
       "Premium": false,
@@ -92388,7 +92392,7 @@
     {
       "name": "SomeOldGuy",
       "id": "212190264704368640",
-      "money": 124172400,
+      "money": 169326000,
       "perUpdate": 11288400,
       "xp": 2554,
       "Premium": false,
@@ -92423,7 +92427,7 @@
     {
       "name": "Plureth",
       "id": "212190523593719808",
-      "money": 516716800,
+      "money": 645896000,
       "perUpdate": 32294800,
       "xp": 369,
       "Premium": false,
@@ -92493,7 +92497,7 @@
     {
       "name": "Azkiar",
       "id": "145952990765907969",
-      "money": 271590000,
+      "money": 370350000,
       "perUpdate": 24690000,
       "xp": 224,
       "Premium": false,
@@ -92528,7 +92532,7 @@
     {
       "name": "fireball999",
       "id": "212307879376584707",
-      "money": 2748860400,
+      "money": 3748446000,
       "perUpdate": 249896400,
       "xp": 642373,
       "Premium": false,
@@ -92843,7 +92847,7 @@
     {
       "name": "Hunter The One",
       "id": "277252171974705152",
-      "money": 1176847.45,
+      "money": 1217447.45,
       "perUpdate": 10150,
       "xp": 1047,
       "Premium": false,
@@ -92983,7 +92987,7 @@
     {
       "name": "MrPooGu🎸🎸",
       "id": "189498819136716809",
-      "money": 2546180.29,
+      "money": 2587780.29,
       "perUpdate": 10400,
       "xp": 793,
       "Premium": false,
@@ -93018,7 +93022,7 @@
     {
       "name": "T_Kong64",
       "id": "262708497861312512",
-      "money": 725000,
+      "money": 765000,
       "perUpdate": 10000,
       "xp": 70,
       "Premium": false,
@@ -93193,7 +93197,7 @@
     {
       "name": "Moosucow",
       "id": "83652520039178240",
-      "money": 2085700,
+      "money": 2171900,
       "perUpdate": 21550,
       "xp": 267118,
       "Premium": true,
@@ -93298,7 +93302,7 @@
     {
       "name": "sim.turbo",
       "id": "143255942497042432",
-      "money": 1472500,
+      "money": 1512500,
       "perUpdate": 10000,
       "xp": 111,
       "Premium": false,
@@ -93333,7 +93337,7 @@
     {
       "name": "Remy | NPQ",
       "id": "237111771096154112",
-      "money": 8517327980.349998,
+      "money": 8713350380.349998,
       "perUpdate": 49005600,
       "xp": 1899,
       "Premium": false,
@@ -93473,7 +93477,7 @@
     {
       "name": "Faketoads",
       "id": "291748748714049536",
-      "money": 1080000,
+      "money": 1120000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -93508,7 +93512,7 @@
     {
       "name": "XGN Radiant (1CPT)",
       "id": "156886732426575873",
-      "money": 1874996,
+      "money": 1914996,
       "perUpdate": 10000,
       "xp": 51,
       "Premium": false,
@@ -93893,7 +93897,7 @@
     {
       "name": "Peen Peen",
       "id": "123580059423473665",
-      "money": 468700,
+      "money": 512300,
       "perUpdate": 10900,
       "xp": 256,
       "Premium": false,
@@ -94033,7 +94037,7 @@
     {
       "name": "《¤BŁAĐE¤》",
       "id": "82840520224673792",
-      "money": 400000,
+      "money": 440000,
       "perUpdate": 10000,
       "xp": 256,
       "Premium": false,
@@ -94278,7 +94282,7 @@
     {
       "name": "zhaiboyyyyyyyy",
       "id": "230284908134662144",
-      "money": 2022813750,
+      "money": 2022853750,
       "perUpdate": 10000,
       "xp": 86,
       "Premium": false,
@@ -94313,7 +94317,7 @@
     {
       "name": "Xenzo",
       "id": "234182624019480578",
-      "money": 92800,
+      "money": 139200,
       "perUpdate": 11600,
       "xp": 12,
       "Premium": false,
@@ -94628,7 +94632,7 @@
     {
       "name": "Madnessflip (Revive Bow)",
       "id": "204386963455737856",
-      "money": 4457200,
+      "money": 6078000,
       "perUpdate": 405200,
       "xp": 1651,
       "Premium": false,
@@ -95328,7 +95332,7 @@
     {
       "name": "ECKO",
       "id": "145725722131038208",
-      "money": 1176648,
+      "money": 1224048,
       "perUpdate": 11850,
       "xp": 70,
       "Premium": false,
@@ -95433,7 +95437,7 @@
     {
       "name": "Holira",
       "id": "161988617294708736",
-      "money": 809000,
+      "money": 849000,
       "perUpdate": 10000,
       "xp": 350,
       "Premium": false,
@@ -95468,7 +95472,7 @@
     {
       "name": "Addster",
       "id": "243757407216336896",
-      "money": 232470,
+      "money": 272470,
       "perUpdate": 10000,
       "xp": 66,
       "Premium": false,
@@ -95503,7 +95507,7 @@
     {
       "name": "tappy",
       "id": "110772525151043584",
-      "money": 90000,
+      "money": 130000,
       "perUpdate": 10000,
       "xp": 287,
       "Premium": false,
@@ -95608,7 +95612,7 @@
     {
       "name": "Daddy1",
       "id": "198492067423453184",
-      "money": 295200,
+      "money": 360800,
       "perUpdate": 16400,
       "xp": 2904,
       "Premium": false,
@@ -95993,7 +95997,7 @@
     {
       "name": "axzon",
       "id": "236878973555048448",
-      "money": 260000,
+      "money": 300000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -96028,7 +96032,7 @@
     {
       "name": "Nicke",
       "id": "287637321271214080",
-      "money": 873750,
+      "money": 913750,
       "perUpdate": 10000,
       "xp": 25,
       "Premium": false,
@@ -96063,7 +96067,7 @@
     {
       "name": "Spicy Meatball",
       "id": "269573592176394243",
-      "money": 1810000,
+      "money": 1850000,
       "perUpdate": 10000,
       "xp": 90,
       "Premium": false,
@@ -96378,7 +96382,7 @@
     {
       "name": "Tensiechi",
       "id": "263417997291552789",
-      "money": 3685133.84,
+      "money": 3775933.84,
       "perUpdate": 22700,
       "xp": 5372,
       "Premium": false,
@@ -96588,7 +96592,7 @@
     {
       "name": "XGN FLOWSIDE",
       "id": "188072843760762881",
-      "money": 21570000,
+      "money": 21610000,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -96763,7 +96767,7 @@
     {
       "name": "Farrell",
       "id": "276792136542715905",
-      "money": 1644500,
+      "money": 1684500,
       "perUpdate": 10000,
       "xp": 35,
       "Premium": false,
@@ -97008,7 +97012,7 @@
     {
       "name": "Axiatinc",
       "id": "192357135290597376",
-      "money": 193850908.95,
+      "money": 193890908.95,
       "perUpdate": 10000,
       "xp": 2502,
       "Premium": false,
@@ -97078,7 +97082,7 @@
     {
       "name": "XGN SynysterA7X(LT2)",
       "id": "257429037205553152",
-      "money": 678587.5,
+      "money": 718587.5,
       "perUpdate": 10000,
       "xp": 120,
       "Premium": false,
@@ -97253,7 +97257,7 @@
     {
       "name": "SaggingWharf",
       "id": "291376481551253505",
-      "money": 10137650,
+      "money": 10588050,
       "perUpdate": 112600,
       "xp": 86,
       "Premium": false,
@@ -97463,7 +97467,7 @@
     {
       "name": "champage",
       "id": "270100833197096961",
-      "money": 1026249,
+      "money": 1066249,
       "perUpdate": 10000,
       "xp": 55,
       "Premium": false,
@@ -97918,7 +97922,7 @@
     {
       "name": "Shmuel",
       "id": "274660551655686144",
-      "money": 1141789.4100000001,
+      "money": 1192589.4100000001,
       "perUpdate": 12700,
       "xp": 27,
       "Premium": false,
@@ -97988,7 +97992,7 @@
     {
       "name": "elder elijah (cow)",
       "id": "187809609736650752",
-      "money": 1002937.5,
+      "money": 1042937.5,
       "perUpdate": 10000,
       "xp": 40,
       "Premium": false,
@@ -98163,7 +98167,7 @@
     {
       "name": "Zeph",
       "id": "210966180247240715",
-      "money": 408917.86,
+      "money": 448917.86,
       "perUpdate": 10000,
       "xp": 677,
       "Premium": false,
@@ -98268,7 +98272,7 @@
     {
       "name": "XGN Huskey (MAJ)",
       "id": "271076758072197120",
-      "money": 1123600,
+      "money": 1208400,
       "perUpdate": 21200,
       "xp": 596,
       "Premium": false,
@@ -98933,7 +98937,7 @@
     {
       "name": "watchyourbak",
       "id": "234805369870745631",
-      "money": 510000,
+      "money": 550000,
       "perUpdate": 10000,
       "xp": 88,
       "Premium": false,
@@ -99283,7 +99287,7 @@
     {
       "name": "ObsidianGamer_GR",
       "id": "218038047982223362",
-      "money": 907500,
+      "money": 947500,
       "perUpdate": 10000,
       "xp": 25,
       "Premium": false,
@@ -99318,7 +99322,7 @@
     {
       "name": "[]",
       "id": "95517267428642816",
-      "money": 160750,
+      "money": 200750,
       "perUpdate": 10000,
       "xp": 20,
       "Premium": false,
@@ -99353,7 +99357,7 @@
     {
       "name": "qυιм",
       "id": "124201624225841152",
-      "money": 96800,
+      "money": 145200,
       "perUpdate": 12100,
       "xp": 17,
       "Premium": false,
@@ -99983,7 +99987,7 @@
     {
       "name": "Massimiliano",
       "id": "241999877628887040",
-      "money": 130000,
+      "money": 170000,
       "perUpdate": 10000,
       "xp": 30,
       "Premium": false,
@@ -100298,7 +100302,7 @@
     {
       "name": "SuperDuperLooper",
       "id": "184694655202361355",
-      "money": 140000,
+      "money": 180000,
       "perUpdate": 10000,
       "xp": 52,
       "Premium": false,
@@ -100438,7 +100442,7 @@
     {
       "name": "potpie99",
       "id": "277915667502465026",
-      "money": 90000.75,
+      "money": 130000.75,
       "perUpdate": 10000,
       "xp": 45,
       "Premium": false,
@@ -100473,7 +100477,7 @@
     {
       "name": "Lights",
       "id": "140311471006547968",
-      "money": 460000,
+      "money": 500000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -100683,7 +100687,7 @@
     {
       "name": "Amnesia",
       "id": "224410431295324170",
-      "money": 1773125,
+      "money": 1813125,
       "perUpdate": 10000,
       "xp": 77,
       "Premium": false,
@@ -100788,7 +100792,7 @@
     {
       "name": "Gizmo",
       "id": "286966886359498752",
-      "money": 460000,
+      "money": 500000,
       "perUpdate": 10000,
       "xp": 31,
       "Premium": false,
@@ -100823,7 +100827,7 @@
     {
       "name": "Junior",
       "id": "284157997360611340",
-      "money": 726530,
+      "money": 766530,
       "perUpdate": 10000,
       "xp": 828,
       "Premium": false,
@@ -100928,7 +100932,7 @@
     {
       "name": "razzjoey",
       "id": "274381772270338048",
-      "money": 400000.18000000005,
+      "money": 440000.18000000005,
       "perUpdate": 10000,
       "xp": 51,
       "Premium": false,
@@ -100963,7 +100967,7 @@
     {
       "name": "XGN DJPurp (2LT)",
       "id": "250829420602851329",
-      "money": 933750,
+      "money": 973750,
       "perUpdate": 10000,
       "xp": 33,
       "Premium": false,
@@ -100998,7 +101002,7 @@
     {
       "name": "Rion♛",
       "id": "219871283800702979",
-      "money": 203395,
+      "money": 243995,
       "perUpdate": 10150,
       "xp": 0,
       "Premium": false,
@@ -101033,7 +101037,7 @@
     {
       "name": "Welfare",
       "id": "274396973090734090",
-      "money": 954933,
+      "money": 994933,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -101138,7 +101142,7 @@
     {
       "name": "XGN DerangedOne",
       "id": "174672791663149056",
-      "money": 80000,
+      "money": 120000,
       "perUpdate": 10000,
       "xp": 65,
       "Premium": false,
@@ -101173,7 +101177,7 @@
     {
       "name": "✘𝓐𝓃𝓉𝒾𝓈𝑜𝒸𝒾𝒶𝓁.𝓛",
       "id": "130526624004177920",
-      "money": 510000,
+      "money": 550000,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -101243,7 +101247,7 @@
     {
       "name": "Bloody1",
       "id": "186715819437326337",
-      "money": 460000,
+      "money": 500000,
       "perUpdate": 10000,
       "xp": 166,
       "Premium": false,
@@ -101383,7 +101387,7 @@
     {
       "name": "xXFiReNaTioNXx",
       "id": "249282459735162882",
-      "money": 451550,
+      "money": 491550,
       "perUpdate": 10000,
       "xp": 217,
       "Premium": false,
@@ -101943,7 +101947,7 @@
     {
       "name": "Flöwer",
       "id": "216148878171439104",
-      "money": 37782750,
+      "money": 47826150,
       "perUpdate": 2510850,
       "xp": 20,
       "Premium": false,
@@ -102048,7 +102052,7 @@
     {
       "name": "xxxDaxxManxx",
       "id": "280448848919396354",
-      "money": 200000,
+      "money": 240000,
       "perUpdate": 10000,
       "xp": 52,
       "Premium": false,
@@ -102083,7 +102087,7 @@
     {
       "name": "🅱y  🅱exual",
       "id": "292411448829804555",
-      "money": 590000,
+      "money": 630000,
       "perUpdate": 10000,
       "xp": 20,
       "Premium": false,
@@ -102153,7 +102157,7 @@
     {
       "name": "icy.",
       "id": "207539878311886848",
-      "money": 140000.75,
+      "money": 180000.75,
       "perUpdate": 10000,
       "xp": 125,
       "Premium": false,
@@ -102223,7 +102227,7 @@
     {
       "name": "OlidaPotato",
       "id": "260136028973694977",
-      "money": 130078.29000000001,
+      "money": 170078.29,
       "perUpdate": 10000,
       "xp": 176,
       "Premium": false,
@@ -102433,7 +102437,7 @@
     {
       "name": "Nick_Doge",
       "id": "252232052437549056",
-      "money": 837500,
+      "money": 877500,
       "perUpdate": 10000,
       "xp": 333,
       "Premium": false,
@@ -102468,7 +102472,7 @@
     {
       "name": "I want to die",
       "id": "252231957100888064",
-      "money": 597500,
+      "money": 637500,
       "perUpdate": 10000,
       "xp": 10,
       "Premium": false,
@@ -102503,7 +102507,7 @@
     {
       "name": "freddieisbest73",
       "id": "225037558835445760",
-      "money": 200000.25,
+      "money": 240000.25,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -102538,7 +102542,7 @@
     {
       "name": "jdrouin21",
       "id": "252250231012327425",
-      "money": 1109331.25,
+      "money": 1149331.25,
       "perUpdate": 10000,
       "xp": 20,
       "Premium": false,
@@ -102608,7 +102612,7 @@
     {
       "name": "Luckjustluck",
       "id": "166265203477053440",
-      "money": 440750,
+      "money": 480750,
       "perUpdate": 10000,
       "xp": 15,
       "Premium": false,
@@ -102678,7 +102682,7 @@
     {
       "name": "Doorless",
       "id": "238118874967441409",
-      "money": 321202,
+      "money": 361402,
       "perUpdate": 10050,
       "xp": 70,
       "Premium": false,
@@ -102713,7 +102717,7 @@
     {
       "name": "Toasty Whale",
       "id": "201229647302754304",
-      "money": 207928.75,
+      "money": 247928.75,
       "perUpdate": 10000,
       "xp": 15,
       "Premium": false,
@@ -102748,7 +102752,7 @@
     {
       "name": "Deemoo",
       "id": "261675978957389824",
-      "money": 584028.75,
+      "money": 624028.75,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -102783,7 +102787,7 @@
     {
       "name": "𝅳𝅳𝅳𝅳",
       "id": "121349646978121728",
-      "money": 590000,
+      "money": 630000,
       "perUpdate": 10000,
       "xp": 87,
       "Premium": false,
@@ -102818,7 +102822,7 @@
     {
       "name": "Ripper L'avvoltoio",
       "id": "269475303322157057",
-      "money": 590000,
+      "money": 630000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -102853,7 +102857,7 @@
     {
       "name": "joshuaje 00",
       "id": "242801055069372419",
-      "money": 587575,
+      "money": 627575,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -102888,7 +102892,7 @@
     {
       "name": "GreedyPenguin97",
       "id": "232220165306056707",
-      "money": 580000,
+      "money": 620000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -102923,7 +102927,7 @@
     {
       "name": "Skittles' the G.O.A.T",
       "id": "213692420829741056",
-      "money": 559500,
+      "money": 599500,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -102958,7 +102962,7 @@
     {
       "name": "JayBee",
       "id": "285064479073501186",
-      "money": 610000,
+      "money": 650000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -102993,7 +102997,7 @@
     {
       "name": "GlassBanHammer",
       "id": "292782859050024971",
-      "money": 510000,
+      "money": 550000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103028,7 +103032,7 @@
     {
       "name": "Kasai「 Ruby 」yuppa",
       "id": "204330302091427841",
-      "money": 407471.25,
+      "money": 447471.25,
       "perUpdate": 10000,
       "xp": 500,
       "Premium": false,
@@ -103063,7 +103067,7 @@
     {
       "name": "Sir Deadkore",
       "id": "268389458858999810",
-      "money": 550000,
+      "money": 590000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103098,7 +103102,7 @@
     {
       "name": "Petrov",
       "id": "213504557823688704",
-      "money": 157510.5,
+      "money": 197510.5,
       "perUpdate": 10000,
       "xp": 75,
       "Premium": false,
@@ -103133,7 +103137,7 @@
     {
       "name": "PickleKing23",
       "id": "110873098961551360",
-      "money": 539950,
+      "money": 579950,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103168,7 +103172,7 @@
     {
       "name": "Hitler Did Nothing Wrong",
       "id": "194925981688004609",
-      "money": 534950,
+      "money": 574950,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -103203,7 +103207,7 @@
     {
       "name": "MMMMMMYYYEESS",
       "id": "240269104701898762",
-      "money": 487487,
+      "money": 527487,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -103238,7 +103242,7 @@
     {
       "name": "Panama",
       "id": "102663965682724864",
-      "money": 514037.5,
+      "money": 554037.5,
       "perUpdate": 10000,
       "xp": 16,
       "Premium": false,
@@ -103273,7 +103277,7 @@
     {
       "name": "6 piece mcnugget",
       "id": "251480521702506497",
-      "money": 526000,
+      "money": 566000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103308,7 +103312,7 @@
     {
       "name": "ButtTit",
       "id": "102916880464887808",
-      "money": 147499,
+      "money": 187499,
       "perUpdate": 10000,
       "xp": 85,
       "Premium": false,
@@ -103343,7 +103347,7 @@
     {
       "name": "Nuggey",
       "id": "162391790966538240",
-      "money": 530000,
+      "money": 570000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103378,7 +103382,7 @@
     {
       "name": "A Damm Dolphin",
       "id": "211908897420738561",
-      "money": 470000,
+      "money": 510000,
       "perUpdate": 10000,
       "xp": 57,
       "Premium": false,
@@ -103413,7 +103417,7 @@
     {
       "name": "Blue",
       "id": "150860605165666304",
-      "money": 460000.3,
+      "money": 500000.3,
       "perUpdate": 10000,
       "xp": 45,
       "Premium": false,
@@ -103448,7 +103452,7 @@
     {
       "name": "Exodo",
       "id": "144679783869972480",
-      "money": 509950,
+      "money": 549950,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103483,7 +103487,7 @@
     {
       "name": "ItsEmC ₆ ⁶ ₆",
       "id": "246130330745044992",
-      "money": 514480,
+      "money": 554480,
       "perUpdate": 10000,
       "xp": 10,
       "Premium": false,
@@ -103518,7 +103522,7 @@
     {
       "name": "GoldenKappa",
       "id": "292874011438743553",
-      "money": 3184624405.46,
+      "money": 3189464405.46,
       "perUpdate": 1210000,
       "xp": 1931,
       "Premium": false,
@@ -103553,7 +103557,7 @@
     {
       "name": "civiq",
       "id": "254062821493440512",
-      "money": 500000,
+      "money": 540000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103588,7 +103592,7 @@
     {
       "name": "Black Professor Oak",
       "id": "248144086656090112",
-      "money": 440000,
+      "money": 480000,
       "perUpdate": 10000,
       "xp": 20,
       "Premium": false,
@@ -103623,7 +103627,7 @@
     {
       "name": "joshnclank",
       "id": "189019930560167936",
-      "money": 390000,
+      "money": 430000,
       "perUpdate": 10000,
       "xp": 49,
       "Premium": false,
@@ -103658,7 +103662,7 @@
     {
       "name": "Damian",
       "id": "242100092012724224",
-      "money": 124324.4,
+      "money": 164324.4,
       "perUpdate": 10000,
       "xp": 581,
       "Premium": false,
@@ -103693,7 +103697,7 @@
     {
       "name": "Martin",
       "id": "207954383810330634",
-      "money": 70000,
+      "money": 110000,
       "perUpdate": 10000,
       "xp": 36,
       "Premium": false,
@@ -103728,7 +103732,7 @@
     {
       "name": "Fantasy Girl",
       "id": "96009613144494080",
-      "money": 90962.5,
+      "money": 130962.5,
       "perUpdate": 10000,
       "xp": 129,
       "Premium": false,
@@ -103763,7 +103767,7 @@
     {
       "name": "fei97",
       "id": "167169267425476608",
-      "money": 964362398.5,
+      "money": 964402398.5,
       "perUpdate": 10000,
       "xp": 62,
       "Premium": false,
@@ -103798,7 +103802,7 @@
     {
       "name": "yung trap lord",
       "id": "241382721572569089",
-      "money": 442500,
+      "money": 482500,
       "perUpdate": 10000,
       "xp": 15,
       "Premium": false,
@@ -103833,7 +103837,7 @@
     {
       "name": "PatrickBateman_2014 [DRSIA]",
       "id": "183704959236177922",
-      "money": 480000,
+      "money": 520000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103868,7 +103872,7 @@
     {
       "name": "Delirious_Outta_My_Mind (ASIA)",
       "id": "281268920902483968",
-      "money": 480000,
+      "money": 520000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -103903,7 +103907,7 @@
     {
       "name": "Savage",
       "id": "108038435771535360",
-      "money": 90305,
+      "money": 130305,
       "perUpdate": 10000,
       "xp": 80,
       "Premium": false,
@@ -103938,7 +103942,7 @@
     {
       "name": "VaultBoyIsMyWaifu",
       "id": "279044921309265922",
-      "money": 400000,
+      "money": 440000,
       "perUpdate": 10000,
       "xp": 67,
       "Premium": false,
@@ -103973,7 +103977,7 @@
     {
       "name": "Gizmo1",
       "id": "279447677664755713",
-      "money": 477500,
+      "money": 517500,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -104008,7 +104012,7 @@
     {
       "name": "60s",
       "id": "292921665984397323",
-      "money": 440000,
+      "money": 480000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104043,7 +104047,7 @@
     {
       "name": "88TF",
       "id": "125473925932122112",
-      "money": 430000,
+      "money": 470000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104078,7 +104082,7 @@
     {
       "name": "SH0RTHAN",
       "id": "288019685876826124",
-      "money": 420000,
+      "money": 460000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104113,7 +104117,7 @@
     {
       "name": "DmAdG",
       "id": "281543788394971136",
-      "money": 280000,
+      "money": 320000,
       "perUpdate": 10000,
       "xp": 50,
       "Premium": false,
@@ -104148,7 +104152,7 @@
     {
       "name": "TrickedHat1139",
       "id": "262043190167732224",
-      "money": 280000,
+      "money": 320000,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -104183,7 +104187,7 @@
     {
       "name": "Librâ",
       "id": "112945111733690368",
-      "money": 370000,
+      "money": 410000,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -104218,7 +104222,7 @@
     {
       "name": "lolname",
       "id": "95520324187066368",
-      "money": 160000,
+      "money": 200000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104253,7 +104257,7 @@
     {
       "name": "Mohsen",
       "id": "288000284326625281",
-      "money": 240000,
+      "money": 280000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104288,7 +104292,7 @@
     {
       "name": "Troy Freeman",
       "id": "196677564066955264",
-      "money": 240000,
+      "money": 280000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104323,7 +104327,7 @@
     {
       "name": "Oreo",
       "id": "205820775117094914",
-      "money": 279950,
+      "money": 319950,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104358,7 +104362,7 @@
     {
       "name": "Reaper1",
       "id": "249665124254613515",
-      "money": 280000,
+      "money": 320000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104393,7 +104397,7 @@
     {
       "name": "Soochie",
       "id": "241292103672528897",
-      "money": 220000,
+      "money": 260000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104428,7 +104432,7 @@
     {
       "name": "Stier100",
       "id": "268445242145898496",
-      "money": 267000,
+      "money": 307000,
       "perUpdate": 10000,
       "xp": 20,
       "Premium": false,
@@ -104463,7 +104467,7 @@
     {
       "name": "DanBass",
       "id": "148235744920469505",
-      "money": 210050,
+      "money": 250050,
       "perUpdate": 10000,
       "xp": 120,
       "Premium": false,
@@ -104498,7 +104502,7 @@
     {
       "name": "Suzaku Kenran",
       "id": "259934291239108620",
-      "money": 250000,
+      "money": 290000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104533,7 +104537,7 @@
     {
       "name": "CuntFromNowhere",
       "id": "265961140209713152",
-      "money": 190000,
+      "money": 230000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104568,7 +104572,7 @@
     {
       "name": "bigjuanie5",
       "id": "293076410959134731",
-      "money": 190000,
+      "money": 230000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104603,7 +104607,7 @@
     {
       "name": "Ethan1",
       "id": "275796658711691268",
-      "money": 245000,
+      "money": 285000,
       "perUpdate": 10000,
       "xp": 30,
       "Premium": false,
@@ -104638,7 +104642,7 @@
     {
       "name": "FloreQ",
       "id": "266138181852856321",
-      "money": 219900,
+      "money": 259900,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104673,7 +104677,7 @@
     {
       "name": "Ya like jazz?",
       "id": "273128989013573632",
-      "money": 137370,
+      "money": 177370,
       "perUpdate": 10000,
       "xp": 41,
       "Premium": false,
@@ -104708,7 +104712,7 @@
     {
       "name": "sirkiots",
       "id": "95520689150242816",
-      "money": 186080,
+      "money": 226080,
       "perUpdate": 10000,
       "xp": 160,
       "Premium": false,
@@ -104743,7 +104747,7 @@
     {
       "name": "Reece",
       "id": "117298973504569350",
-      "money": 70000,
+      "money": 110000,
       "perUpdate": 10000,
       "xp": 10,
       "Premium": false,
@@ -104778,7 +104782,7 @@
     {
       "name": "jonisbest",
       "id": "252235064451137536",
-      "money": 150015,
+      "money": 190015,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104813,7 +104817,7 @@
     {
       "name": "Mustang109",
       "id": "125032464195256320",
-      "money": 199990,
+      "money": 239990,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104848,7 +104852,7 @@
     {
       "name": "Davox",
       "id": "192833988774199297",
-      "money": 190000,
+      "money": 230000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104883,7 +104887,7 @@
     {
       "name": "Herman Fegelein",
       "id": "281461270203596800",
-      "money": 191940,
+      "money": 231940,
       "perUpdate": 10000,
       "xp": 10,
       "Premium": false,
@@ -104918,7 +104922,7 @@
     {
       "name": "TMYK",
       "id": "265257235310051328",
-      "money": 111950,
+      "money": 151950,
       "perUpdate": 10000,
       "xp": 55,
       "Premium": false,
@@ -104953,7 +104957,7 @@
     {
       "name": "tidles100",
       "id": "217134207774752768",
-      "money": 170000,
+      "money": 210000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -104988,7 +104992,7 @@
     {
       "name": "Jackal",
       "id": "216683447643668481",
-      "money": 120000,
+      "money": 160000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -105023,7 +105027,7 @@
     {
       "name": "Woody (Eon)",
       "id": "137960204523274240",
-      "money": 171050,
+      "money": 211050,
       "perUpdate": 10000,
       "xp": 48,
       "Premium": false,
@@ -105058,7 +105062,7 @@
     {
       "name": "Rexor||captainrexorsir",
       "id": "184848615900971008",
-      "money": 160000,
+      "money": 200000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -105093,7 +105097,7 @@
     {
       "name": "daK00lKin",
       "id": "254130373347246080",
-      "money": 150000,
+      "money": 190000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -105128,7 +105132,7 @@
     {
       "name": "Strafe",
       "id": "197036343950442496",
-      "money": 139242.5,
+      "money": 179242.5,
       "perUpdate": 10000,
       "xp": 5,
       "Premium": false,
@@ -105163,7 +105167,7 @@
     {
       "name": "DriversEd",
       "id": "290893989459001345",
-      "money": 140000,
+      "money": 180000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -105198,7 +105202,7 @@
     {
       "name": "卐Tinky Winky the Eternal Fuhër卐",
       "id": "210884038150324226",
-      "money": 70000,
+      "money": 110000,
       "perUpdate": 10000,
       "xp": 10,
       "Premium": false,
@@ -105233,7 +105237,7 @@
     {
       "name": "PopoBeans, Lord of S U C C",
       "id": "260010473007611915",
-      "money": 120000,
+      "money": 160000,
       "perUpdate": 10000,
       "xp": 0,
       "Premium": false,
@@ -105266,7 +105270,7 @@
       "lastMessage": null
     }
   ],
-  "jackpotValue": 1137840,
+  "jackpotValue": 1137844,
   "jackpotstat": {
     "lastWon": "Remy | NPQ",
     "HighestWin": 394990506017315500,

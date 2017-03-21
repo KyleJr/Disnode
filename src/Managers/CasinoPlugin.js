@@ -1298,8 +1298,8 @@ class CasinoPlugin extends Manager {
           ":second_place::second_place::second_place: - 8x bet 40XP\n"+
           ":first_place::first_place::first_place: - 16x bet 80XP\n"+
           ":100::100::100: - JACKPOT value - 1000XP\n" +
-          ":key::key::key: -  3 Keys\n" +
-          "At least one :key: - 1 Key\n" +
+          ":key::key::key: -  3 Keys\n **(Min Jackpot Bet required)**" +
+          "At least one :key: - 1 Key\n **(Min Jackpot Bet required)**" +
           "At least one :cherries: - 1/2 your Original Bet",
         },{
           name: 'Minimum bet to Win JACKPOT',
@@ -1407,8 +1407,12 @@ class CasinoPlugin extends Manager {
                 value: "$" + numeral(player.money).format('0,0.00'),
               }, {
                 name: 'Keys',
-                inline: false,
+                inline: true,
                 value: player.keys
+              }, {
+                name: 'XP',
+                inline: true,
+                value: player.xp,
               }, {
                 name: 'Minimum JACKPOT bet',
                 inline: true,
@@ -1417,10 +1421,6 @@ class CasinoPlugin extends Manager {
                 name: 'JACKPOT Value',
                 inline: true,
                 value: "$" + numeral(self.casinoObj.jackpotValue).format('0,0.00'),
-              }, {
-                name: 'XP',
-                inline: true,
-                value: player.xp,
               }],
                 footer: {}
               },
