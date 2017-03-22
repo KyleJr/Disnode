@@ -892,13 +892,28 @@ class CasinoPlugin extends Manager {
       this.sendCompactEmbed("Error", ":warning: YOU SHALL NOT PASS! (**You are not a Bot admin**)", data);
     }else{
       switch (data.params[0]) {
+        case "reset":
+          var players;
+          if(data.params[1]){
+            var res = self.searchForPlayer(data, 1);
+            if(res.found){
+              players = res.p;
+              players.money = 50000;
+              players.perUpdate = 10000;
+              players.xp = 0;
+              players.keys = 0;
+              this.sendCompactEmbed("Action Complete", ":white_check_mark: Player: " + players.name + "Is now reset: ", data);
+              return;
+            }else {
+              break;
+            }
+          }
         case "ban":
           var players;
           if(data.params[1]){
             var res = self.searchForPlayer(data, 1);
             if(res.found){
               players = res.p;
-              players = self.casinoObj.players[i];
               if(!players.banned){
                 players.money = 0;
                 players.perUpdate = 0;
