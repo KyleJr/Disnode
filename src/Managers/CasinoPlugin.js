@@ -509,6 +509,20 @@ class CasinoPlugin extends Manager {
             has3rd: false
           }
           var invalidbets = [];
+          if(data.params.length > 7){
+            this.disnode.service.SendEmbed({
+              color: 3447003,
+              author: {},
+              fields: [ {
+                name: "Error",
+                inline: false,
+                value: ":warning: You can only put a maximum of 5 Bet Types!",
+              }],
+                footer: {}
+              },
+            data.msg);
+            return;
+          }
           for (var i = 2; i < data.params.length; i++) {
             if(data.params[i] == undefined)break;
             if(self.checkValidWheel(data.params[i])){

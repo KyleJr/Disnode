@@ -26,11 +26,7 @@
         "coinHeads": 2,
         "coinTails": 9
       },
-      "lastMessage": {
-        "hour": 18,
-        "min": 56,
-        "sec": 33
-      },
+      "lastMessage": null,
       "lastSeen": {
         "pmonth": 3,
         "pday": 20,
