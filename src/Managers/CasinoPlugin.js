@@ -267,7 +267,7 @@ class CasinoPlugin extends Manager {
         color: 3447003,
         author: {},
         title: 'Casino',
-        description: 'A Discord bot that allows users to play Casino Games on Discord **FOR AMUESMENT ONLY**',
+        description: 'A Discord bot that allows users to play Casino Games on Discord **FOR AMUSEMENT ONLY**',
         fields: [ {
           name: 'Commands',
           inline: false,
