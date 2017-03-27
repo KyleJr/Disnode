@@ -2098,7 +2098,7 @@ class CasinoPlugin extends Manager {
     if(bet.toLowerCase() == "2nd"){return true;}
     if(bet.toLowerCase() == "3rd"){return true;}
     if(bet.toLowerCase() == "0"){return true;}
-    if(numeral(bet).value() > 0 && numeral(bet).value() <= 36){return true;}
+    if(parseInt(bet) > 0 && parseInt(bet) <= 36 && parseInt(bet) == bet){return true;}
     return false;
   }
   updateCoroutine(){
